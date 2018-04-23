@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		250EDFBE206235440013BECF /* Profile.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250EDFB8206235440013BECF /* Profile.storyboard */; };
+		250EDFBF206235440013BECF /* Settings.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250EDFBA206235440013BECF /* Settings.storyboard */; };
+		250EDFC0206235440013BECF /* History.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 250EDFBC206235440013BECF /* History.storyboard */; };
+		250EDFCB206235A40013BECF /* ModelData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC1206235A30013BECF /* ModelData.swift */; };
+		250EDFCC206235A40013BECF /* HistoryVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC2206235A30013BECF /* HistoryVC.swift */; };
+		250EDFCD206235A40013BECF /* ProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC3206235A30013BECF /* ProfileVC.swift */; };
+		250EDFCE206235A40013BECF /* ProfileTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC4206235A40013BECF /* ProfileTVC.swift */; };
+		250EDFD0206235A40013BECF /* SettingsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC6206235A40013BECF /* SettingsVC.swift */; };
+		250EDFD1206235A40013BECF /* HistoryCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC7206235A40013BECF /* HistoryCell.swift */; };
+		250EDFD2206235A40013BECF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC8206235A40013BECF /* SampleData.swift */; };
+		250EDFD3206235A40013BECF /* HistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC9206235A40013BECF /* HistoryTVC.swift */; };
+		250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFCA206235A40013BECF /* SettingsTVC.swift */; };
+		2556765A204ADCE400978446 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25567659204ADCE400978446 /* SplashVC.swift */; };
+		2556765C204AE78600978446 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2556765B204AE78600978446 /* Podfile */; };
+		259B3C7E204ADA3D00D7B2C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */; };
+		259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7F204ADA3D00D7B2C2 /* MapVC.swift */; };
+		259B3C83204ADA3D00D7B2C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C81204ADA3D00D7B2C2 /* Main.storyboard */; };
+		259B3C86204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */; };
+		259B3C88204ADA3D00D7B2C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C87204ADA3D00D7B2C2 /* Assets.xcassets */; };
+		259B3C8B204ADA3D00D7B2C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C89204ADA3D00D7B2C2 /* LaunchScreen.storyboard */; };
+		25A775B5207BCDEC005663CA /* OrderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A775B4207BCDEC005663CA /* OrderTVC.swift */; };
+		25E12FB1207D64C600CA9C25 /* InfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E12FB0207D64C600CA9C25 /* InfoTVC.swift */; };
+		25E12FB4207E2CC500CA9C25 /* OfferTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E12FB3207E2CC500CA9C25 /* OfferTVC.swift */; };
+		25FF00EC20861A1300FA6158 /* ContactorInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FF00EB20861A1300FA6158 /* ContactorInfoTVC.swift */; };
+		25FF00EE20861E3C00FA6158 /* ContractorDetailsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FF00ED20861E3C00FA6158 /* ContractorDetailsTVC.swift */; };
+		663E5AB4BA37EC3BCB0E33A6 /* libPods-kosarApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C20F21EC24E28FC9D0468CF /* libPods-kosarApp.a */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		250EDFB9206235440013BECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = kosarApp/Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
+		250EDFBB206235440013BECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = kosarApp/Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
+		250EDFBD206235440013BECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = kosarApp/Base.lproj/History.storyboard; sourceTree = "<group>"; };
+		250EDFC1206235A30013BECF /* ModelData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ModelData.swift; sourceTree = "<group>"; };
+		250EDFC2206235A30013BECF /* HistoryVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryVC.swift; sourceTree = "<group>"; };
+		250EDFC3206235A30013BECF /* ProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileVC.swift; path = kosarApp/ProfileVC.swift; sourceTree = "<group>"; };
+		250EDFC4206235A40013BECF /* ProfileTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = ProfileTVC.swift; path = kosarApp/ProfileTVC.swift; sourceTree = "<group>"; };
+		250EDFC6206235A40013BECF /* SettingsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsVC.swift; sourceTree = "<group>"; };
+		250EDFC7206235A40013BECF /* HistoryCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryCell.swift; sourceTree = "<group>"; };
+		250EDFC8206235A40013BECF /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
+		250EDFC9206235A40013BECF /* HistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTVC.swift; sourceTree = "<group>"; };
+		250EDFCA206235A40013BECF /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
+		25567659204ADCE400978446 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
+		2556765B204AE78600978446 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		259B3C7A204ADA3D00D7B2C2 /* kosarApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kosarApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		259B3C7F204ADA3D00D7B2C2 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
+		259B3C82204ADA3D00D7B2C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		259B3C85204ADA3D00D7B2C2 /* kosarApp.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = kosarApp.xcdatamodel; sourceTree = "<group>"; };
+		259B3C87204ADA3D00D7B2C2 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		259B3C8A204ADA3D00D7B2C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		259B3C8C204ADA3D00D7B2C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		25A775B4207BCDEC005663CA /* OrderTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTVC.swift; sourceTree = "<group>"; };
+		25E12FB0207D64C600CA9C25 /* InfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTVC.swift; sourceTree = "<group>"; };
+		25E12FB3207E2CC500CA9C25 /* OfferTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferTVC.swift; sourceTree = "<group>"; };
+		25FF00EB20861A1300FA6158 /* ContactorInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactorInfoTVC.swift; sourceTree = "<group>"; };
+		25FF00ED20861E3C00FA6158 /* ContractorDetailsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractorDetailsTVC.swift; sourceTree = "<group>"; };
+		6C20F21EC24E28FC9D0468CF /* libPods-kosarApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kosarApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		785C0872DB8A3888A3D264C3 /* Pods-kosarApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.release.xcconfig"; path = "kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.release.xcconfig"; sourceTree = "<group>"; };
+		AF56E9FFFADDBFF70BF1AC1E /* Pods-kosarApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.debug.xcconfig"; path = "kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.debug.xcconfig"; sourceTree = "<group>"; };
+		D210B68E2DA21B07908EFCFA /* Pods-kosarApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.release.xcconfig"; sourceTree = "<group>"; };
+		E83337FD6AD457F4955BD8F8 /* Pods-kosarApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.debug.xcconfig"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		259B3C77204ADA3D00D7B2C2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				663E5AB4BA37EC3BCB0E33A6 /* libPods-kosarApp.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		12E2DE2D91EB0776ABADFCCC /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				6C20F21EC24E28FC9D0468CF /* libPods-kosarApp.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		250EDFD5206235C90013BECF /* HistoryView */ = {
+			isa = PBXGroup;
+			children = (
+				250EDFBC206235440013BECF /* History.storyboard */,
+				250EDFC2206235A30013BECF /* HistoryVC.swift */,
+				250EDFC9206235A40013BECF /* HistoryTVC.swift */,
+				250EDFC7206235A40013BECF /* HistoryCell.swift */,
+			);
+			path = HistoryView;
+			sourceTree = "<group>";
+		};
+		250EDFD6206248860013BECF /* ProfileView */ = {
+			isa = PBXGroup;
+			children = (
+				250EDFB8206235440013BECF /* Profile.storyboard */,
+				250EDFC3206235A30013BECF /* ProfileVC.swift */,
+				250EDFC4206235A40013BECF /* ProfileTVC.swift */,
+			);
+			name = ProfileView;
+			path = ..;
+			sourceTree = "<group>";
+		};
+		250EDFD7206248D00013BECF /* SettingsView */ = {
+			isa = PBXGroup;
+			children = (
+				250EDFBA206235440013BECF /* Settings.storyboard */,
+				250EDFC6206235A40013BECF /* SettingsVC.swift */,
+				250EDFCA206235A40013BECF /* SettingsTVC.swift */,
+			);
+			path = SettingsView;
+			sourceTree = "<group>";
+		};
+		259B3C71204ADA3D00D7B2C2 = {
+			isa = PBXGroup;
+			children = (
+				259B3C7C204ADA3D00D7B2C2 /* kosarApp */,
+				259B3C7B204ADA3D00D7B2C2 /* Products */,
+				E8C285926F5E1A36DCCA0A9F /* Pods */,
+				12E2DE2D91EB0776ABADFCCC /* Frameworks */,
+			);
+			sourceTree = "<group>";
+		};
+		259B3C7B204ADA3D00D7B2C2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				259B3C7A204ADA3D00D7B2C2 /* kosarApp.app */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		259B3C7C204ADA3D00D7B2C2 /* kosarApp */ = {
+			isa = PBXGroup;
+			children = (
+				259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */,
+				250EDFC1206235A30013BECF /* ModelData.swift */,
+				250EDFC8206235A40013BECF /* SampleData.swift */,
+				25A775B6207BCE04005663CA /* MapView */,
+				25E12FB2207D64EC00CA9C25 /* SplashView */,
+				250EDFD5206235C90013BECF /* HistoryView */,
+				250EDFD6206248860013BECF /* ProfileView */,
+				250EDFD7206248D00013BECF /* SettingsView */,
+				259B3C89204ADA3D00D7B2C2 /* LaunchScreen.storyboard */,
+				259B3C81204ADA3D00D7B2C2 /* Main.storyboard */,
+				259B3C87204ADA3D00D7B2C2 /* Assets.xcassets */,
+				2556765B204AE78600978446 /* Podfile */,
+				259B3C8C204ADA3D00D7B2C2 /* Info.plist */,
+				259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */,
+			);
+			path = kosarApp;
+			sourceTree = "<group>";
+		};
+		25A775B6207BCE04005663CA /* MapView */ = {
+			isa = PBXGroup;
+			children = (
+				259B3C7F204ADA3D00D7B2C2 /* MapVC.swift */,
+				25E12FB0207D64C600CA9C25 /* InfoTVC.swift */,
+				25A775B4207BCDEC005663CA /* OrderTVC.swift */,
+				25E12FB3207E2CC500CA9C25 /* OfferTVC.swift */,
+				25FF00EB20861A1300FA6158 /* ContactorInfoTVC.swift */,
+				25FF00ED20861E3C00FA6158 /* ContractorDetailsTVC.swift */,
+			);
+			path = MapView;
+			sourceTree = "<group>";
+		};
+		25E12FB2207D64EC00CA9C25 /* SplashView */ = {
+			isa = PBXGroup;
+			children = (
+				25567659204ADCE400978446 /* SplashVC.swift */,
+			);
+			path = SplashView;
+			sourceTree = "<group>";
+		};
+		E8C285926F5E1A36DCCA0A9F /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				E83337FD6AD457F4955BD8F8 /* Pods-kosarApp.debug.xcconfig */,
+				D210B68E2DA21B07908EFCFA /* Pods-kosarApp.release.xcconfig */,
+				AF56E9FFFADDBFF70BF1AC1E /* Pods-kosarApp.debug.xcconfig */,
+				785C0872DB8A3888A3D264C3 /* Pods-kosarApp.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		259B3C79204ADA3D00D7B2C2 /* kosarApp */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 259B3C8F204ADA3D00D7B2C2 /* Build configuration list for PBXNativeTarget "kosarApp" */;
+			buildPhases = (
+				9D46C7B05057AB1286D137A2 /* [CP] Check Pods Manifest.lock */,
+				259B3C76204ADA3D00D7B2C2 /* Sources */,
+				259B3C77204ADA3D00D7B2C2 /* Frameworks */,
+				259B3C78204ADA3D00D7B2C2 /* Resources */,
+				29E2A3C1999DEB1A69A564D9 /* [CP] Copy Pods Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = kosarApp;
+			productName = kosarApp;
+			productReference = 259B3C7A204ADA3D00D7B2C2 /* kosarApp.app */;
+			productType = "com.apple.product-type.application";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		259B3C72204ADA3D00D7B2C2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 0920;
+				LastUpgradeCheck = 0930;
+				ORGANIZATIONNAME = "Vladimir Mikishchenko";
+				TargetAttributes = {
+					259B3C79204ADA3D00D7B2C2 = {
+						CreatedOnToolsVersion = 9.2;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = 259B3C75204ADA3D00D7B2C2 /* Build configuration list for PBXProject "kosarApp" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 259B3C71204ADA3D00D7B2C2;
+			productRefGroup = 259B3C7B204ADA3D00D7B2C2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				259B3C79204ADA3D00D7B2C2 /* kosarApp */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		259B3C78204ADA3D00D7B2C2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				250EDFBE206235440013BECF /* Profile.storyboard in Resources */,
+				250EDFBF206235440013BECF /* Settings.storyboard in Resources */,
+				250EDFC0206235440013BECF /* History.storyboard in Resources */,
+				259B3C8B204ADA3D00D7B2C2 /* LaunchScreen.storyboard in Resources */,
+				259B3C88204ADA3D00D7B2C2 /* Assets.xcassets in Resources */,
+				2556765C204AE78600978446 /* Podfile in Resources */,
+				259B3C83204ADA3D00D7B2C2 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		29E2A3C1999DEB1A69A564D9 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-resources.sh",
+				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		9D46C7B05057AB1286D137A2 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-kosarApp-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		259B3C76204ADA3D00D7B2C2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				250EDFCB206235A40013BECF /* ModelData.swift in Sources */,
+				250EDFCC206235A40013BECF /* HistoryVC.swift in Sources */,
+				25E12FB4207E2CC500CA9C25 /* OfferTVC.swift in Sources */,
+				250EDFCD206235A40013BECF /* ProfileVC.swift in Sources */,
+				250EDFCE206235A40013BECF /* ProfileTVC.swift in Sources */,
+				250EDFD0206235A40013BECF /* SettingsVC.swift in Sources */,
+				250EDFD1206235A40013BECF /* HistoryCell.swift in Sources */,
+				25FF00EC20861A1300FA6158 /* ContactorInfoTVC.swift in Sources */,
+				25E12FB1207D64C600CA9C25 /* InfoTVC.swift in Sources */,
+				250EDFD2206235A40013BECF /* SampleData.swift in Sources */,
+				250EDFD3206235A40013BECF /* HistoryTVC.swift in Sources */,
+				25A775B5207BCDEC005663CA /* OrderTVC.swift in Sources */,
+				250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */,
+				259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */,
+				259B3C7E204ADA3D00D7B2C2 /* AppDelegate.swift in Sources */,
+				259B3C86204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld in Sources */,
+				2556765A204ADCE400978446 /* SplashVC.swift in Sources */,
+				25FF00EE20861E3C00FA6158 /* ContractorDetailsTVC.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		250EDFB8206235440013BECF /* Profile.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				250EDFB9206235440013BECF /* Base */,
+			);
+			name = Profile.storyboard;
+			sourceTree = "<group>";
+		};
+		250EDFBA206235440013BECF /* Settings.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				250EDFBB206235440013BECF /* Base */,
+			);
+			name = Settings.storyboard;
+			sourceTree = "<group>";
+		};
+		250EDFBC206235440013BECF /* History.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				250EDFBD206235440013BECF /* Base */,
+			);
+			name = History.storyboard;
+			sourceTree = "<group>";
+		};
+		259B3C81204ADA3D00D7B2C2 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				259B3C82204ADA3D00D7B2C2 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		259B3C89204ADA3D00D7B2C2 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				259B3C8A204ADA3D00D7B2C2 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+			usesTabs = 0;
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		259B3C8D204ADA3D00D7B2C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		259B3C8E204ADA3D00D7B2C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		259B3C90204ADA3D00D7B2C2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = AF56E9FFFADDBFF70BF1AC1E /* Pods-kosarApp.debug.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NJ6BY872Y6;
+				INFOPLIST_FILE = kosarApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.mik.kosarApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Debug;
+		};
+		259B3C91204ADA3D00D7B2C2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			baseConfigurationReference = 785C0872DB8A3888A3D264C3 /* Pods-kosarApp.release.xcconfig */;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = NJ6BY872Y6;
+				INFOPLIST_FILE = kosarApp/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				PRODUCT_BUNDLE_IDENTIFIER = ru.mik.kosarApp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.0;
+				TARGETED_DEVICE_FAMILY = 1;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		259B3C75204ADA3D00D7B2C2 /* Build configuration list for PBXProject "kosarApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				259B3C8D204ADA3D00D7B2C2 /* Debug */,
+				259B3C8E204ADA3D00D7B2C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		259B3C8F204ADA3D00D7B2C2 /* Build configuration list for PBXNativeTarget "kosarApp" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				259B3C90204ADA3D00D7B2C2 /* Debug */,
+				259B3C91204ADA3D00D7B2C2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+
+/* Begin XCVersionGroup section */
+		259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */ = {
+			isa = XCVersionGroup;
+			children = (
+				259B3C85204ADA3D00D7B2C2 /* kosarApp.xcdatamodel */,
+			);
+			currentVersion = 259B3C85204ADA3D00D7B2C2 /* kosarApp.xcdatamodel */;
+			path = kosarApp.xcdatamodeld;
+			sourceTree = "<group>";
+			versionGroupType = wrapper.xcdatamodel;
+		};
+/* End XCVersionGroup section */
+	};
+	rootObject = 259B3C72204ADA3D00D7B2C2 /* Project object */;
+}
