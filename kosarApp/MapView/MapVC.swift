@@ -168,8 +168,8 @@ extension MapViewController: CLLocationManagerDelegate {
       // если разрешение дано
       guard status == .authorizedWhenInUse else { return }
       // обновление местоположения
-      locationManager.startUpdatingLocation()
       print("Расширение работает")
+      locationManager.startUpdatingLocation()
    }
    
    // выполняется, когда location manager получает новые данные о местоположении.
