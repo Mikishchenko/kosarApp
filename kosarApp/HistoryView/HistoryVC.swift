@@ -19,11 +19,18 @@ class HistoryController: UIViewController {
       super.viewDidLoad()
       userInfoInHeader()
 
-      //MARK: - Наблюдатель за окончанием редактирования текстфилда
+      // MARK: - Наблюдатель за окончанием редактирования текстфилда
       NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
+      
+      // MARK: - Проверка на отсутствие рейтинга у контракторов в истории
+      for contractor in userHistory {
+         if contractor.rating == nil {
+            alertWorkComplete(contractor: contractor)
+         }
+      }
    }
    
-   //MARK: - Селектор к наблюдателю. Назначает полученные значения на лейблы в хедер
+   // MARK: - Селектор к наблюдателю. Назначает полученные значения на лейблы в хедер
    @objc func textFieldTextDidEndEditing(ncParam: NSNotification) {
       userNameInfo(userName: userName, userInfo: userInfo)
    }
@@ -41,7 +48,69 @@ class HistoryController: UIViewController {
       userRating.image = UIImage(named: "Rating 4")
    }
    
-   //MARK: - Переполнение памяти
+   // MARK: - Если у кого-то из контракторов отсутствует рейтинг, уточняем: Выполнена работа или нет?
+   func alertWorkComplete(contractor: Contractor) {
+      let alert = UIAlertController(title: "Контрагент: \(contractor.name), дата: \(contractor.date)",
+                                    message: "Работа выполнена?", preferredStyle: .alert)
+      let yesAction = UIAlertAction(title: "ДА", style: .default) { (action) in
+         self.alertSetRating(contractor: contractor)
+      }
+      let noAction = UIAlertAction(title: "НЕТ", style: .default) { (action) in
+         print("Работа не выполнена")
+      }
+      alert.addAction(yesAction)
+      alert.addAction(noAction)
+      self.present(alert, animated: true, completion: nil)
+   }
+   
+   // MARK: - Если работа выполнена, нужно поставить оценку.
+   func alertSetRating(contractor: Contractor) {
+      let alert = UIAlertController(title: "ПОЖАЛУЙСТА ОЦЕНИТЕ КОНТРАГЕНТА",
+                                    message: " \(contractor.name), дата: \(contractor.date)", preferredStyle: .alert)
+      let alertAction1 = UIAlertAction(title: "", style: .default) { (action) in
+         self.setRating(contractor: contractor, rating: "Rating 1")
+      }
+      let alertAction2 = UIAlertAction(title: "", style: .default) { (action) in
+         self.setRating(contractor: contractor, rating: "Rating 2")
+      }
+      let alertAction3 = UIAlertAction(title: "", style: .default) { (action) in
+         self.setRating(contractor: contractor, rating: "Rating 3")
+      }
+      let alertAction4 = UIAlertAction(title: "", style: .default) { (action) in
+         self.setRating(contractor: contractor, rating: "Rating 4")
+      }
+      let alertAction5 = UIAlertAction(title: "", style: .default) { (action) in
+         self.setRating(contractor: contractor, rating: "Rating 5")
+      }
+      setAlertActionImage(alertAction1, ratingImage: "Rating 1")
+      setAlertActionImage(alertAction2, ratingImage: "Rating 2")
+      setAlertActionImage(alertAction3, ratingImage: "Rating 3")
+      setAlertActionImage(alertAction4, ratingImage: "Rating 4")
+      setAlertActionImage(alertAction5, ratingImage: "Rating 5")
+      
+      alert.addAction(alertAction1)
+      alert.addAction(alertAction2)
+      alert.addAction(alertAction3)
+      alert.addAction(alertAction4)
+      alert.addAction(alertAction5)
+
+      self.present(alert, animated: true, completion: nil)
+   }
+   
+   // MARK: - Присвоение рейтинга и установка наблюдателя
+   fileprivate func setRating(contractor: Contractor, rating: String) {
+      contractor.rating = rating
+      // после выставления оценки изменится рейтинг в таблице с историей
+      NotificationCenter.default.post(name: Notification.Name("isRated"), object: nil)
+   }
+   
+   // MARK: - Вставка картинки рейтинга в alertAction
+   fileprivate func setAlertActionImage(_ alertAction: UIAlertAction, ratingImage: String) {
+      alertAction.setValue(UIImage(named: ratingImage)?.withRenderingMode(UIImageRenderingMode.alwaysOriginal),
+                           forKey: "image")
+   }
+   
+   // MARK: - Переполнение памяти
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
    }
@@ -52,7 +121,3 @@ public func userNameInfo(userName: UILabel, userInfo: UILabel) {
    userName.text = user.name ?? ""
    userInfo.text = user.info ?? ""
 }
-
-
-
-

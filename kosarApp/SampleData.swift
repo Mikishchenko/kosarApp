@@ -20,7 +20,8 @@ final class SampleData {
       return [
          Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ", date: "15.03.18", rating: "Rating 5"),
          Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ", date: "01.03.18", rating: "Rating 4"),
-         Contractor(photo: "Worker3", name: "Джамшут", date: "10.02.18", rating: "Rating 5")
+         Contractor(photo: "Worker3", name: "Джамшут", date: "10.02.18", rating: "Rating 5"),
+         Contractor(photo: "Worker4", name: "Равшан", date: "24.04.18", rating: nil)
       ]
    }
    

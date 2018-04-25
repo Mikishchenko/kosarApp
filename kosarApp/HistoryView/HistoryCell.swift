@@ -24,17 +24,16 @@ class HistoryCell: UITableViewCell {
          photo.image = UIImage(named: contractor.photo)
          dateLabel.text = contractor.date
          nameLabel.text = contractor.name
-         rating.image = UIImage(named: contractor.rating)
+         rating.image = UIImage(named: contractor.rating ?? "Rating 0")
       }
    }
-
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
-    }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-        // Configure the view for the selected state
-    }
+   
+   override func awakeFromNib() {
+      super.awakeFromNib()
+      // Initialization code
+   }
+   
+   override func setSelected(_ selected: Bool, animated: Bool) {
+      super.setSelected(selected, animated: animated)
+   }
 }

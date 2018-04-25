@@ -132,9 +132,9 @@ class Contractor {
    var photo: String
    var name: String
    var date: String
-   var rating: String
+   var rating: String?
    // Initializer for UserHistory
-   init(photo: String, name: String, date: String, rating: String) {
+   init(photo: String, name: String, date: String, rating: String?) {
       self.photo = photo
       self.name = name
       self.date = date

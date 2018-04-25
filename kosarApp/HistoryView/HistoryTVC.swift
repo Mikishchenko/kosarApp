@@ -15,7 +15,14 @@ class HistoryTableController: UITableViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-         self.clearsSelectionOnViewWillAppear = false
+      self.clearsSelectionOnViewWillAppear = false
+      // выставляем наблюдателя за изменением рейтинга
+      NotificationCenter.default.addObserver(self, selector: #selector(self.updateRating(notification:)),
+                                             name: Notification.Name("isRated"), object: nil)
+   }
+   
+   @objc func updateRating(notification: Notification){
+      self.tableView.reloadData()
    }
    
    // MARK: - Table view data source
