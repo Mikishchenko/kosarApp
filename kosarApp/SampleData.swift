@@ -17,34 +17,52 @@ final class SampleData {
    }
    
    static func generateUserHistoryData() -> [Contractor] {
+      let historyDate = Date()
       return [
-         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ", date: "2018.03.15", rating: "Rating 5"),
-         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ", date: "2018.03.01", rating: "Rating 4"),
-         Contractor(photo: "Worker3", name: "Джамшут", date: "2018.02.10", rating: "Rating 5"),
-         Contractor(photo: "Worker4", name: "Равшан", date: "2018.04.24", rating: nil)
+         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ",
+                    date: historyDate.from("15.03.2018")!, rating: "Rating 5"),
+         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ",
+                    date: historyDate.from("01.03.2018")!, rating: "Rating 4"),
+         Contractor(photo: "Worker3", name: "Джамшут",
+                    date: historyDate.from("10.02.2018")!, rating: "Rating 5"),
+         Contractor(photo: "Worker4", name: "Равшан",
+                    date: historyDate.from("24.04.2018")!, rating: nil)
       ]
    }
    
    static func generateUserSettingsData() -> UserSettings {
       return
-         UserSettings(geoposition: false, photos: false, camera: false, phone: false, messages: false, microphone: false)
+         UserSettings(geoposition: false, photos: false, camera: false,
+                      phone: false, messages: false, microphone: false)
    }
    
    // MARK: All data about our Clients in start
    static func generateClientData() -> [Client] {
       return [
-         Client(name: "Максим РЯБУХИН", info: "Владелец ранчо ПОЗИТИВ", image: "Client1", rating: "Rating 4", location: "Московская область, Дмитровский район, деревня Никульское", electricity: true, equipment: true, transport: true, workArea: 6, plants: true, hardRelief: true),
-         Client(name: "Володя МИКИЩЕНКО", info: "тот еще удачник", image: "Client3", rating: "Rating 3", location: "Московская область, Чеховский район, СНТ Солнечное", electricity: true, equipment: true, transport: true, workArea: 8, plants: true, hardRelief: false),
-         Client(name: "Дима НОСОВИЦКИЙ", info: "владелец усадьбы", image: "Client4", rating: "Rating 5", location: "Ленинградская область, Всеволожский район, Лесколовское сельское поселение", electricity: true, equipment: true, transport: true, workArea: 4, plants: true, hardRelief: true)
+         Client(name: "Максим РЯБУХИН", info: "Владелец ранчо ПОЗИТИВ", image: "Client1",
+                rating: "Rating 4", location: "Московская область, Дмитровский район, деревня Никульское",
+                electricity: true, equipment: true, transport: true, workArea: 6, plants: true, hardRelief: true),
+         Client(name: "Володя МИКИЩЕНКО", info: "тот еще удачник", image: "Client3",
+                rating: "Rating 3", location: "Московская область, Чеховский район, СНТ Солнечное",
+                electricity: true, equipment: true, transport: true, workArea: 8, plants: true, hardRelief: false),
+         Client(name: "Дима НОСОВИЦКИЙ", info: "владелец усадьбы", image: "Client4",
+                rating: "Rating 5", location: "Ленинградская область, Всеволожский район, Лесколовское сельское поселение",
+                electricity: true, equipment: true, transport: true, workArea: 4, plants: true, hardRelief: true)
       ]
    }
    
    // MARK: All data about our Workers in start
    static func generateWorkerData() -> [Worker] {
       return [
-         Worker(name: "Фёдор КОСОРЕЗОВ", info: "Косарь от бога",image: "Worker1", rating: "Rating 5",  location: "Московская область, Дмитровский район", electricity: true, equipment: true, transport: true),
-         Worker(name: "Дядя Ваня", info: "Умелец на все руки", image: "Worker2", rating: "Rating 3", location: "Московская область, Чеховский район, СНТ Солнечное", electricity: false, equipment: true, transport: false),
-         Worker(name: "Джамшут", info: "всё могу, только дай", image: "Worker3", rating: "Rating 2", location: "Московская область, Дмитровский район, село Голиково", electricity: false, equipment: false, transport: false)
+         Worker(name: "Фёдор КОСОРЕЗОВ", info: "Косарь от бога",image: "Worker1",
+                rating: "Rating 5", location: "Московская область, Дмитровский район",
+                electricity: true, equipment: true, transport: true),
+         Worker(name: "Дядя Ваня", info: "Умелец на все руки", image: "Worker2",
+                rating: "Rating 3", location: "Московская область, Чеховский район, СНТ Солнечное",
+                electricity: false, equipment: true, transport: false),
+         Worker(name: "Джамшут", info: "всё могу, только дай", image: "Worker3",
+                rating: "Rating 2", location: "Московская область, Дмитровский район, село Голиково",
+                electricity: false, equipment: false, transport: false)
       ]
    }
 }

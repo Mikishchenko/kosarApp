@@ -131,10 +131,10 @@ class Contractor {
    // MARK: Properties for UserHistory
    var photo: String
    var name: String
-   var date: String
+   var date: Date
    var rating: String?
    // Initializer for UserHistory
-   init(photo: String, name: String, date: String, rating: String?) {
+   init(photo: String, name: String, date: Date, rating: String?) {
       self.photo = photo
       self.name = name
       self.date = date
@@ -149,7 +149,7 @@ class Order {
    var electricity: Bool?
    var hardRelief: Bool?
    var plants: Bool?
-
+   
 }
 
 class Offer {
@@ -159,4 +159,24 @@ class Offer {
    var equipment: Bool?
    var electricity: Bool?
    var transport: Bool?
+}
+
+// MARK: - Расширяем функционал типа Date, может конвертироваться в String и обратно
+extension Date {
+   // форматируем стороку в дату
+   func from(_ value: String) -> Date? {
+      let dateFormatter = DateFormatter()
+      dateFormatter.dateFormat = "dd.MM.yyyy"
+      if let newDate = dateFormatter.date(from: value) {
+         return newDate
+      } else { return nil }
+   }
+   
+   // форматируем дату в строку формата "dd.mm.yyyy"
+   func to(format:String) -> String {
+      let formatter = DateFormatter()
+      formatter.dateFormat = format
+      let dateResult = formatter.string(from: self)
+      return dateResult
+   }
 }

@@ -22,7 +22,7 @@ class HistoryCell: UITableViewCell {
          guard let contractor = contractor else { return }
          
          photo.image = UIImage(named: contractor.photo)
-         dateLabel.text = contractor.date
+         dateLabel.text = contractor.date.to(format: "dd.MM.yyyy")
          nameLabel.text = contractor.name
          rating.image = UIImage(named: contractor.rating ?? "Rating 0")
       }

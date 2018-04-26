@@ -18,7 +18,7 @@ class HistoryController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       userInfoInHeader()
-
+      
       // MARK: - Наблюдатель за окончанием редактирования текстфилда
       NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
       
@@ -34,13 +34,13 @@ class HistoryController: UIViewController {
    @objc func textFieldTextDidEndEditing(ncParam: NSNotification) {
       userNameInfo(userName: userName, userInfo: userInfo)
    }
-
+   
    // NavBar нужно именно здесь вызывать
    override func viewDidAppear(_ animated: Bool) {
       super.viewDidAppear(true)
       customeNavBar(viewController: self)
    }
-
+   
    // MARK: - Наполнение Header данными User
    func userInfoInHeader() {
       userAvatar.image = UIImage(named: "User avatar")
@@ -50,8 +50,7 @@ class HistoryController: UIViewController {
    
    // MARK: - Если у кого-то из контракторов отсутствует рейтинг, уточняем: Выполнена работа или нет?
    func alertWorkComplete(contractor: Contractor) {
-      let alert = UIAlertController(title: "Контрагент: \(contractor.name), дата: \(contractor.date)",
-                                    message: "Работа выполнена?", preferredStyle: .alert)
+      let alert = UIAlertController(title: "Контрагент: \(contractor.name), дата: \(contractor.date.to(format: "dd.MM.yyyy"))", message: "Работа выполнена?", preferredStyle: .alert)
       let yesAction = UIAlertAction(title: "ДА", style: .default) { (action) in
          self.alertSetRating(contractor: contractor)
       }
@@ -66,7 +65,7 @@ class HistoryController: UIViewController {
    // MARK: - Если работа выполнена, нужно поставить оценку.
    func alertSetRating(contractor: Contractor) {
       let alert = UIAlertController(title: "ПОЖАЛУЙСТА ОЦЕНИТЕ КОНТРАГЕНТА",
-                                    message: " \(contractor.name), дата: \(contractor.date)", preferredStyle: .alert)
+                                    message: " \(contractor.name), дата: \(contractor.date.to(format: "dd.MM.yyyy"))", preferredStyle: .alert)
       let alertAction1 = UIAlertAction(title: "", style: .default) { (action) in
          self.setRating(contractor: contractor, rating: "Rating 1")
       }
@@ -93,7 +92,7 @@ class HistoryController: UIViewController {
       alert.addAction(alertAction3)
       alert.addAction(alertAction4)
       alert.addAction(alertAction5)
-
+      
       self.present(alert, animated: true, completion: nil)
    }
    
