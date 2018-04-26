@@ -20,9 +20,7 @@ class MapViewController: UIViewController {
    
    let locationManager = CLLocationManager()
    
-   @IBOutlet weak var clientButton: UIButton!
-   @IBOutlet weak var workerButton: UIButton!
-   @IBOutlet weak var aboutButton: UIButton!
+   @IBOutlet var buttonItems: [UIButton]!
    @IBOutlet weak var mapView: GMSMapView!
    // создание отдельной кнопки ИНФО
    var oneInfoButton = UIButton()
@@ -31,17 +29,16 @@ class MapViewController: UIViewController {
       super.viewDidLoad()
       
       // сглаживание углов у кнопок
-      clientButton.layer.cornerRadius = 12
-      workerButton.layer.cornerRadius = 12
-      aboutButton.layer.cornerRadius = 12
-      
+      buttonItems.forEach { (button) in
+         button.layer.cornerRadius = 12
+      }
       // работа с картой
       mapView.delegate = self as? GMSMapViewDelegate
       locationManager.delegate = self
       locationManager.requestWhenInUseAuthorization()
       mapView.isMyLocationEnabled = true
       mapView.settings.myLocationButton = true
-
+      
       // The myLocation attribute of the mapView may be null
       if let mylocation = mapView.myLocation {
          print("User's location: \(mylocation)")
@@ -54,9 +51,6 @@ class MapViewController: UIViewController {
       user.title = "USER"
       user.icon = UIImage(named: "userAvatar")
       user.map = mapView
-      
-      //      let mapInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 160.0, right: 0.0)
-      //      mapView.padding = mapInsets
    }
    
    override func viewWillAppear(_ animated: Bool) {
@@ -74,11 +68,10 @@ class MapViewController: UIViewController {
    // MARK: - Изменение представления после выбора типа пользователя
    func typeChoice () {
       typeChoiceIsDone = true
-      clientButton.isHidden = true
-      workerButton.isHidden = true
-      aboutButton.isHidden = true
+      buttonItems.forEach { (button) in
+         button.isHidden = true
+      }
       customeNavBar(viewController: self)
-      //      mapView.padding = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: 0.0)
       
       // про кнопку ИНФО
       oneInfoButton = UIButton(type: .roundedRect)
@@ -102,21 +95,18 @@ class MapViewController: UIViewController {
    }
    
    @IBAction func contractorButton(_ sender: UIBarButtonItem) {
-//      self.mapView.settings.myLocationButton = false
       popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
    }
    
    @IBAction func clientButton(_ sender: UIButton) {
       typeChoice()
       user.type = .client
-//      self.mapView.settings.myLocationButton = false
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: orderIsActive ? 214 : 170)
    }
    
    @IBAction func workerButton(_ sender: UIButton) {
       typeChoice()
       user.type = .worker
-//      self.mapView.settings.myLocationButton = false
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: offerIsActive ? 214 : 170)
    }
    

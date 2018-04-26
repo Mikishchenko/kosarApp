@@ -628,10 +628,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="aboutButton" destination="kRG-AU-mYI" id="M8i-Q9-MII"/>
-                        <outlet property="clientButton" destination="0tY-BE-2wS" id="p8l-bO-Hk1"/>
                         <outlet property="mapView" destination="4fd-u6-J5h" id="Nit-jU-UY8"/>
-                        <outlet property="workerButton" destination="RFV-f1-7jk" id="iAF-Jt-d7d"/>
+                        <outletCollection property="buttonItems" destination="0tY-BE-2wS" collectionClass="NSMutableArray" id="iTh-SG-hN2"/>
+                        <outletCollection property="buttonItems" destination="RFV-f1-7jk" collectionClass="NSMutableArray" id="HfT-SV-whX"/>
+                        <outletCollection property="buttonItems" destination="kRG-AU-mYI" collectionClass="NSMutableArray" id="Lff-tF-Xdr"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
