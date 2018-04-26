@@ -20,7 +20,7 @@ class HistoryTableController: UITableViewController {
       NotificationCenter.default.addObserver(self, selector: #selector(self.updateRating(notification:)),
                                              name: Notification.Name("isRated"), object: nil)
    }
-   
+   // перезагрузка таблицы
    @objc func updateRating(notification: Notification){
       self.tableView.reloadData()
    }
@@ -34,8 +34,11 @@ class HistoryTableController: UITableViewController {
    
    // формирование типовой записи
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+      // сортируем массив контракторов по дате
+      var sortedUserHistory = userHistory.sorted {( $0.date > $1.date)}
+      
       let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
-      cell.contractor = userHistory[indexPath.row]
+      cell.contractor = sortedUserHistory[indexPath.row]
       return cell
    }
    
