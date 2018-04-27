@@ -16,12 +16,15 @@ var infoAlertIsActive = false
 var orderAlertIsActive = false
 var offerAlertIsActive = false
 
-class MapViewController: UIViewController {
-   
-   let locationManager = CLLocationManager()
+class MapViewController: UIViewController, GMSMapViewDelegate {
    
    @IBOutlet var buttonItems: [UIButton]!
    @IBOutlet weak var mapView: GMSMapView!
+   
+   var locationManager = CLLocationManager()
+   var zoomLevel: Float = 15.0
+   let workers = SampleData.generateWorkerData()
+   let clients = SampleData.generateClientData()
    // создание отдельной кнопки ИНФО
    var oneInfoButton = UIButton()
    
@@ -33,22 +36,32 @@ class MapViewController: UIViewController {
          button.layer.cornerRadius = 12
       }
       // работа с картой
-      mapView.delegate = self as? GMSMapViewDelegate
-      locationManager.delegate = self
       locationManager.requestWhenInUseAuthorization()
+      locationManager.startUpdatingLocation()
+      locationManager.delegate = self
+      mapView.delegate = self
       mapView.isMyLocationEnabled = true
       mapView.settings.myLocationButton = true
+   }
+   
+   // Handle incoming location events.
+   func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
+      let location: CLLocation = locations.last!
+      print("Location: \(location)")
       
-      // The myLocation attribute of the mapView may be null
-      if let mylocation = mapView.myLocation {
-         print("User's location: \(mylocation)")
+      let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
+                                            longitude: location.coordinate.longitude,
+                                            zoom: zoomLevel)
+      if mapView.isHidden {
+         mapView.isHidden = false
+         mapView.camera = camera
       } else {
-         print("User's location is unknown")
+         mapView.animate(to: camera)
       }
-      
-      let position = CLLocationCoordinate2D(latitude: 55.755761, longitude: 37.617813)
+      // отображение Пользователя на карте
+      let position = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
+                                            longitude: location.coordinate.longitude)
       let user = GMSMarker(position: position)
-      user.title = "USER"
       user.icon = UIImage(named: "userAvatar")
       user.map = mapView
    }
@@ -86,16 +99,57 @@ class MapViewController: UIViewController {
       guard infoAlertIsActive == false || orderAlertIsActive == false || offerAlertIsActive == false
          else { return }
       self.view.addSubview(oneInfoButton)
+      // отображение остальных объектов на карте
+      if user.type == .client {
+         for worker in workers {
+            setMapObject(imageName: worker.image!, latitude: worker.latitude!, longitude: worker.longitude!)
+         }
+      } else {
+         for client in clients {
+            setMapObject(imageName: client.image!, latitude: client.latitude!, longitude: client.longitude!)
+         }
+      }
    }
    
+   // MARK: - Отображение объекта на карте
+   fileprivate func setMapObject(imageName: String, latitude: Float, longitude: Float) {
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude),
+                                            longitude: CLLocationDegrees(longitude))
+      let mapObject = GMSMarker(position: position)
+      mapObject.icon = UIImage(named: String(imageName))
+      mapObject.map = mapView
+   }
+
+   // MARK: - При нажатии на любой объект на карте
+   func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
+      switch marker.icon {
+      case UIImage(named: "Worker1"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+      case UIImage(named: "Worker2"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+      case UIImage(named: "Worker3"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+      case UIImage(named: "Worker4"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+      case UIImage(named: "Client1"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+      case UIImage(named: "Client2"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+      case UIImage(named: "Client3"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+      case UIImage(named: "Client4"):
+         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
+     default:
+         popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
+                   heightPopoverVC: orderIsActive || offerIsActive ? 214 : 170)
+      }
+      return false
+   }
+
    // MARK: - Кнопки
    @objc func oneInfoButtonPressed(_ sender: UIButton) {
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: orderIsActive || offerIsActive ? 214 : 170)
-   }
-   
-   @IBAction func contractorButton(_ sender: UIBarButtonItem) {
-      popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
    }
    
    @IBAction func clientButton(_ sender: UIButton) {
@@ -116,6 +170,7 @@ class MapViewController: UIViewController {
    }
 }
 
+// MARK: - Пользовательский navBar полупрозрачный и с темными Items
 public func customeNavBar(viewController: UIViewController) {
    let navigationBar = viewController.navigationController?.navigationBar
    navigationBar?.isHidden = false
@@ -151,21 +206,29 @@ extension MapViewController: UIPopoverPresentationControllerDelegate {
    }
 }
 
-// MARK: - CLLocationManagerDelegate
+// Delegates to handle events for the location manager.
 extension MapViewController: CLLocationManagerDelegate {
-   // вызывается, когда пользователь предоставляет или не предоставляет вам право определения его местоположение.
-   private func locationManager(manager: CLLocationManager, didChangeAuthorizationStatus status: CLAuthorizationStatus) {
-      // если разрешение дано
-      guard status == .authorizedWhenInUse else { return }
-      // обновление местоположения
-      print("Расширение работает")
-      locationManager.startUpdatingLocation()
+   
+   // Handle authorization for the location manager.
+   func locationManager(_ manager: CLLocationManager, didChangeAuthorization status: CLAuthorizationStatus) {
+      switch status {
+      case .restricted:
+         print("Location access was restricted.")
+      case .denied:
+         print("User denied access to location.")
+         // Display the map using the default location.
+         mapView.isHidden = false
+      case .notDetermined:
+         print("Location status not determined.")
+      case .authorizedAlways: fallthrough
+      case .authorizedWhenInUse:
+         print("Location status is OK.")
+      }
    }
    
-   // выполняется, когда location manager получает новые данные о местоположении.
-   private func locationManager(manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-      guard let location = locations.first else { return }
-      mapView.camera = GMSCameraPosition(target: location.coordinate, zoom: 15, bearing: 0, viewingAngle: 0)
+   // Handle location manager errors.
+   func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
       locationManager.stopUpdatingLocation()
+      print("Error: \(error)")
    }
 }

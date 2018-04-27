@@ -8,7 +8,6 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
-        <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -609,18 +608,11 @@
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="qIM-6q-SXz">
-                        <leftBarButtonItems>
-                            <barButtonItem image="Go to info (left dark)" id="wPJ-3Y-BxF">
-                                <connections>
-                                    <segue destination="XcN-nI-wxB" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="Rfb-49-vKQ"/>
-                                </connections>
-                            </barButtonItem>
-                            <barButtonItem image="Client1" id="eE6-RB-gML">
-                                <connections>
-                                    <action selector="contractorButton:" destination="BYZ-38-t0r" id="mxU-3K-0Pe"/>
-                                </connections>
-                            </barButtonItem>
-                        </leftBarButtonItems>
+                        <barButtonItem key="leftBarButtonItem" image="Go to info (left dark)" id="wPJ-3Y-BxF">
+                            <connections>
+                                <segue destination="XcN-nI-wxB" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="Rfb-49-vKQ"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" image="Go to menu (right dark)" id="ds6-oq-BlH">
                             <connections>
                                 <segue destination="Ofb-qc-E3l" kind="presentation" modalPresentationStyle="fullScreen" modalTransitionStyle="flipHorizontal" id="NDk-Nu-vY1"/>
@@ -1458,7 +1450,6 @@
         </scene>
     </scenes>
     <resources>
-        <image name="Client1" width="46" height="54"/>
         <image name="Go to info (left dark)" width="52" height="27"/>
         <image name="Go to map (right dark)" width="52" height="26"/>
         <image name="Go to menu (left dark)" width="53" height="26"/>

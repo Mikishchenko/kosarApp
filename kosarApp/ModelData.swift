@@ -64,8 +64,10 @@ class Worker: UsersProtocol {
    var workArea: Int?
    var plants: Bool?
    var hardRelief: Bool?
+   var latitude: Float?
+   var longitude: Float?
    // MARK: Initialization for WORKER
-   init(name: String, info: String, image: String, rating: String, location: String, electricity: Bool, equipment: Bool, transport: Bool) {
+   init(name: String, info: String, image: String, rating: String, location: String, electricity: Bool, equipment: Bool, transport: Bool, latitude: Float, longitude: Float) {
       self.name = name
       self.info = info
       self.image = image
@@ -74,6 +76,8 @@ class Worker: UsersProtocol {
       self.electricity = electricity
       self.equipment = equipment
       self.transport = transport
+      self.latitude = latitude
+      self.longitude = longitude
    }
 }
 
@@ -91,8 +95,10 @@ class Client: UsersProtocol {
    var workArea: Int?
    var plants: Bool?
    var hardRelief: Bool?
+   var latitude: Float?
+   var longitude: Float?
    // MARK: Initialization for CLIENT
-   init(name: String, info: String, image: String, rating: String, location: String, electricity: Bool, equipment: Bool, transport: Bool, workArea: Int, plants: Bool, hardRelief: Bool) {
+   init(name: String, info: String, image: String, rating: String, location: String, electricity: Bool, equipment: Bool, transport: Bool, workArea: Int, plants: Bool, hardRelief: Bool, latitude: Float, longitude: Float) {
       self.name = name
       self.info = info
       self.image = image
@@ -104,6 +110,8 @@ class Client: UsersProtocol {
       self.workArea = workArea
       self.plants = plants
       self.hardRelief = hardRelief
+      self.latitude = latitude
+      self.longitude = longitude
    }
 }
 

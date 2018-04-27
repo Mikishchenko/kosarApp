@@ -41,13 +41,20 @@ final class SampleData {
       return [
          Client(name: "Максим РЯБУХИН", info: "Владелец ранчо ПОЗИТИВ", image: "Client1",
                 rating: "Rating 4", location: "Московская область, Дмитровский район, деревня Никульское",
-                electricity: true, equipment: true, transport: true, workArea: 6, plants: true, hardRelief: true),
+                electricity: true, equipment: true, transport: true, workArea: 6, plants: true, hardRelief: true,
+                latitude: 55.756307, longitude: 37.614729),
          Client(name: "Володя МИКИЩЕНКО", info: "тот еще удачник", image: "Client3",
                 rating: "Rating 3", location: "Московская область, Чеховский район, СНТ Солнечное",
-                electricity: true, equipment: true, transport: true, workArea: 8, plants: true, hardRelief: false),
+                electricity: true, equipment: true, transport: true, workArea: 8, plants: true, hardRelief: false,
+                latitude: 55.756543, longitude: 37.613806),
          Client(name: "Дима НОСОВИЦКИЙ", info: "владелец усадьбы", image: "Client4",
                 rating: "Rating 5", location: "Ленинградская область, Всеволожский район, Лесколовское сельское поселение",
-                electricity: true, equipment: true, transport: true, workArea: 4, plants: true, hardRelief: true)
+                electricity: true, equipment: true, transport: true, workArea: 4, plants: true, hardRelief: true,
+                latitude: 55.754841, longitude: 37.620271),
+         Client(name: "Женя НОСОВИЦКИЙ", info: "наследный прынц", image: "Client4",
+                rating: "Rating 5", location: "Ленинградская область, Всеволожский район, Лесколовское сельское поселение",
+                electricity: true, equipment: true, transport: true, workArea: 4, plants: true, hardRelief: true,
+                latitude: 55.757711, longitude: 37.615705)
       ]
    }
    
@@ -56,13 +63,20 @@ final class SampleData {
       return [
          Worker(name: "Фёдор КОСОРЕЗОВ", info: "Косарь от бога",image: "Worker1",
                 rating: "Rating 5", location: "Московская область, Дмитровский район",
-                electricity: true, equipment: true, transport: true),
+                electricity: true, equipment: true, transport: true,
+                latitude: 55.756307, longitude: 37.614729),
          Worker(name: "Дядя Ваня", info: "Умелец на все руки", image: "Worker2",
                 rating: "Rating 3", location: "Московская область, Чеховский район, СНТ Солнечное",
-                electricity: false, equipment: true, transport: false),
+                electricity: false, equipment: true, transport: false,
+                latitude: 55.756543, longitude: 37.613806),
          Worker(name: "Джамшут", info: "всё могу, только дай", image: "Worker3",
                 rating: "Rating 2", location: "Московская область, Дмитровский район, село Голиково",
-                electricity: false, equipment: false, transport: false)
+                electricity: false, equipment: false, transport: false,
+                latitude: 55.754841, longitude: 37.620271),
+         Worker(name: "Равшан", info: "всё могу начальника", image: "Worker4",
+                rating: "Rating 3", location: "Московская область, Дмитровский район, село Голиково",
+                electricity: false, equipment: false, transport: false,
+                latitude: 55.757711, longitude: 37.615705)
       ]
    }
 }
