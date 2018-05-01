@@ -1250,10 +1250,10 @@
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="192"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="220V, нужна доставка, только будни..." lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="cXW-3f-EOq">
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="220V, нужна доставка, только будни..." lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="cXW-3f-EOq">
                                                     <rect key="frame" x="10" y="160" width="323" height="22"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="22" id="R6G-g5-8pR"/>
+                                                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="22" id="R6G-g5-8pR"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="18"/>
                                                     <nil key="textColor"/>
@@ -1328,9 +1328,9 @@
                                                     </constraints>
                                                 </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Пунктуальный, обязательный славянин, без вредных привычек. Временно безлошадный." textAlignment="right" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" minimumFontSize="15" translatesAutoresizingMaskIntoConstraints="NO" id="FUx-B6-SNy">
-                                                    <rect key="frame" x="10" y="100" width="323" height="60"/>
+                                                    <rect key="frame" x="10" y="100" width="323" height="57.5"/>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="60" id="Eoe-lw-eAP"/>
+                                                        <constraint firstAttribute="height" relation="lessThanOrEqual" constant="60" id="Eoe-lw-eAP"/>
                                                     </constraints>
                                                     <fontDescription key="fontDescription" type="system" weight="light" pointSize="16"/>
                                                     <nil key="textColor"/>
@@ -1438,6 +1438,7 @@
                     <connections>
                         <outlet property="contractorConditions" destination="cXW-3f-EOq" id="Y3L-GT-915"/>
                         <outlet property="contractorDistance" destination="PcB-bp-geF" id="XO9-OY-zo6"/>
+                        <outlet property="contractorImage" destination="Ccc-cP-goe" id="5cc-7Y-8gh"/>
                         <outlet property="contractorInfo" destination="FUx-B6-SNy" id="bRj-BM-iVI"/>
                         <outlet property="contractorName" destination="7NI-CF-bHz" id="vEM-i8-pdO"/>
                         <outlet property="contractorPrice" destination="Qob-bW-vLb" id="Vhg-3z-b6A"/>

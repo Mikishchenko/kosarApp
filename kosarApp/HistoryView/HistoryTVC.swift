@@ -15,6 +15,7 @@ class HistoryTableController: UITableViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      
       self.clearsSelectionOnViewWillAppear = false
       // выставляем наблюдателя за изменением рейтинга
       NotificationCenter.default.addObserver(self, selector: #selector(self.updateRating(notification:)),
@@ -27,12 +28,12 @@ class HistoryTableController: UITableViewController {
    
    // MARK: - Table view data source
    
-   // количество записей в истории
+   // MARK: - Устанавливает количество записей в истории
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       return userHistory.count
    }
    
-   // формирование типовой записи
+   // MARK: - Формирование типовой записи истории
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       // сортируем массив контракторов по дате
       var sortedUserHistory = userHistory.sorted {( $0.date > $1.date)}
@@ -40,6 +41,15 @@ class HistoryTableController: UITableViewController {
       let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
       cell.contractor = sortedUserHistory[indexPath.row]
       return cell
+   }
+   
+   // MARK: - Позволяет удалять записи из истории смахиванием влево
+   override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+      if editingStyle == .delete {
+         print("Deleted")
+         userHistory.remove(at: indexPath.row)
+         self.tableView.deleteRows(at: [indexPath], with: .automatic)
+      }
    }
    
    //MARK: - Переполнение памяти

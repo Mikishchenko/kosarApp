@@ -16,6 +16,9 @@ var infoAlertIsActive = false
 var orderAlertIsActive = false
 var offerAlertIsActive = false
 
+var partnerID: userID?
+let partners = SampleData.generatePartnersData()
+
 class MapViewController: UIViewController, GMSMapViewDelegate {
    
    @IBOutlet var buttonItems: [UIButton]!
@@ -23,14 +26,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    
    var locationManager = CLLocationManager()
    var zoomLevel: Float = 15.0
-   let workers = SampleData.generateWorkerData()
-   let clients = SampleData.generateClientData()
    // создание отдельной кнопки ИНФО
    var oneInfoButton = UIButton()
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
       // сглаживание углов у кнопок
       buttonItems.forEach { (button) in
          button.layer.cornerRadius = 12
@@ -61,9 +61,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       // отображение Пользователя на карте
       let position = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
                                             longitude: location.coordinate.longitude)
-      let user = GMSMarker(position: position)
-      user.icon = UIImage(named: "userAvatar")
-      user.map = mapView
+      let userMarker = GMSMarker(position: position)
+      userMarker.icon = UIImage(named: "userAvatar")
+      userMarker.userData = user.name
+      userMarker.map = mapView
    }
    
    override func viewWillAppear(_ animated: Bool) {
@@ -100,52 +101,46 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
          else { return }
       self.view.addSubview(oneInfoButton)
       // отображение остальных объектов на карте
-      if user.type == .client {
-         for worker in workers {
-            setMapObject(imageName: worker.image!, latitude: worker.latitude!, longitude: worker.longitude!)
-         }
-      } else {
-         for client in clients {
-            setMapObject(imageName: client.image!, latitude: client.latitude!, longitude: client.longitude!)
-         }
+      for partner in partners {
+         let partnerType: Type = ((user.type == .client) ? .worker : .client)
+         guard partner.value.type == partnerType else { continue }
+         setMapMarkers(markerTitle: partner.key,
+                       markerIcon: partner.value.image!,
+                       latitude: partner.value.latitude!,
+                       longitude: partner.value.longitude!)
       }
    }
    
    // MARK: - Отображение объекта на карте
-   fileprivate func setMapObject(imageName: String, latitude: Float, longitude: Float) {
+   fileprivate func setMapMarkers(markerTitle: userID, markerIcon: String, latitude: Float, longitude: Float) {
       let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude),
                                             longitude: CLLocationDegrees(longitude))
-      let mapObject = GMSMarker(position: position)
-      mapObject.icon = UIImage(named: String(imageName))
-      mapObject.map = mapView
+      let partnerMarker = GMSMarker(position: position)
+      partnerMarker.userData = String(markerTitle)
+      partnerMarker.icon = UIImage(named: String(markerIcon))
+      partnerMarker.map = mapView
    }
-
+   
    // MARK: - При нажатии на любой объект на карте
    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
-      switch marker.icon {
-      case UIImage(named: "Worker1"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-      case UIImage(named: "Worker2"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-      case UIImage(named: "Worker3"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-      case UIImage(named: "Worker4"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-      case UIImage(named: "Client1"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-      case UIImage(named: "Client2"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-      case UIImage(named: "Client3"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-      case UIImage(named: "Client4"):
-         popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
-     default:
-         popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                   heightPopoverVC: orderIsActive || offerIsActive ? 214 : 170)
+      for partner in partners{
+         let partnerType: Type = ((user.type == .client) ? .worker : .client)
+         guard partner.value.type == partnerType else { continue }
+         switch marker.userData as! String {
+         case String(partner.key):
+            partnerID = partner.key
+         case user.name:
+            popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
+                      heightPopoverVC: orderIsActive || offerIsActive ? 214 : 170)
+            return false
+         default:
+            continue
+         }
       }
+      popoverVC(currentVC: self, identifierPopoverVC: "ContractorInfoTVC", heightPopoverVC: 132)
       return false
    }
-
+   
    // MARK: - Кнопки
    @objc func oneInfoButtonPressed(_ sender: UIButton) {
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
@@ -153,14 +148,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    }
    
    @IBAction func clientButton(_ sender: UIButton) {
-      typeChoice()
       user.type = .client
+      typeChoice()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: orderIsActive ? 214 : 170)
    }
    
    @IBAction func workerButton(_ sender: UIButton) {
-      typeChoice()
       user.type = .worker
+      typeChoice()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: offerIsActive ? 214 : 170)
    }
    
