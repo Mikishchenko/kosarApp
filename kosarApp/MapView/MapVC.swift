@@ -63,7 +63,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                                             longitude: location.coordinate.longitude)
       let userMarker = GMSMarker(position: position)
       userMarker.icon = UIImage(named: "userAvatar")
-      userMarker.userData = user.name
+      userMarker.userData = (user.name ?? "userName")
       userMarker.map = mapView
    }
    
@@ -129,7 +129,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
          switch marker.userData as! String {
          case String(partner.key):
             partnerID = partner.key
-         case user.name:
+         case (user.name ?? "userName"):
             popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                       heightPopoverVC: orderIsActive || offerIsActive ? 214 : 170)
             return false
