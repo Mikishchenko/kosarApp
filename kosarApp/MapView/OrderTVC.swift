@@ -111,7 +111,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
          warningAlert(emptyField: "Адрес покоса", currentVC: self)
          return
       }
-      alert(message: "Ваша заявка принята", currentVC: self, orderOrOfferWillActive: orderIsActive)
+      alert(message: "Ваша заявка принята", currentVC: self)
    }
    
    //MARK: - Переполнение памяти

@@ -25,7 +25,7 @@ class InfoTableViewController: UITableViewController {
       infoWorkersLabel.text = "4"
       infoMaxOrderPriceLabel.text = "250"
       infoMinOfferPriceLabel.text = "350"
-      guard orderIsActive == false && offerIsActive == false else {
+      guard orderOfferIsActive == false else {
          fillButtonLabel(button: infoButtonLabel,
                          forClient: "Редактировать заявку", forWorker: "Редактировать объявление")
          fillButtonLabel(button: infoDeleteButtonLabel,
@@ -69,8 +69,7 @@ class InfoTableViewController: UITableViewController {
 
 // MARK: - Стирание заявки или объявления
 public func eraseOrderOffer() {
-   orderIsActive = false
-   offerIsActive = false
+   orderOfferIsActive = false
    order = Order()
    offer = Offer()
 }

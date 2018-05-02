@@ -110,7 +110,7 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
          warningAlert(emptyField: "Адрес покоса", currentVC: self)
          return
       }
-      alert(message: "Ваше объявление зарегистрировано", currentVC: self, orderOrOfferWillActive: offerIsActive)
+      alert(message: "Ваше объявление зарегистрировано", currentVC: self)
    }
    
    //MARK: - Переполнение памяти
@@ -129,10 +129,10 @@ public func warningAlert(emptyField: String, currentVC: UIViewController) {
 }
 
 // MARK: - Информационное сообщение
-public func alert(message: String, currentVC: UIViewController, orderOrOfferWillActive: Bool) {
+public func alert(message: String, currentVC: UIViewController) {
    let alert = UIAlertController(title: "ИНФОРМАЦИЯ", message: "\(message)", preferredStyle: .alert)
    let alertAction = UIAlertAction(title: "OK", style: .cancel) { (action) in
-      orderOrOfferWillActive == offerIsActive ? (offerIsActive = true) : (orderIsActive = true)
+      orderOfferIsActive = true
       infoAlertsOff()
       // убирает с текущего viewController все контроллеры, лежащие сверху
       currentVC.view.window?.rootViewController?.dismiss(animated: true, completion: nil)

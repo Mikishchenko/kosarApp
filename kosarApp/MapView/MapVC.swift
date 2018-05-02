@@ -10,8 +10,7 @@ import UIKit
 import GoogleMaps
 
 var typeChoiceIsDone = false
-var orderIsActive = false
-var offerIsActive = false
+var orderOfferIsActive = false
 var infoAlertIsActive = false
 var orderAlertIsActive = false
 var offerAlertIsActive = false
@@ -131,7 +130,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
             partnerID = partner.key
          case (user.name ?? "userName"):
             popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                      heightPopoverVC: orderIsActive || offerIsActive ? 214 : 170)
+                      heightPopoverVC: orderOfferIsActive ? 214 : 170)
             return false
          default:
             continue
@@ -144,19 +143,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    // MARK: - Кнопки
    @objc func oneInfoButtonPressed(_ sender: UIButton) {
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                heightPopoverVC: orderIsActive || offerIsActive ? 214 : 170)
+                heightPopoverVC: orderOfferIsActive ? 214 : 170)
    }
    
    @IBAction func clientButton(_ sender: UIButton) {
       user.type = .client
       typeChoice()
-      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: orderIsActive ? 214 : 170)
+      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: orderOfferIsActive ? 214 : 170)
    }
    
    @IBAction func workerButton(_ sender: UIButton) {
       user.type = .worker
       typeChoice()
-      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: offerIsActive ? 214 : 170)
+      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: orderOfferIsActive ? 214 : 170)
    }
    
    override func didReceiveMemoryWarning() {
