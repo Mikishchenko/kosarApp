@@ -58,8 +58,10 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
          mapView.animate(to: camera)
       }
       // отображение Пользователя на карте
-      let position = CLLocationCoordinate2D(latitude: location.coordinate.latitude,
-                                            longitude: location.coordinate.longitude)
+      user.latitude = location.coordinate.latitude
+      user.longitude = location.coordinate.longitude
+      let position = CLLocationCoordinate2D(latitude: user.latitude!,
+                                            longitude: user.longitude!)
       let userMarker = GMSMarker(position: position)
       userMarker.icon = UIImage(named: "userAvatar")
       userMarker.userData = (user.name ?? "userName")
@@ -111,7 +113,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    }
    
    // MARK: - Отображение объекта на карте
-   fileprivate func setMapMarkers(markerTitle: userID, markerIcon: String, latitude: Float, longitude: Float) {
+   fileprivate func setMapMarkers(markerTitle: userID, markerIcon: String, latitude: Double, longitude: Double) {
       let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude),
                                             longitude: CLLocationDegrees(longitude))
       let partnerMarker = GMSMarker(position: position)

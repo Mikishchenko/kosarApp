@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class ContractorDetailsTVC: UITableViewController {
    
@@ -18,17 +19,9 @@ class ContractorDetailsTVC: UITableViewController {
    @IBOutlet weak var contractorInfo: UILabel!
    @IBOutlet weak var contractorConditions: UILabel!
    
-   // MARK: - Имея userID текущего партнера, отображаем его параметры
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
-      let currentPartner = partners[partnerID ?? 0]
-      contractorImage.image = UIImage(named: (currentPartner?.image!)!)
-      contractorPrice.text = "\(String(describing: currentPartner?.price! ?? 0 ))"
-      contractorName.text = currentPartner?.name
-      contractorRating.image = UIImage(named: (currentPartner?.rating!)!)
-      contractorDistance.text = "10.0" // ******* ЗАГЛУШКА *******
-      contractorInfo.text = currentPartner?.info
-      contractorConditions.text = (setConditions(currentPartner: currentPartner!)) 
+      setCurrentPartnersParametrs()
       self.tableView.reloadData()
    }
    
@@ -38,17 +31,33 @@ class ContractorDetailsTVC: UITableViewController {
    
    //MARK: - Кнопки
    @IBAction func messageButton(_ sender: UIButton) {
-      let currentPartner = partners[partnerID ?? 0]
       // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!, photo: (currentPartner?.image)!)
+      addContractorInUserHistory(id: partnerID!, name: ((partners[partnerID ?? 0])?.name)!,
+                                 photo: ((partners[partnerID ?? 0])?.image)!)
       print("Пользователь пытается отправить сообщение Контрагету")
    }
    
    @IBAction func callButton(_ sender: UIButton) {
-      let currentPartner = partners[partnerID ?? 0]
       // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!, photo: (currentPartner?.image)!)
+      addContractorInUserHistory(id: partnerID!, name: ((partners[partnerID ?? 0])?.name)!,
+                                 photo: ((partners[partnerID ?? 0])?.image)!)
       print("Пользователь пытается дозвониться до Контрагета")
+   }
+   
+   // MARK: - Имея userID текущего партнера, отображаем его параметры
+   fileprivate func setCurrentPartnersParametrs() {
+      let currentPartner = partners[partnerID ?? 0]
+      contractorImage.image = UIImage(named: (currentPartner?.image!)!)
+      contractorPrice.text = "\(String(describing: currentPartner?.price! ?? 0 ))"
+      contractorName.text = currentPartner?.name
+      contractorRating.image = UIImage(named: (currentPartner?.rating!)!)
+      let userPosition = CLLocationCoordinate2D(latitude: user.latitude!, longitude: user.longitude!)
+      let partnerPosition = CLLocationCoordinate2D(latitude: (currentPartner?.latitude)!,
+                                                   longitude: (currentPartner?.longitude)!)
+      let distance = Double(round(10*GMSGeometryDistance(userPosition, partnerPosition)/1000)/10)
+      contractorDistance.text = String(distance)
+      contractorInfo.text = currentPartner?.info
+      contractorConditions.text = (setConditions(currentPartner: currentPartner!))
    }
    
    override func didReceiveMemoryWarning() {

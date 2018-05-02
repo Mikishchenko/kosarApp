@@ -26,15 +26,14 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       
       // текстфилды
       var offerPriceString: String
-      offer.price != nil ? (offerPriceString = "\(offer.price!)") : (offerPriceString = "")
+      user.price != nil ? (offerPriceString = "\(user.price!)") : (offerPriceString = "")
       setTextFieldValueAndDelegate(textField: offerPrice, value: offerPriceString)
-      setTextFieldValueAndDelegate(textField: offerWorkLocation, value: offer.workLocation)
-      setTextFieldValueAndDelegate(textField: offerWorkerInfo, value: offer.workerInfo)
-      
+      setTextFieldValueAndDelegate(textField: offerWorkLocation, value: user.location)
+      setTextFieldValueAndDelegate(textField: offerWorkerInfo, value: user.info)
       // переключатели (функция лежит в SettingsTableController)
-      setSwitchPosition(switcher: offerEquipmentSwitch, value: offer.equipment)
-      setSwitchPosition(switcher: offerElectricitySwitch, value: offer.electricity)
-      setSwitchPosition(switcher: offerTransportSwitch, value: offer.transport)
+      setSwitchPosition(switcher: offerEquipmentSwitch, value: user.equipment)
+      setSwitchPosition(switcher: offerElectricitySwitch, value: user.electricity)
+      setSwitchPosition(switcher: offerTransportSwitch, value: user.transport)
       
       offerAlertIsActive = true
    }
@@ -49,7 +48,7 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch textField {
       case offerPrice:
-         offer.price = Int(offerPrice.text!)
+         offer.price = UInt(offerPrice.text!)
          offerPrice.resignFirstResponder()
          return true
       case offerWorkLocation:
@@ -78,20 +77,26 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание значений из текстфилдов
    fileprivate func newData() {
-      offer.price = Int(offerPrice.text!)
+      offer.price = UInt(offerPrice.text!)
       offer.workLocation = offerWorkLocation.text
       offer.workerInfo = offerWorkerInfo.text
+      user.price = offer.price
+      user.location = offer.workLocation
+      user.info = offer.workerInfo
    }
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func offerEquipmentSwitcher(_ sender: UISwitch) {
       sender.isOn ? (offer.equipment = true) : (offer.equipment = false)
+      user.equipment = offer.equipment
    }
    @IBAction func offerElectricitySwitcher(_ sender: UISwitch) {
       sender.isOn ? (offer.electricity = true) : (offer.electricity = false)
+      user.electricity = offer.electricity
    }
    @IBAction func offerTransportSwitcher(_ sender: UISwitch) {
       sender.isOn ? (offer.transport = true) : (offer.transport = false)
+      user.transport = offer.transport
    }
    
    // MARK: Подтверждение оформления объявления

@@ -25,17 +25,17 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       
       // текстфилды
       var orderPriceString: String
-      order.price != nil ? (orderPriceString = "\(order.price!)") : (orderPriceString = "")
+      user.price != nil ? (orderPriceString = "\(user.price!)") : (orderPriceString = "")
       setTextFieldValueAndDelegate(textField: orderPrice, value: orderPriceString)
-      setTextFieldValueAndDelegate(textField: orderWorkLocation, value: order.workLocation)
+      setTextFieldValueAndDelegate(textField: orderWorkLocation, value: user.location)
       var orderWorkAreaString: String
-      order.workArea != nil ? (orderWorkAreaString = "\(order.workArea!)") : (orderWorkAreaString = "")
+      user.workArea != nil ? (orderWorkAreaString = "\(user.workArea!)") : (orderWorkAreaString = "")
       setTextFieldValueAndDelegate(textField: orderWorkArea, value: orderWorkAreaString)
       
       // переключатели (функция лежит в SettingsTableController)
-      setSwitchPosition(switcher: orderElectricitySwitch, value: order.electricity)
-      setSwitchPosition(switcher: orderHardReliefSwitch, value: order.hardRelief)
-      setSwitchPosition(switcher: orderPlantsSwitch, value: order.plants)
+      setSwitchPosition(switcher: orderElectricitySwitch, value: user.electricity)
+      setSwitchPosition(switcher: orderHardReliefSwitch, value: user.hardRelief)
+      setSwitchPosition(switcher: orderPlantsSwitch, value: user.plants)
       
       orderAlertIsActive = true
    }
@@ -50,7 +50,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch textField {
       case orderPrice:
-         order.price = Int(orderPrice.text!)
+         order.price = UInt(orderPrice.text!)
          orderPrice.resignFirstResponder()
          return true
       case orderWorkLocation:
@@ -58,7 +58,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
          orderWorkLocation.resignFirstResponder()
          return true
       case orderWorkArea:
-         order.workArea = Int(orderWorkArea.text!)
+         order.workArea = UInt(orderWorkArea.text!)
          orderWorkArea.resignFirstResponder()
          return true
       default:
@@ -79,20 +79,26 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание значений из текстфилдов
    fileprivate func newData() {
-      order.price = Int(orderPrice.text!)
+      order.price = UInt(orderPrice.text!)
       order.workLocation = orderWorkLocation.text
-      order.workArea = Int(orderWorkArea.text!)
+      order.workArea = UInt(orderWorkArea.text!)
+      user.price = order.price
+      user.location = order.workLocation
+      user.workArea = order.workArea
    }
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func orderElectricitySwitcher(_ sender: UISwitch) {
       sender.isOn ? (order.electricity = true) : (order.electricity = false)
+      user.electricity = order.electricity
    }
    @IBAction func orderHardReliefSwitcher(_ sender: UISwitch) {
       sender.isOn ? (order.hardRelief = true) : (order.hardRelief = false)
+      user.hardRelief = order.hardRelief
    }
    @IBAction func orderPlantsSwitcher(_ sender: UISwitch) {
       sender.isOn ? (order.plants = true) : (order.plants = false)
+      user.plants = order.plants
    }
    
    // MARK: - Подтверждение заявки

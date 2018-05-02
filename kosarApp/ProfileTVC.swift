@@ -15,6 +15,7 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Объекты, которые мы будем отображать
    @IBOutlet weak var clientWorker: UISegmentedControl!
+   @IBOutlet weak var userPrice: UITextField!
    @IBOutlet weak var userName: UITextField!
    @IBOutlet weak var userInfo: UITextField!
    @IBOutlet weak var workLocation: UITextField!
@@ -33,24 +34,23 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
       
       // выбор сегмента (смена роли: Заказчик или Исполнитель)
       user.type == .client ? (clientWorker.selectedSegmentIndex = 0) : (clientWorker.selectedSegmentIndex = 1)
-      
       // текстфилды
       setTextFieldValueAndDelegate(textField: userName, value: user.name)
       setTextFieldValueAndDelegate(textField: userInfo, value: user.info)
       setTextFieldValueAndDelegate(textField: workLocation, value: user.location)
-      
-      // обработка workArea: Int и перевод в String
+      // обработка price и workArea: Int и перевод в String
+      var userWorkPrice: String
+      user.price != nil ? (userWorkPrice = "\(user.price!)") : (userWorkPrice = "")
+      setTextFieldValueAndDelegate(textField: userPrice, value: userWorkPrice)
       var userWorkArea: String
       user.workArea != nil ? (userWorkArea = "\(user.workArea!)") : (userWorkArea = "")
       setTextFieldValueAndDelegate(textField: workArea, value: userWorkArea)
-      
       // переключатели (функция лежит в SettingsTableController)
       setSwitchPosition(switcher: electricitySwitch, value: user.electricity)
       setSwitchPosition(switcher: equipmentSwitch, value: user.equipment)
       setSwitchPosition(switcher: transportSwitch, value: user.transport)
       setSwitchPosition(switcher: hardReliefSwitch, value: user.hardRelief)
       setSwitchPosition(switcher: plantsSwitch, value: user.plants)
-      
       // назначение уведомления на окончание редактирования в текстфилдах
       NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: userName)
       NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: userInfo)
@@ -65,6 +65,10 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch textField {
+      case workArea:
+         user.price = UInt(userPrice.text!)
+         userPrice.resignFirstResponder()
+         return true
       case userName:
          user.name = userName.text
          userName.resignFirstResponder()
@@ -78,7 +82,7 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
          workLocation.resignFirstResponder()
          return true
       case workArea:
-         user.workArea = Int(workArea.text!)
+         user.workArea = UInt(workArea.text!)
          workArea.resignFirstResponder()
          return true
       default:
@@ -90,10 +94,11 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
       switch reason {
       case .committed:
+         user.price = UInt(userPrice.text!)
          user.name = userName.text
          user.info = userInfo.text
          user.location = workLocation.text
-         user.workArea = Int(workArea.text!)
+         user.workArea = UInt(workArea.text!)
          return
       case .cancelled:
          break
@@ -127,9 +132,9 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    // MARK: - Сокрытие некоторых элементов для пользователя Worker
    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
       guard user.type == .worker else { return 35.00 }
-      guard indexPath.row != 4 else { return 0.00 }
-      guard indexPath.row != 8 else { return 0.00 }
+      guard indexPath.row != 5 else { return 0.00 }
       guard indexPath.row != 9 else { return 0.00 }
+      guard indexPath.row != 10 else { return 0.00 }
       return 35.00
    }
    

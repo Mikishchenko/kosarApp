@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class ContactorInfoTableViewController: UITableViewController {
 
@@ -18,13 +19,7 @@ class ContactorInfoTableViewController: UITableViewController {
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
-      // MARK: - Имея userID текущего партнера, отображаем его параметры
-      let currentPartner = partners[partnerID ?? 0]
-      contractorPrice.text = "\(String(describing: currentPartner?.price! ?? 0 ))"
-      contractorDistance.text = "10.0" // ******* ЗАГЛУШКА *******
-      contractorName.text = currentPartner?.name
-      contractorRating.image = UIImage(named: (currentPartner?.rating!)!)
-      contractorConditions.text = setConditions(currentPartner: currentPartner!)
+      setCurrentPartnersParemeters()
       self.tableView.reloadData()
    }
    
@@ -33,9 +28,9 @@ class ContactorInfoTableViewController: UITableViewController {
       popoverVC(currentVC: self, identifierPopoverVC: "ContractorDetailsTVC", heightPopoverVC: 236)
    }
    @IBAction func callButton(_ sender: UIButton) {
-      let currentPartner = partners[partnerID ?? 0]
       // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!, photo: (currentPartner?.image)!)
+      addContractorInUserHistory(id: partnerID!, name: ((partners[partnerID ?? 0])?.name)!,
+                                 photo: ((partners[partnerID ?? 0])?.image)!)
       print("Пользователь пытается дозвониться до Контрагета")
    }
 
@@ -43,6 +38,20 @@ class ContactorInfoTableViewController: UITableViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+   
+   // MARK: - Имея userID текущего партнера, отображаем его параметры
+   func setCurrentPartnersParemeters() {
+      let currentPartner = partners[partnerID ?? 0]
+      contractorPrice.text = "\(String(describing: currentPartner?.price! ?? 0 ))"
+      let userPosition = CLLocationCoordinate2D(latitude: user.latitude!, longitude: user.longitude!)
+      let partnerPosition = CLLocationCoordinate2D(latitude: (currentPartner?.latitude)!,
+                                                   longitude: (currentPartner?.longitude)!)
+      let distance = Double(round(10*GMSGeometryDistance(userPosition, partnerPosition)/1000)/10)
+      contractorDistance.text = String(distance)
+      contractorName.text = currentPartner?.name
+      contractorRating.image = UIImage(named: (currentPartner?.rating!)!)
+      contractorConditions.text = setConditions(currentPartner: currentPartner!)
+   }
 }
 
 // MARK: - Добавление партнера в userHistory

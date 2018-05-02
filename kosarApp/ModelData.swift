@@ -20,11 +20,11 @@ protocol UsersProtocol {
    var electricity: Bool? {get set}
    var equipment: Bool? {get set}
    var transport: Bool? {get set}
-   var workArea: Int? {get set}
+   var workArea: UInt? {get set}
    var plants: Bool? {get set}
    var hardRelief: Bool? {get set}
-   var latitude: Float? {get set}
-   var longitude: Float? {get set}
+   var latitude: Double? {get set}
+   var longitude: Double? {get set}
 }
 
 enum Type {
@@ -44,11 +44,11 @@ class User: UsersProtocol {
    var electricity: Bool?
    var equipment: Bool?
    var transport: Bool?
-   var workArea: Int?
+   var workArea: UInt?
    var plants: Bool?
    var hardRelief: Bool?
-   var latitude: Float?
-   var longitude: Float?
+   var latitude: Double?
+   var longitude: Double?
    // Initializer for USER
    init(type: Type, image: String) {
       self.type = type
@@ -59,7 +59,7 @@ class User: UsersProtocol {
 typealias userID = UInt
 
 class Partner: UsersProtocol {
-   // MARK: Properties for CLIENT
+   // MARK: Properties for PARTNER
    var type: Type
    var price: UInt?
    var name: String?
@@ -70,13 +70,13 @@ class Partner: UsersProtocol {
    var electricity: Bool?
    var equipment: Bool?
    var transport: Bool?
-   var workArea: Int?
+   var workArea: UInt?
    var plants: Bool?
    var hardRelief: Bool?
-   var latitude: Float?
-   var longitude: Float?
-   // MARK: Initialization for CLIENT
-   init(type: Type, price: UInt?, name: String?, info: String?, image: String, rating: String?, location: String?, electricity: Bool?, equipment: Bool?, transport: Bool?, workArea: Int?, plants: Bool?, hardRelief: Bool?, latitude: Float, longitude: Float) {
+   var latitude: Double?
+   var longitude: Double?
+   // MARK: Initialization for PARTNER
+   init(type: Type, price: UInt?, name: String?, info: String?, image: String, rating: String?, location: String?, electricity: Bool?, equipment: Bool?, transport: Bool?, workArea: UInt?, plants: Bool?, hardRelief: Bool?, latitude: Double, longitude: Double) {
       self.type = type
       self.price = price
       self.name = name
@@ -133,9 +133,9 @@ class Contractor {
 }
 
 class Order {
-   var price: Int?
+   var price: UInt?
    var workLocation: String?
-   var workArea: Int?
+   var workArea: UInt?
    var electricity: Bool?
    var hardRelief: Bool?
    var plants: Bool?
@@ -143,7 +143,7 @@ class Order {
 }
 
 class Offer {
-   var price: Int?
+   var price: UInt?
    var workLocation: String?
    var workerInfo: String?
    var equipment: Bool?
