@@ -122,7 +122,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       partnerMarker.map = mapView
    }
    
-   // MARK: - При нажатии на любой объект на карте
+   // MARK: - При нажатии на любой объект на карте выводится на экран всплывающее окно
    func mapView(_ mapView: GMSMapView, didTap marker: GMSMarker) -> Bool {
       for partner in partners{
          let partnerType: Type = ((user.type == .client) ? .worker : .client)

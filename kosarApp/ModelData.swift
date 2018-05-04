@@ -75,8 +75,9 @@ class Partner: UsersProtocol {
    var hardRelief: Bool?
    var latitude: Double?
    var longitude: Double?
+   var distance: Double?
    // MARK: Initialization for PARTNER
-   init(type: Type, price: UInt?, name: String?, info: String?, image: String, rating: String?, location: String?, electricity: Bool?, equipment: Bool?, transport: Bool?, workArea: UInt?, plants: Bool?, hardRelief: Bool?, latitude: Double, longitude: Double) {
+   init(type: Type, price: UInt?, name: String?, info: String?, image: String, rating: String?, location: String?, electricity: Bool?, equipment: Bool?, transport: Bool?, workArea: UInt?, plants: Bool?, hardRelief: Bool?, latitude: Double?, longitude: Double?, distance: Double?) {
       self.type = type
       self.price = price
       self.name = name
@@ -92,6 +93,7 @@ class Partner: UsersProtocol {
       self.hardRelief = hardRelief
       self.latitude = latitude
       self.longitude = longitude
+      self.distance = distance
    }
 }
 

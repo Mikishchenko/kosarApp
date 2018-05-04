@@ -19,9 +19,11 @@ class ContractorDetailsTVC: UITableViewController {
    @IBOutlet weak var contractorInfo: UILabel!
    @IBOutlet weak var contractorConditions: UILabel!
    
+   let currentPartner = partners[partnerID ?? 0]
+   
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
-      setCurrentPartnersParametrs()
+      setCurrentPartnersParameters()
       self.tableView.reloadData()
    }
    
@@ -32,30 +34,25 @@ class ContractorDetailsTVC: UITableViewController {
    //MARK: - Кнопки
    @IBAction func messageButton(_ sender: UIButton) {
       // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: ((partners[partnerID ?? 0])?.name)!,
-                                 photo: ((partners[partnerID ?? 0])?.image)!)
+      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
+                                 photo: (currentPartner?.image)!)
       print("Пользователь пытается отправить сообщение Контрагету")
    }
    
    @IBAction func callButton(_ sender: UIButton) {
       // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: ((partners[partnerID ?? 0])?.name)!,
-                                 photo: ((partners[partnerID ?? 0])?.image)!)
+      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
+                                 photo: (currentPartner?.image)!)
       print("Пользователь пытается дозвониться до Контрагета")
    }
    
    // MARK: - Имея userID текущего партнера, отображаем его параметры
-   fileprivate func setCurrentPartnersParametrs() {
-      let currentPartner = partners[partnerID ?? 0]
+   fileprivate func setCurrentPartnersParameters() {
       contractorImage.image = UIImage(named: (currentPartner?.image!)!)
-      contractorPrice.text = "\(String(describing: currentPartner?.price! ?? 0 ))"
+      contractorPrice.text = String(describing: currentPartner?.price! ?? 0)
       contractorName.text = currentPartner?.name
       contractorRating.image = UIImage(named: (currentPartner?.rating!)!)
-      let userPosition = CLLocationCoordinate2D(latitude: user.latitude!, longitude: user.longitude!)
-      let partnerPosition = CLLocationCoordinate2D(latitude: (currentPartner?.latitude)!,
-                                                   longitude: (currentPartner?.longitude)!)
-      let distance = Double(round(10*GMSGeometryDistance(userPosition, partnerPosition)/1000)/10)
-      contractorDistance.text = String(distance)
+      contractorDistance.text = String(describing: currentPartner?.distance! ?? 0.0)
       contractorInfo.text = currentPartner?.info
       contractorConditions.text = (setConditions(currentPartner: currentPartner!))
    }

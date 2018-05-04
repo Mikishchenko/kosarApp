@@ -7,39 +7,58 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class InfoTableViewController: UITableViewController {
    
    @IBOutlet weak var infoWorkAreaLabel: UILabel!
    @IBOutlet weak var infoClientsLabel: UILabel!
    @IBOutlet weak var infoWorkersLabel: UILabel!
-   @IBOutlet weak var infoMaxOrderPriceLabel: UILabel!
-   @IBOutlet weak var infoMinOfferPriceLabel: UILabel!
+   @IBOutlet weak var infoAvOrderPriceLabel: UILabel!
+   @IBOutlet weak var infoAvOfferPriceLabel: UILabel!
    @IBOutlet weak var infoButtonLabel: UIButton!
    @IBOutlet weak var infoDeleteButtonLabel: UIButton!
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      infoWorkAreaLabel.text = "3"
-      infoClientsLabel.text = "4"
-      infoWorkersLabel.text = "4"
-      infoMaxOrderPriceLabel.text = "250"
-      infoMinOfferPriceLabel.text = "350"
-      guard orderOfferIsActive == false else {
+      // получение данных информационного сообщения
+      let searchArea: Double = 10.0
+      var clietnsInSearch: UInt = 0, workersInSearch: UInt = 0
+      var sumOrdersPrice: UInt = 0, sumOffersPrice: UInt = 0
+      for partner in partners {
+         // сортировка по значению диапозона поиска
+         let userPosition = CLLocationCoordinate2D(latitude: user.latitude!, longitude: user.longitude!)
+         let partnerPosition = CLLocationCoordinate2D(latitude: partner.value.latitude!,
+                                                      longitude: partner.value.longitude!)
+         partner.value.distance = Double(round(10*GMSGeometryDistance(userPosition, partnerPosition)/1000)/10)
+         guard partner.value.distance! < searchArea else { continue }
+         switch partner.value.type {
+         case .client:
+            clietnsInSearch += 1
+            sumOrdersPrice += partner.value.price!
+         case .worker:
+            workersInSearch += 1
+            sumOffersPrice += partner.value.price!
+         }
+      }
+      // заполнение данных Информационного сообщения
+      infoWorkAreaLabel.text = String(searchArea)
+      infoClientsLabel.text = String(clietnsInSearch)
+      infoWorkersLabel.text = String(workersInSearch)
+      infoAvOrderPriceLabel.text = String(sumOrdersPrice / clietnsInSearch)
+      infoAvOfferPriceLabel.text = String(sumOffersPrice / workersInSearch)
+      // формирование внешнего вида Информационного сообщения (варианты надписей на кнопках)
+      if orderOfferIsActive {
          fillButtonLabel(button: infoButtonLabel,
                          forClient: "Редактировать заявку", forWorker: "Редактировать объявление")
          fillButtonLabel(button: infoDeleteButtonLabel,
                          forClient: "Удалить заявку", forWorker: "Удалить объявление")
          return
+      } else {
+         fillButtonLabel(button: infoButtonLabel,
+                         forClient: "Оформить заявку", forWorker: "Разместить объявление")
+         infoAlertIsActive = true
       }
-      fillButtonLabel(button: infoButtonLabel,
-                      forClient: "Оформить заявку", forWorker: "Разместить объявление")
-      infoAlertIsActive = true
-   }
-   
-   // вроде не работает это плавное удаление окна
-   override func viewWillDisappear(_ animated: Bool) {
-      dismiss(animated: true, completion: nil)
    }
    
    // MARK: - Выбор надписи на кнопке в зависимости от типа (Заказчик или Исполнитель)
@@ -49,14 +68,14 @@ class InfoTableViewController: UITableViewController {
          button.setTitle(forWorker, for: .normal)
    }
    
-   // MARK: - Нажатие кнопки подтверждения/редактирования
+   // MARK: - Нажатие кнопки подтверждения/редактирования Заявки/Объявления
    @IBAction func infoButton(_ sender: UIButton) {
       user.type == .client ?
          popoverVC(currentVC: self, identifierPopoverVC: "OrderTVC", heightPopoverVC: 254) :
          popoverVC(currentVC: self, identifierPopoverVC: "OfferTVC", heightPopoverVC: 254)
    }
    
-   //MARK: - Нажатие кнопки удаления
+   //MARK: - Нажатие кнопки удаления Заявки/Объявления
    @IBAction func infoDeleteButton(_ sender: UIButton) {
       eraseOrderOffer()
       self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
