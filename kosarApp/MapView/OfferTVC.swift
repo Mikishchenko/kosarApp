@@ -35,7 +35,7 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       setSwitchPosition(switcher: offerElectricitySwitch, value: user.electricity)
       setSwitchPosition(switcher: offerTransportSwitch, value: user.transport)
       
-      offerAlertIsActive = true
+      orderOfferAlertIsActive = true
    }
    
    // MARK: - Отображение текущего значения текстфилда и назначение делегата
@@ -149,6 +149,5 @@ public func alert(message: String, currentVC: UIViewController) {
 // MARK: - Выключение всех инфо контроллеров
 public func infoAlertsOff () {
    infoAlertIsActive = false
-   orderAlertIsActive = false
-   offerAlertIsActive = false
+   orderOfferAlertIsActive = false
 }

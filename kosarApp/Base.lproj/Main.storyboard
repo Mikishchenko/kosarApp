@@ -231,8 +231,7 @@
                                                         <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="infoButton:" destination="NLK-R0-wwh" eventType="touchUpInside" id="kDg-yM-c50"/>
-                                                        <action selector="infoDeleteButton:" destination="NLK-R0-wwh" eventType="touchUpInside" id="BcD-V1-Ay7"/>
+                                                        <action selector="extensionWorkAreaOrDeleteButton:" destination="NLK-R0-wwh" eventType="touchUpInside" id="fGQ-dA-41x"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -254,11 +253,11 @@
                     </tableView>
                     <size key="freeformSize" width="343" height="214"/>
                     <connections>
+                        <outlet property="extensionWorkAreaOrDeleteButton" destination="ye3-cZ-kK2" id="tcI-Sy-p1v"/>
                         <outlet property="infoAvOfferPriceLabel" destination="CFN-bd-cFD" id="rT6-Af-z9Q"/>
                         <outlet property="infoAvOrderPriceLabel" destination="hLh-ry-Cba" id="cdh-oD-1b1"/>
                         <outlet property="infoButtonLabel" destination="Mwn-Xu-4j7" id="B9x-dK-b8P"/>
                         <outlet property="infoClientsLabel" destination="vxP-Lj-d0v" id="3V1-gz-2aI"/>
-                        <outlet property="infoDeleteButtonLabel" destination="ye3-cZ-kK2" id="dHj-Xe-cC1"/>
                         <outlet property="infoWorkAreaLabel" destination="9ay-dn-XzJ" id="eKM-Md-U2N"/>
                         <outlet property="infoWorkersLabel" destination="n5H-3a-pw7" id="gIu-Qe-P6E"/>
                     </connections>

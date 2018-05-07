@@ -37,7 +37,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       setSwitchPosition(switcher: orderHardReliefSwitch, value: user.hardRelief)
       setSwitchPosition(switcher: orderPlantsSwitch, value: user.plants)
       
-      orderAlertIsActive = true
+      orderOfferAlertIsActive = true
    }
    
    // MARK: - Отображение текущего значения текстфилда и назначение делегата

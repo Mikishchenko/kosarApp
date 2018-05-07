@@ -9,13 +9,16 @@
 import UIKit
 import GoogleMaps
 
+// MARK: - Глобальные переменные
 var typeChoiceIsDone = false
 var orderOfferIsActive = false
 var infoAlertIsActive = false
-var orderAlertIsActive = false
-var offerAlertIsActive = false
-
+var orderOfferAlertIsActive = false
+var searchArea: Double = 10.0
+var zoomLevel: Float = 11.0
 var partnerID: userID?
+
+// MARK: - Данные о ближайших партнерах из SampleData
 let partners = SampleData.generatePartnersData()
 
 class MapViewController: UIViewController, GMSMapViewDelegate {
@@ -24,7 +27,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    @IBOutlet weak var mapView: GMSMapView!
    
    var locationManager = CLLocationManager()
-   var zoomLevel: Float = 15.0
    // создание отдельной кнопки ИНФО
    var oneInfoButton = UIButton()
    
@@ -34,7 +36,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       buttonItems.forEach { (button) in
          button.layer.cornerRadius = 12
       }
-      // работа с картой
+      // старт отслеживания геопозиции пользователя, объявление делегатов и MyLocationButton
       locationManager.requestWhenInUseAuthorization()
       locationManager.startUpdatingLocation()
       locationManager.delegate = self
@@ -47,25 +49,15 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
       let location: CLLocation = locations.last!
       print("Location: \(location)")
-      
-      let camera = GMSCameraPosition.camera(withLatitude: location.coordinate.latitude,
-                                            longitude: location.coordinate.longitude,
-                                            zoom: zoomLevel)
-      if mapView.isHidden {
-         mapView.isHidden = false
-         mapView.camera = camera
-      } else {
-         mapView.animate(to: camera)
-      }
-      // отображение Пользователя на карте
+      // сохранения координат пользователя
       user.latitude = location.coordinate.latitude
       user.longitude = location.coordinate.longitude
-      let position = CLLocationCoordinate2D(latitude: user.latitude!,
-                                            longitude: user.longitude!)
-      let userMarker = GMSMarker(position: position)
-      userMarker.icon = UIImage(named: "userAvatar")
-      userMarker.userData = (user.name ?? "userName")
-      userMarker.map = mapView
+      // настройка камеры для отображения карты
+      setCameraPosition(latitude: user.latitude,
+                        longitude: user.longitude, zoom: zoomLevel)
+      // отображение Пользователя на карте
+      setMapMarker(markerKey: 0, markerIcon: "userAvatar",
+                   latitude: user.latitude!, longitude: user.longitude!)
    }
    
    override func viewWillAppear(_ animated: Bool) {
@@ -98,28 +90,33 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       oneInfoButton.setTitleColor(UIColor.white, for: .normal)
       oneInfoButton.titleLabel?.font = UIFont?(.systemFont(ofSize: 18))
       oneInfoButton.addTarget(self, action: #selector(oneInfoButtonPressed(_:)), for: .touchUpInside)
-      guard infoAlertIsActive == false || orderAlertIsActive == false || offerAlertIsActive == false
+      guard infoAlertIsActive == false || orderOfferAlertIsActive == false
          else { return }
       self.view.addSubview(oneInfoButton)
       // отображение остальных объектов на карте
       for partner in partners {
          let partnerType: Type = ((user.type == .client) ? .worker : .client)
          guard partner.value.type == partnerType else { continue }
-         setMapMarkers(markerTitle: partner.key,
-                       markerIcon: partner.value.image!,
-                       latitude: partner.value.latitude!,
-                       longitude: partner.value.longitude!)
+         // установка дистанции у партнера
+         let userPosition = CLLocationCoordinate2D(latitude: user.latitude!, longitude: user.longitude!)
+         let partnerPosition = CLLocationCoordinate2D(latitude: partner.value.latitude!,
+                                                      longitude: partner.value.longitude!)
+         partner.value.distance = Double(round(10*GMSGeometryDistance(userPosition, partnerPosition)/1000)/10)
+         // проверка, не привышает ли дистанция до партнера зоны поиска
+         guard partner.value.distance! < searchArea else { continue }
+         setMapMarker(markerKey: partner.key, markerIcon: partner.value.image!,
+                      latitude: partner.value.latitude!, longitude: partner.value.longitude!)
       }
    }
    
    // MARK: - Отображение объекта на карте
-   fileprivate func setMapMarkers(markerTitle: userID, markerIcon: String, latitude: Double, longitude: Double) {
+   fileprivate func setMapMarker(markerKey: userID, markerIcon: String, latitude: Double, longitude: Double) {
       let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(latitude),
                                             longitude: CLLocationDegrees(longitude))
-      let partnerMarker = GMSMarker(position: position)
-      partnerMarker.userData = String(markerTitle)
-      partnerMarker.icon = UIImage(named: String(markerIcon))
-      partnerMarker.map = mapView
+      let marker = GMSMarker(position: position)
+      marker.userData = String(markerKey)
+      marker.icon = UIImage(named: String(markerIcon))
+      marker.map = mapView
    }
    
    // MARK: - При нажатии на любой объект на карте выводится на экран всплывающее окно
@@ -130,9 +127,9 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
          switch marker.userData as! String {
          case String(partner.key):
             partnerID = partner.key
-         case (user.name ?? "userName"):
+         case "0":
             popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                      heightPopoverVC: orderOfferIsActive ? 214 : 170)
+                      heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
             return false
          default:
             continue
@@ -142,22 +139,38 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       return false
    }
    
+   // MARK: - Настройка камеры, для отображения карты
+   fileprivate func setCameraPosition(latitude: Double?, longitude: Double?, zoom: Float) {
+      let camera = GMSCameraPosition.camera(withLatitude: latitude!,
+                                            longitude: longitude!, zoom: zoom)
+      if mapView.isHidden {
+         mapView.isHidden = false
+         mapView.camera = camera
+      } else {
+         mapView.animate(to: camera)
+      }
+   }
+   
    // MARK: - Кнопки
    @objc func oneInfoButtonPressed(_ sender: UIButton) {
+      typeChoice()
+      setCameraPosition(latitude: user.latitude, longitude: user.longitude, zoom: zoomLevel)
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                heightPopoverVC: orderOfferIsActive ? 214 : 170)
+                heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
    }
    
    @IBAction func clientButton(_ sender: UIButton) {
       user.type = .client
       typeChoice()
-      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: orderOfferIsActive ? 214 : 170)
+      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
+                heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
    }
    
    @IBAction func workerButton(_ sender: UIButton) {
       user.type = .worker
       typeChoice()
-      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC", heightPopoverVC: orderOfferIsActive ? 214 : 170)
+      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
+                heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
    }
    
    override func didReceiveMemoryWarning() {

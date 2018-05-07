@@ -17,20 +17,15 @@ class InfoTableViewController: UITableViewController {
    @IBOutlet weak var infoAvOrderPriceLabel: UILabel!
    @IBOutlet weak var infoAvOfferPriceLabel: UILabel!
    @IBOutlet weak var infoButtonLabel: UIButton!
-   @IBOutlet weak var infoDeleteButtonLabel: UIButton!
+   @IBOutlet weak var extensionWorkAreaOrDeleteButton: UIButton!
    
    override func viewDidLoad() {
       super.viewDidLoad()
       // получение данных информационного сообщения
-      let searchArea: Double = 10.0
       var clietnsInSearch: UInt = 0, workersInSearch: UInt = 0
       var sumOrdersPrice: UInt = 0, sumOffersPrice: UInt = 0
       for partner in partners {
          // сортировка по значению диапозона поиска
-         let userPosition = CLLocationCoordinate2D(latitude: user.latitude!, longitude: user.longitude!)
-         let partnerPosition = CLLocationCoordinate2D(latitude: partner.value.latitude!,
-                                                      longitude: partner.value.longitude!)
-         partner.value.distance = Double(round(10*GMSGeometryDistance(userPosition, partnerPosition)/1000)/10)
          guard partner.value.distance! < searchArea else { continue }
          switch partner.value.type {
          case .client:
@@ -51,12 +46,14 @@ class InfoTableViewController: UITableViewController {
       if orderOfferIsActive {
          fillButtonLabel(button: infoButtonLabel,
                          forClient: "Редактировать заявку", forWorker: "Редактировать объявление")
-         fillButtonLabel(button: infoDeleteButtonLabel,
+         fillButtonLabel(button: extensionWorkAreaOrDeleteButton,
                          forClient: "Удалить заявку", forWorker: "Удалить объявление")
          return
       } else {
          fillButtonLabel(button: infoButtonLabel,
                          forClient: "Оформить заявку", forWorker: "Разместить объявление")
+         fillButtonLabel(button: extensionWorkAreaOrDeleteButton,
+                         forClient: "Расширить зону поиска", forWorker: "Расширить зону поиска")
          infoAlertIsActive = true
       }
    }
@@ -75,10 +72,17 @@ class InfoTableViewController: UITableViewController {
          popoverVC(currentVC: self, identifierPopoverVC: "OfferTVC", heightPopoverVC: 254)
    }
    
-   //MARK: - Нажатие кнопки удаления Заявки/Объявления
-   @IBAction func infoDeleteButton(_ sender: UIButton) {
-      eraseOrderOffer()
-      self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+   //MARK: - Нажатие кнопки удаления Заявки-Объявления или Расширения зоны поиска
+   @IBAction func extensionWorkAreaOrDeleteButton(_ sender: UIButton) {
+      switch orderOfferIsActive{
+      case true:
+         eraseOrderOffer()
+         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+      case false:
+         searchArea += 10.0
+         zoomLevel -= 1.0
+         dismiss(animated: true, completion: nil)
+      }
    }
    
    override func didReceiveMemoryWarning() {
