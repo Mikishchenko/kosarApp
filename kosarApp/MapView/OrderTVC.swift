@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 // MARK: - Инициализаруем заявку
 var order = Order()
@@ -38,8 +39,21 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       setSwitchPosition(switcher: orderPlantsSwitch, value: user.plants)
       
       orderOfferAlertIsActive = true
+//   }
+//   
+//   override func viewWillAppear(_ animated: Bool) {
+//      super.viewWillAppear(true)
+      // выставляем наблюдателя за нажатием userLocationButton
+      NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
+                                             name: Notification.Name("userLocationButtonPressed"),
+                                             object: user.location)
    }
-   
+   // перезагрузка таблицы
+   @objc func updateTextfield(notification: Notification){
+      orderWorkLocation.text = user.location
+      self.tableView.reloadData()
+   }
+
    // MARK: - Отображение текущего значения текстфилда и назначение делегата
    func setTextFieldValueAndDelegate(textField: UITextField, value: String?) {
       textField.text = value
@@ -99,6 +113,16 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    @IBAction func orderPlantsSwitcher(_ sender: UISwitch) {
       sender.isOn ? (order.plants = true) : (order.plants = false)
       user.plants = order.plants
+   }
+   
+   // MARK: - Присвоение user.location текущего местоположения
+   @IBAction func userLocationButton(_ sender: UIButton) {
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
+                                            longitude: CLLocationDegrees(user.longitude!))
+      reverseGeocodeCoordinate(position)
+      // после нажатия кнопочки надо обновить поле текстфилда
+      NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
+                                      object: user.location)
    }
    
    // MARK: - Подтверждение заявки

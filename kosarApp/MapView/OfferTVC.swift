@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 // MARK: - Инициализаруем объявление
 var offer = Offer()
@@ -36,8 +37,21 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       setSwitchPosition(switcher: offerTransportSwitch, value: user.transport)
       
       orderOfferAlertIsActive = true
+//   }
+//   
+//   override func viewWillAppear(_ animated: Bool) {
+//      super.viewWillAppear(true)
+      // выставляем наблюдателя за нажатием userLocationButton
+      NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
+                                             name: Notification.Name("userLocationButtonPressed"),
+                                             object: user.location)
    }
-   
+   // перезагрузка таблицы
+   @objc func updateTextfield(notification: Notification){
+      offerWorkLocation.text = user.location
+      self.tableView.reloadData()
+   }
+
    // MARK: - Отображение текущего значения текстфилда и назначение делегата
    func setTextFieldValueAndDelegate(textField: UITextField, value: String?) {
       textField.text = value
@@ -97,6 +111,16 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    @IBAction func offerTransportSwitcher(_ sender: UISwitch) {
       sender.isOn ? (offer.transport = true) : (offer.transport = false)
       user.transport = offer.transport
+   }
+   
+   // MARK: - Присвоение user.location текущего местоположения
+   @IBAction func userLocationButton(_ sender: UIButton) {
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
+                                            longitude: CLLocationDegrees(user.longitude!))
+      reverseGeocodeCoordinate(position)
+      // после нажатия кнопочки надо обновить поле текстфилда
+      NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
+                                      object: user.location)
    }
    
    // MARK: Подтверждение оформления объявления

@@ -42,7 +42,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       locationManager.delegate = self
       mapView.delegate = self
       mapView.isMyLocationEnabled = true
-      mapView.settings.myLocationButton = true
+//      mapView.settings.myLocationButton = true
    }
    
    // Handle incoming location events.
@@ -59,6 +59,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       setMapMarker(markerKey: 0, markerIcon: "userAvatar",
                    latitude: user.latitude!, longitude: user.longitude!)
    }
+   
+//   func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
+//      
+//      // Zoom in one zoom level
+//      let zoomCamera = GMSCameraUpdate.zoomIn()
+//      mapView.animate(with: zoomCamera)
+//
+//   }
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
@@ -90,8 +98,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       oneInfoButton.setTitleColor(UIColor.white, for: .normal)
       oneInfoButton.titleLabel?.font = UIFont?(.systemFont(ofSize: 18))
       oneInfoButton.addTarget(self, action: #selector(oneInfoButtonPressed(_:)), for: .touchUpInside)
-      guard infoAlertIsActive == false || orderOfferAlertIsActive == false
-         else { return }
+      guard infoAlertIsActive == false || orderOfferAlertIsActive == false else { return }
       self.view.addSubview(oneInfoButton)
       // отображение остальных объектов на карте
       for partner in partners {
@@ -176,6 +183,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
       // Dispose of any resources that can be recreated.
+   }
+}
+
+// MARK: - Геокодирование (получение адреса по имеющимся координатам)
+public func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
+   let geocoder = GMSGeocoder()
+   geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
+      guard let address = response?.firstResult() , let lines = address.lines else {
+         return
+      }
+      user.location = lines.joined()
+      print(user.location!)
    }
 }
 

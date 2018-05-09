@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import GoogleMaps
 
 // MARK: - Установка первоначальных настроек профиля
 var user = SampleData.generateUserData()
@@ -54,8 +55,17 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
       // назначение уведомления на окончание редактирования в текстфилдах
       NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: userName)
       NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: userInfo)
+      // выставляем наблюдателя за нажатием userLocationButton
+      NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
+                                             name: Notification.Name("userLocationButtonPressed"),
+                                             object: user.location)
    }
-   
+   // перезагрузка таблицы
+   @objc func updateTextfield(notification: Notification){
+      workLocation.text = user.location
+      self.tableView.reloadData()
+   }
+
    // MARK: - Отображение текущего значения текстфилда и назначение делегата
    func setTextFieldValueAndDelegate(textField: UITextField, value: String?) {
       textField.text = value
@@ -127,6 +137,16 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    }
    @IBAction func plantsSwitcher(_ sender: UISwitch) {
       sender.isOn ? (user.plants = true) : (user.plants = false)
+   }
+   
+   // MARK: - Присвоение user.location текущего местоположения
+   @IBAction func userLocationButton(_ sender: UIButton) {
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
+                                            longitude: CLLocationDegrees(user.longitude!))
+      reverseGeocodeCoordinate(position)
+      // после нажатия кнопочки надо обновить поле текстфилда
+      NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
+                                      object: user.location)
    }
    
    // MARK: - Сокрытие некоторых элементов для пользователя Worker
