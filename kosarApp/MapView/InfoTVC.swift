@@ -14,8 +14,7 @@ class InfoTableViewController: UITableViewController {
    @IBOutlet weak var infoWorkAreaLabel: UILabel!
    @IBOutlet weak var infoClientsLabel: UILabel!
    @IBOutlet weak var infoWorkersLabel: UILabel!
-   @IBOutlet weak var infoAvOrderPriceLabel: UILabel!
-   @IBOutlet weak var infoAvOfferPriceLabel: UILabel!
+   @IBOutlet weak var infoAvPriceLabel: UILabel!
    @IBOutlet weak var infoButtonLabel: UIButton!
    @IBOutlet weak var extensionWorkAreaOrDeleteButton: UIButton!
    
@@ -26,7 +25,7 @@ class InfoTableViewController: UITableViewController {
       var sumOrdersPrice: UInt = 0, sumOffersPrice: UInt = 0
       for partner in partners {
          // сортировка по значению диапозона поиска
-         guard partner.value.distance! < searchArea else { continue }
+         guard partner.value.distance! <= searchArea else { continue }
          switch partner.value.type {
          case .client:
             clietnsInSearch += 1
@@ -40,8 +39,10 @@ class InfoTableViewController: UITableViewController {
       infoWorkAreaLabel.text = String(searchArea)
       infoClientsLabel.text = String(clietnsInSearch)
       infoWorkersLabel.text = String(workersInSearch)
-      infoAvOrderPriceLabel.text = String(sumOrdersPrice / clietnsInSearch)
-      infoAvOfferPriceLabel.text = String(sumOffersPrice / workersInSearch)
+      // проверка на нулевые значения clietnsInSearch и workersInSearch
+      (clietnsInSearch == 0 || workersInSearch == 0) ?
+         (infoAvPriceLabel.text = "не известны") :
+         (infoAvPriceLabel.text = String(sumOrdersPrice / clietnsInSearch) + " - " + String(sumOffersPrice / workersInSearch) + " руб/сотка")
       // формирование внешнего вида Информационного сообщения (варианты надписей на кнопках)
       if orderOfferIsActive {
          fillButtonLabel(button: infoButtonLabel,

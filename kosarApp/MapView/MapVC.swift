@@ -42,7 +42,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       locationManager.delegate = self
       mapView.delegate = self
       mapView.isMyLocationEnabled = true
-//      mapView.settings.myLocationButton = true
+      mapView.settings.setAllGesturesEnabled(true)
    }
    
    // Handle incoming location events.
@@ -55,18 +55,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       // настройка камеры для отображения карты
       setCameraPosition(latitude: user.latitude,
                         longitude: user.longitude, zoom: zoomLevel)
+      mapView.clear()
       // отображение Пользователя на карте
       setMapMarker(markerKey: 0, markerIcon: "userAvatar",
                    latitude: user.latitude!, longitude: user.longitude!)
    }
-   
-//   func mapView(_ mapView: GMSMapView, willMove gesture: Bool) {
-//      
-//      // Zoom in one zoom level
-//      let zoomCamera = GMSCameraUpdate.zoomIn()
-//      mapView.animate(with: zoomCamera)
-//
-//   }
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
@@ -110,7 +103,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
                                                       longitude: partner.value.longitude!)
          partner.value.distance = Double(round(10*GMSGeometryDistance(userPosition, partnerPosition)/1000)/10)
          // проверка, не привышает ли дистанция до партнера зоны поиска
-         guard partner.value.distance! < searchArea else { continue }
+         guard partner.value.distance! <= searchArea else { continue }
          setMapMarker(markerKey: partner.key, markerIcon: partner.value.image!,
                       latitude: partner.value.latitude!, longitude: partner.value.longitude!)
       }
