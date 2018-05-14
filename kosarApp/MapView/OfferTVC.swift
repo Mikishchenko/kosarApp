@@ -14,9 +14,9 @@ var offer = Offer()
 
 class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
-   @IBOutlet weak var offerPrice: UITextField!
-   @IBOutlet weak var offerWorkLocation: UITextField!
-   @IBOutlet weak var offerWorkerInfo: UITextField!
+   @IBOutlet weak var priceTextField: UITextField!
+   @IBOutlet weak var locationTextField: UITextField!
+   @IBOutlet weak var infoTextField: UITextField!
    @IBOutlet weak var offerEquipmentSwitch: UISwitch!
    @IBOutlet weak var offerElectricitySwitch: UISwitch!
    @IBOutlet weak var offerTransportSwitch: UISwitch!
@@ -26,56 +26,74 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       super.viewDidLoad()
       
       // текстфилды
-      var offerPriceString: String
-      user.price != nil ? (offerPriceString = "\(user.price!)") : (offerPriceString = "")
-      setTextFieldValueAndDelegate(textField: offerPrice, value: offerPriceString)
-      setTextFieldValueAndDelegate(textField: offerWorkLocation, value: user.location)
-      setTextFieldValueAndDelegate(textField: offerWorkerInfo, value: user.info)
-      // переключатели (функция лежит в SettingsTableController)
-      setSwitchPosition(switcher: offerEquipmentSwitch, value: user.equipment)
-      setSwitchPosition(switcher: offerElectricitySwitch, value: user.electricity)
-      setSwitchPosition(switcher: offerTransportSwitch, value: user.transport)
+      setTextFieldValueAndDelegate(delegate: self, textField: priceTextField, key: "price")
+      setTextFieldValueAndDelegate(delegate: self, textField: locationTextField, key: "location")
+      setTextFieldValueAndDelegate(delegate: self, textField: infoTextField, key: "info")
+      // переключатели
+      setSwitchPosition(switcher: offerEquipmentSwitch, key: "equipment")
+      setSwitchPosition(switcher: offerElectricitySwitch, key: "electricity")
+      setSwitchPosition(switcher: offerTransportSwitch, key: "transport")
       
       orderOfferAlertIsActive = true
-//   }
-//   
-//   override func viewWillAppear(_ animated: Bool) {
-//      super.viewWillAppear(true)
-      // выставляем наблюдателя за нажатием userLocationButton
       NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
                                              name: Notification.Name("userLocationButtonPressed"),
-                                             object: user.location)
+                                             object: nil)
    }
    // перезагрузка таблицы
    @objc func updateTextfield(notification: Notification){
-      offerWorkLocation.text = user.location
       self.tableView.reloadData()
-   }
-
-   // MARK: - Отображение текущего значения текстфилда и назначение делегата
-   func setTextFieldValueAndDelegate(textField: UITextField, value: String?) {
-      textField.text = value
-      textField.delegate = self
    }
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch textField {
-      case offerPrice:
-         offer.price = UInt(offerPrice.text!)
-         offerPrice.resignFirstResponder()
+      case priceTextField:
+         offer.price = UInt(priceTextField.text!)
+         userDefaults.set(offer.price, forKey: "price")
+         user.price = offer.price
+         priceTextField.resignFirstResponder()
          return true
-      case offerWorkLocation:
-         offer.workLocation = offerWorkLocation.text
-         offerWorkLocation.resignFirstResponder()
+      case locationTextField:
+         offer.location = locationTextField.text
+         userDefaults.set(offer.location, forKey: "location")
+         user.location = offer.location
+         locationTextField.resignFirstResponder()
          return true
-      case offerWorkerInfo:
-         offer.workerInfo = offerWorkerInfo.text
-         offerWorkerInfo.resignFirstResponder()
+      case infoTextField:
+         offer.info = infoTextField.text
+         userDefaults.set(offer.info, forKey: "info")
+         user.info = offer.info
+         infoTextField.resignFirstResponder()
          return true
       default:
          return true
       }
+   }
+   
+   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+      switch textField {
+      case priceTextField:
+         offer.price = UInt(priceTextField.text!)
+         userDefaults.set(offer.price, forKey: "price")
+         user.price = offer.price
+         priceTextField.resignFirstResponder()
+         return true
+      case locationTextField:
+         offer.location = locationTextField.text
+         userDefaults.set(offer.location, forKey: "location")
+         user.location = offer.location
+         locationTextField.resignFirstResponder()
+         return true
+      case infoTextField:
+         offer.info = infoTextField.text
+         userDefaults.set(offer.info, forKey: "info")
+         user.info = offer.info
+         infoTextField.resignFirstResponder()
+         return true
+      default:
+         return true
+      }
+
    }
    
    // MARK: - Если хотя бы в одном поле нажать DONE, то сохраняются значения всех полей
@@ -91,26 +109,26 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание значений из текстфилдов
    fileprivate func newData() {
-      offer.price = UInt(offerPrice.text!)
-      offer.workLocation = offerWorkLocation.text
-      offer.workerInfo = offerWorkerInfo.text
+      offer.price = UInt(priceTextField.text!)
+      offer.location = locationTextField.text
+      offer.info = infoTextField.text
       user.price = offer.price
-      user.location = offer.workLocation
-      user.info = offer.workerInfo
+      user.location = offer.location
+      user.info = offer.info
    }
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func offerEquipmentSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (offer.equipment = true) : (offer.equipment = false)
-      user.equipment = offer.equipment
+      offer.equipment = sender.isOn
+      userDefaults.set(offer.equipment, forKey: "equipment")
    }
    @IBAction func offerElectricitySwitcher(_ sender: UISwitch) {
-      sender.isOn ? (offer.electricity = true) : (offer.electricity = false)
-      user.electricity = offer.electricity
+      offer.electricity = sender.isOn
+      userDefaults.set(offer.electricity, forKey: "electricity")
    }
    @IBAction func offerTransportSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (offer.transport = true) : (offer.transport = false)
-      user.transport = offer.transport
+      offer.transport = sender.isOn
+      userDefaults.set(offer.transport, forKey: "transport")
    }
    
    // MARK: - Присвоение user.location текущего местоположения
@@ -119,23 +137,24 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
                                             longitude: CLLocationDegrees(user.longitude!))
       reverseGeocodeCoordinate(position)
       // после нажатия кнопочки надо обновить поле текстфилда
+      locationTextField.text = user.location
       NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
-                                      object: user.location)
+                                      object: nil)
    }
    
    // MARK: Подтверждение оформления объявления
    @IBAction func offerConfirmButton(_ sender: UIButton) {
       newData() // дублируем присваивание на всякий пожарный
       //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
-      offerPrice.resignFirstResponder()
-      offerWorkLocation.resignFirstResponder()
-      offerWorkerInfo.resignFirstResponder()
+      priceTextField.resignFirstResponder()
+      locationTextField.resignFirstResponder()
+      infoTextField.resignFirstResponder()
       
       guard offer.price != nil else {
          warningAlert(emptyField: "Стоимость покоса", currentVC: self)
          return
       }
-      guard offer.workLocation != "" else {
+      guard offer.location != "" else {
          warningAlert(emptyField: "Адрес покоса", currentVC: self)
          return
       }

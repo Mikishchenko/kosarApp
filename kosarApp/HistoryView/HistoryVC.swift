@@ -10,10 +10,10 @@ import UIKit
 
 class HistoryController: UIViewController {
    
-   @IBOutlet weak var userAvatar: UIImageView!
-   @IBOutlet weak var userName: UILabel!
-   @IBOutlet weak var userInfo: UILabel!
-   @IBOutlet weak var userRating: UIImageView!
+   @IBOutlet weak var avatarImage: UIImageView!
+   @IBOutlet weak var nameLabel: UILabel!
+   @IBOutlet weak var infoLabel: UILabel!
+   @IBOutlet weak var ratingImage: UIImageView!
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -21,7 +21,9 @@ class HistoryController: UIViewController {
       
       // MARK: - Наблюдатель за окончанием редактирования текстфилда
       NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
-      
+      guard userHistory.isEmpty == false else {
+         return
+      }
       // MARK: - Проверка на отсутствие рейтинга у контракторов в истории
       for contractor in userHistory {
          if contractor.rating == nil {
@@ -32,7 +34,7 @@ class HistoryController: UIViewController {
    
    // MARK: - Селектор к наблюдателю. Назначает полученные значения на лейблы в хедер
    @objc func textFieldTextDidEndEditing(ncParam: NSNotification) {
-      userNameInfo(userName: userName, userInfo: userInfo)
+      userNameInfo(userName: nameLabel, userInfo: infoLabel)
    }
    
    // NavBar нужно именно здесь вызывать
@@ -43,9 +45,9 @@ class HistoryController: UIViewController {
    
    // MARK: - Наполнение Header данными User
    func userInfoInHeader() {
-      userAvatar.image = UIImage(named: "User avatar")
-      userNameInfo(userName: userName, userInfo: userInfo)
-      userRating.image = UIImage(named: "Rating 4")
+      avatarImage.image = UIImage(named: "User avatar")
+      userNameInfo(userName: nameLabel, userInfo: infoLabel)
+      ratingImage.image = UIImage(named: "Rating 4")
    }
    
    // MARK: - Если у кого-то из контракторов отсутствует рейтинг, уточняем: Выполнена работа или нет?
@@ -117,6 +119,6 @@ class HistoryController: UIViewController {
 
 // MARK: Заполнение имени и краткой информации
 public func userNameInfo(userName: UILabel, userInfo: UILabel) {
-   userName.text = user.name ?? ""
-   userInfo.text = user.info ?? ""
+   userName.text = userDefaults.object(forKey: "name") as? String //user.name ?? ""
+   userInfo.text = userDefaults.object(forKey: "info") as? String //user.info ?? ""
 }

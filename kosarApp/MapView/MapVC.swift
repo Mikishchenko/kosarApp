@@ -32,10 +32,6 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      // сглаживание углов у кнопок
-      buttonItems.forEach { (button) in
-         button.layer.cornerRadius = 12
-      }
       // старт отслеживания геопозиции пользователя, объявление делегатов и MyLocationButton
       locationManager.requestWhenInUseAuthorization()
       locationManager.startUpdatingLocation()
@@ -43,6 +39,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       mapView.delegate = self
       mapView.isMyLocationEnabled = true
       mapView.settings.setAllGesturesEnabled(true)
+      mapView.settings.zoomGestures = true
+      // сглаживание углов у кнопок
+      buttonItems.forEach { (button) in
+         button.layer.cornerRadius = 12
+      }
    }
    
    // Handle incoming location events.
@@ -59,17 +60,14 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       // отображение Пользователя на карте
       setMapMarker(markerKey: 0, markerIcon: "userAvatar",
                    latitude: user.latitude!, longitude: user.longitude!)
+      guard let object = userDefaults.object(forKey: "typeChoiseIsDone") else { return }
+         print("typeChoiseIsDone =\(object)")
+         typeChoice()
    }
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
       // чтобы кнопки не появлялись после совершения выбора типа пользователя
-      typeChoiceIsDone ? (typeChoice()) : (self.navigationController?.navigationBar.isHidden = true)
-   }
-   
-   override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(true)
-      // выключение NavigationBar на текущем ViewController до совершения выбора типа
       typeChoiceIsDone ? (typeChoice()) : (self.navigationController?.navigationBar.isHidden = true)
    }
    
@@ -161,6 +159,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    
    @IBAction func clientButton(_ sender: UIButton) {
       user.type = .client
+      userDefaults.set(0, forKey: "type")
+      userDefaults.set(true, forKey: "typeChoiseIsDone")
       typeChoice()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
@@ -168,6 +168,8 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    
    @IBAction func workerButton(_ sender: UIButton) {
       user.type = .worker
+      userDefaults.set(1, forKey: "type")
+      userDefaults.set(true, forKey: "typeChoiseIsDone")
       typeChoice()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)

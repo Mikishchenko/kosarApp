@@ -12,15 +12,18 @@ import GoogleMaps
 // MARK: - Установка первоначальных настроек профиля
 var user = SampleData.generateUserData()
 
+// место хранения всех значений профиля и настроек
+let userDefaults = UserDefaults.standard
+
 class ProfileTableController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Объекты, которые мы будем отображать
-   @IBOutlet weak var clientWorker: UISegmentedControl!
-   @IBOutlet weak var userPrice: UITextField!
-   @IBOutlet weak var userName: UITextField!
-   @IBOutlet weak var userInfo: UITextField!
-   @IBOutlet weak var workLocation: UITextField!
-   @IBOutlet weak var workArea: UITextField!
+   @IBOutlet weak var clientWorkerSegment: UISegmentedControl!
+   @IBOutlet weak var priceTextField: UITextField!
+   @IBOutlet weak var nameTextField: UITextField!
+   @IBOutlet weak var infoTextField: UITextField!
+   @IBOutlet weak var locationTextField: UITextField!
+   @IBOutlet weak var workAreaTextField: UITextField!
    @IBOutlet weak var electricitySwitch: UISwitch!
    @IBOutlet weak var equipmentSwitch: UISwitch!
    @IBOutlet weak var transportSwitch: UISwitch!
@@ -33,67 +36,64 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
       
       // MARK: - Текущие значения профиля
       
-      // выбор сегмента (смена роли: Заказчик или Исполнитель)
-      user.type == .client ? (clientWorker.selectedSegmentIndex = 0) : (clientWorker.selectedSegmentIndex = 1)
+      // выбор сегмента (отображение текущей роли: Заказчик или Исполнитель)
+      if let type = userDefaults.object(forKey: "type") {
+         clientWorkerSegment.selectedSegmentIndex = type as! Int
+      } else {
+         clientWorkerSegment.selectedSegmentIndex = (user.type == .client ? 0 : 1)
+      }
       // текстфилды
-      setTextFieldValueAndDelegate(textField: userName, value: user.name)
-      setTextFieldValueAndDelegate(textField: userInfo, value: user.info)
-      setTextFieldValueAndDelegate(textField: workLocation, value: user.location)
-      // обработка price и workArea: Int и перевод в String
-      var userWorkPrice: String
-      user.price != nil ? (userWorkPrice = "\(user.price!)") : (userWorkPrice = "")
-      setTextFieldValueAndDelegate(textField: userPrice, value: userWorkPrice)
-      var userWorkArea: String
-      user.workArea != nil ? (userWorkArea = "\(user.workArea!)") : (userWorkArea = "")
-      setTextFieldValueAndDelegate(textField: workArea, value: userWorkArea)
-      // переключатели (функция лежит в SettingsTableController)
-      setSwitchPosition(switcher: electricitySwitch, value: user.electricity)
-      setSwitchPosition(switcher: equipmentSwitch, value: user.equipment)
-      setSwitchPosition(switcher: transportSwitch, value: user.transport)
-      setSwitchPosition(switcher: hardReliefSwitch, value: user.hardRelief)
-      setSwitchPosition(switcher: plantsSwitch, value: user.plants)
+      setTextFieldValueAndDelegate(delegate: self, textField: priceTextField, key: "price")
+      setTextFieldValueAndDelegate(delegate: self, textField: nameTextField, key: "name")
+      setTextFieldValueAndDelegate(delegate: self, textField: infoTextField, key: "info")
+      setTextFieldValueAndDelegate(delegate: self, textField: locationTextField, key: "location")
+      setTextFieldValueAndDelegate(delegate: self, textField: workAreaTextField, key: "workArea")
+      // переключатели
+      setSwitchPosition(switcher: electricitySwitch, key: "electricity")
+      setSwitchPosition(switcher: equipmentSwitch, key: "equipment")
+      setSwitchPosition(switcher: transportSwitch, key: "transport")
+      setSwitchPosition(switcher: hardReliefSwitch, key: "hardRelief")
+      setSwitchPosition(switcher: plantsSwitch, key: "plants")
       // назначение уведомления на окончание редактирования в текстфилдах
-      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: userName)
-      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: userInfo)
+      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nameTextField)
+      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: infoTextField)
       // выставляем наблюдателя за нажатием userLocationButton
       NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
                                              name: Notification.Name("userLocationButtonPressed"),
-                                             object: user.location)
+                                             object: nil)
    }
    // перезагрузка таблицы
    @objc func updateTextfield(notification: Notification){
-      workLocation.text = user.location
       self.tableView.reloadData()
-   }
-
-   // MARK: - Отображение текущего значения текстфилда и назначение делегата
-   func setTextFieldValueAndDelegate(textField: UITextField, value: String?) {
-      textField.text = value
-      textField.delegate = self
    }
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch textField {
-      case workArea:
-         user.price = UInt(userPrice.text!)
-         userPrice.resignFirstResponder()
+      case priceTextField:
+         user.price = UInt(priceTextField.text!)
+         userDefaults.set(user.price, forKey: "price")
+         priceTextField.resignFirstResponder()
          return true
-      case userName:
-         user.name = userName.text
-         userName.resignFirstResponder()
+      case nameTextField:
+         user.name = nameTextField.text
+         userDefaults.set(user.name, forKey: "name")
+         nameTextField.resignFirstResponder()
          return true
-      case userInfo:
-         user.info = userInfo.text
-         userInfo.resignFirstResponder()
+      case infoTextField:
+         user.info = infoTextField.text
+         userDefaults.set(user.info, forKey: "info")
+         infoTextField.resignFirstResponder()
          return true
-      case workLocation:
-         user.location = workLocation.text
-         workLocation.resignFirstResponder()
+      case locationTextField:
+         user.location = locationTextField.text
+         userDefaults.set(user.location, forKey: "location")
+         locationTextField.resignFirstResponder()
          return true
-      case workArea:
-         user.workArea = UInt(workArea.text!)
-         workArea.resignFirstResponder()
+      case workAreaTextField:
+         user.workArea = UInt(workAreaTextField.text!)
+         userDefaults.set(user.workArea, forKey: "workArea")
+         workAreaTextField.resignFirstResponder()
          return true
       default:
          return true
@@ -104,11 +104,11 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
       switch reason {
       case .committed:
-         user.price = UInt(userPrice.text!)
-         user.name = userName.text
-         user.info = userInfo.text
-         user.location = workLocation.text
-         user.workArea = UInt(workArea.text!)
+         user.price = UInt(priceTextField.text!)
+         user.name = nameTextField.text
+         user.info = infoTextField.text
+         user.location = locationTextField.text
+         user.workArea = UInt(workAreaTextField.text!)
          return
       case .cancelled:
          break
@@ -117,26 +117,33 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func clientWorkerSegment(_ sender: UISegmentedControl) {
-      sender.selectedSegmentIndex == 0 ? (user.type = .client) : (user.type = .worker)
+      user.type = (sender.selectedSegmentIndex == 0 ? .client : .worker)
+      userDefaults.set(sender.selectedSegmentIndex, forKey: "type")
+      userDefaults.set(true, forKey: "typeChoiseIsDone")
       // при смене типа пользователя, обнуляем заявки / объявления
       eraseOrderOffer()
       typeChoiceIsDone = true
       tableView.reloadData() // обновление вида профиля после смены типа пользователя
    }
    @IBAction func electricitySwitcher(_ sender: UISwitch) {
-      sender.isOn ? (user.electricity = true) : (user.electricity = false)
+      user.electricity = (sender.isOn ? true : false)
+      userDefaults.set(user.electricity, forKey: "electricity")
    }
    @IBAction func equipmentSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (user.equipment = true) : (user.equipment = false)
+      user.equipment = (sender.isOn ? true : false)
+      userDefaults.set(user.equipment, forKey: "equipment")
    }
    @IBAction func transportSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (user.transport = true) : (user.transport = false)
+      user.transport = (sender.isOn ? true : false)
+      userDefaults.set(user.transport, forKey: "transport")
    }
    @IBAction func hardReliefSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (user.hardRelief = true) : (user.hardRelief = false)
+      user.hardRelief = (sender.isOn ? true : false)
+      userDefaults.set(user.hardRelief, forKey: "hardRelief")
    }
    @IBAction func plantsSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (user.plants = true) : (user.plants = false)
+      user.plants = (sender.isOn ? true : false)
+      userDefaults.set(user.plants, forKey: "plants")
    }
    
    // MARK: - Присвоение user.location текущего местоположения
@@ -145,8 +152,9 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
                                             longitude: CLLocationDegrees(user.longitude!))
       reverseGeocodeCoordinate(position)
       // после нажатия кнопочки надо обновить поле текстфилда
+      locationTextField.text = user.location
       NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
-                                      object: user.location)
+                                      object: nil)
    }
    
    // MARK: - Сокрытие некоторых элементов для пользователя Worker
@@ -161,5 +169,15 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    //MARK: - Переполнение памяти
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
+   }
+}
+
+// MARK: - Отображение текущего значения текстфилда и назначение делегата
+public func setTextFieldValueAndDelegate(delegate: UITableViewController, textField: UITextField, key: String) {
+   textField.delegate = delegate as? UITextFieldDelegate
+   if let object = userDefaults.object(forKey: key){
+      textField.text = "\(object)"
+   } else {
+      textField.text = ""
    }
 }

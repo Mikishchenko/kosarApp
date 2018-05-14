@@ -11,20 +11,20 @@ import UIKit
 class HistoryCell: UITableViewCell {
    
    // MARK: - IBOutlets
-   @IBOutlet weak var photo: UIImageView!
+   @IBOutlet weak var photoImage: UIImageView!
    @IBOutlet weak var dateLabel: UILabel!
    @IBOutlet weak var nameLabel: UILabel!
-   @IBOutlet weak var rating: UIImageView!
+   @IBOutlet weak var ratingImage: UIImageView!
    
    // MARK: - Properties
    var contractor: Contractor? {
       didSet {
          guard let contractor = contractor else { return }
          
-         photo.image = UIImage(named: contractor.photo)
+         photoImage.image = UIImage(named: contractor.photo)
          dateLabel.text = contractor.date.to(format: "dd.MM.yyyy")
          nameLabel.text = contractor.name
-         rating.image = UIImage(named: contractor.rating ?? "Rating 0")
+         ratingImage.image = UIImage(named: contractor.rating ?? "Rating 0")
       }
    }
    

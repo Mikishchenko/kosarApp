@@ -11,11 +11,11 @@ import GoogleMaps
 
 class ContactorInfoTableViewController: UITableViewController {
 
-   @IBOutlet weak var contractorPrice: UILabel!
-   @IBOutlet weak var contractorDistance: UILabel!
-   @IBOutlet weak var contractorName: UILabel!
-   @IBOutlet weak var contractorRating: UIImageView!
-   @IBOutlet weak var contractorConditions: UILabel!
+   @IBOutlet weak var priceLabel: UILabel!
+   @IBOutlet weak var distanceLabel: UILabel!
+   @IBOutlet weak var nameLabel: UILabel!
+   @IBOutlet weak var ratingImage: UIImageView!
+   @IBOutlet weak var conditionsLabel: UILabel!
    
    let currentPartner = partners[partnerID ?? 0]
    
@@ -43,11 +43,11 @@ class ContactorInfoTableViewController: UITableViewController {
    
    // MARK: - Имея userID текущего партнера, отображаем его параметры
    func setCurrentPartnersParameters() {
-      contractorPrice.text = String(describing: currentPartner?.price! ?? 0)
-      contractorDistance.text = String(describing: currentPartner?.distance! ?? 0.0)
-      contractorName.text = currentPartner?.name
-      contractorRating.image = UIImage(named: (currentPartner?.rating!)!)
-      contractorConditions.text = setConditions(currentPartner: currentPartner!)
+      priceLabel.text = String(describing: currentPartner?.price! ?? 0)
+      distanceLabel.text = String(describing: currentPartner?.distance! ?? 0.0)
+      nameLabel.text = currentPartner?.name
+      ratingImage.image = UIImage(named: (currentPartner?.rating!)!)
+      conditionsLabel.text = setConditions(currentPartner: currentPartner!)
    }
 }
 
@@ -67,6 +67,7 @@ func setConditions(currentPartner: Partner) -> String {
 func addContractorInUserHistory (id: userID, name: String, photo: String) {
    let contractor = Contractor(photo: photo, name: name, date: Date(timeIntervalSinceNow: 0), rating: nil, iD: id)
    userHistory.append(contractor)
+//   userDefaults.set(userHistory, forKey: "userHistory")
    print(contractor.date)
 }
 

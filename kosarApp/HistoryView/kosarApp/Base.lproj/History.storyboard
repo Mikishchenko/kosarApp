@@ -99,10 +99,10 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <outlet property="userAvatar" destination="teG-fm-xQ1" id="Yfm-Ht-an4"/>
-                        <outlet property="userInfo" destination="NuJ-5M-DDi" id="01Q-pG-6Wu"/>
-                        <outlet property="userName" destination="ZXq-nK-cGp" id="72R-Ie-Wgf"/>
-                        <outlet property="userRating" destination="UL6-nu-fY4" id="fLW-pc-y0z"/>
+                        <outlet property="avatarImage" destination="teG-fm-xQ1" id="Yfm-Ht-an4"/>
+                        <outlet property="infoLabel" destination="NuJ-5M-DDi" id="01Q-pG-6Wu"/>
+                        <outlet property="nameLabel" destination="ZXq-nK-cGp" id="72R-Ie-Wgf"/>
+                        <outlet property="ratingImage" destination="UL6-nu-fY4" id="fLW-pc-y0z"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Pt-iu-pK4" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -188,8 +188,8 @@
                                 <connections>
                                     <outlet property="dateLabel" destination="aNE-JC-1L9" id="YQZ-Vh-zXd"/>
                                     <outlet property="nameLabel" destination="mfm-85-A10" id="khI-lo-gEE"/>
-                                    <outlet property="photo" destination="ENN-oQ-ION" id="wqh-Ta-mdn"/>
-                                    <outlet property="rating" destination="Qyn-hX-Dev" id="vA9-Hp-MJ5"/>
+                                    <outlet property="photoImage" destination="ENN-oQ-ION" id="wqh-Ta-mdn"/>
+                                    <outlet property="ratingImage" destination="Qyn-hX-Dev" id="vA9-Hp-MJ5"/>
                                 </connections>
                             </tableViewCell>
                         </prototypes>

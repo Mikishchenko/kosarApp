@@ -14,66 +14,54 @@ var order = Order()
 
 class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
-   @IBOutlet weak var orderPrice: UITextField!
-   @IBOutlet weak var orderWorkLocation: UITextField!
-   @IBOutlet weak var orderWorkArea: UITextField!
+   @IBOutlet weak var priceTextField: UITextField!
+   @IBOutlet weak var locationTextField: UITextField!
+   @IBOutlet weak var workAreaTextField: UITextField!
    @IBOutlet weak var orderElectricitySwitch: UISwitch!
    @IBOutlet weak var orderHardReliefSwitch: UISwitch!
    @IBOutlet weak var orderPlantsSwitch: UISwitch!
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
       // текстфилды
-      var orderPriceString: String
-      user.price != nil ? (orderPriceString = "\(user.price!)") : (orderPriceString = "")
-      setTextFieldValueAndDelegate(textField: orderPrice, value: orderPriceString)
-      setTextFieldValueAndDelegate(textField: orderWorkLocation, value: user.location)
-      var orderWorkAreaString: String
-      user.workArea != nil ? (orderWorkAreaString = "\(user.workArea!)") : (orderWorkAreaString = "")
-      setTextFieldValueAndDelegate(textField: orderWorkArea, value: orderWorkAreaString)
-      
-      // переключатели (функция лежит в SettingsTableController)
-      setSwitchPosition(switcher: orderElectricitySwitch, value: user.electricity)
-      setSwitchPosition(switcher: orderHardReliefSwitch, value: user.hardRelief)
-      setSwitchPosition(switcher: orderPlantsSwitch, value: user.plants)
+      setTextFieldValueAndDelegate(delegate: self, textField: priceTextField, key: "price")
+      setTextFieldValueAndDelegate(delegate: self, textField: locationTextField, key: "location")
+      setTextFieldValueAndDelegate(delegate: self, textField: workAreaTextField, key: "workArea")
+      // переключатели
+      setSwitchPosition(switcher: orderElectricitySwitch, key: "electricity")
+      setSwitchPosition(switcher: orderHardReliefSwitch, key: "hardRelief")
+      setSwitchPosition(switcher: orderPlantsSwitch, key: "plants")
       
       orderOfferAlertIsActive = true
-//   }
-//   
-//   override func viewWillAppear(_ animated: Bool) {
-//      super.viewWillAppear(true)
-      // выставляем наблюдателя за нажатием userLocationButton
       NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
                                              name: Notification.Name("userLocationButtonPressed"),
-                                             object: user.location)
+                                             object: nil)
    }
    // перезагрузка таблицы
    @objc func updateTextfield(notification: Notification){
-      orderWorkLocation.text = user.location
       self.tableView.reloadData()
-   }
-
-   // MARK: - Отображение текущего значения текстфилда и назначение делегата
-   func setTextFieldValueAndDelegate(textField: UITextField, value: String?) {
-      textField.text = value
-      textField.delegate = self
    }
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch textField {
-      case orderPrice:
-         order.price = UInt(orderPrice.text!)
-         orderPrice.resignFirstResponder()
+      case priceTextField:
+         order.price = UInt(priceTextField.text!)
+         userDefaults.set(order.price, forKey: "price")
+         user.price = order.price
+         priceTextField.resignFirstResponder()
          return true
-      case orderWorkLocation:
-         order.workLocation = orderWorkLocation.text
-         orderWorkLocation.resignFirstResponder()
+      case locationTextField:
+         order.location = locationTextField.text
+         userDefaults.set(order.location, forKey: "location")
+         user.location = order.location
+         locationTextField.resignFirstResponder()
          return true
-      case orderWorkArea:
-         order.workArea = UInt(orderWorkArea.text!)
-         orderWorkArea.resignFirstResponder()
+      case workAreaTextField:
+         order.workArea = UInt(workAreaTextField.text!)
+         userDefaults.set(order.workArea, forKey: "workArea")
+         user.workArea = order.workArea
+         workAreaTextField.resignFirstResponder()
          return true
       default:
          return true
@@ -93,26 +81,26 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание значений из текстфилдов
    fileprivate func newData() {
-      order.price = UInt(orderPrice.text!)
-      order.workLocation = orderWorkLocation.text
-      order.workArea = UInt(orderWorkArea.text!)
+      order.price = UInt(priceTextField.text!)
+      order.location = locationTextField.text
+      order.workArea = UInt(workAreaTextField.text!)
       user.price = order.price
-      user.location = order.workLocation
+      user.location = order.location
       user.workArea = order.workArea
    }
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func orderElectricitySwitcher(_ sender: UISwitch) {
-      sender.isOn ? (order.electricity = true) : (order.electricity = false)
-      user.electricity = order.electricity
+      order.electricity = sender.isOn
+      userDefaults.set(order.electricity, forKey: "electricity")
    }
    @IBAction func orderHardReliefSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (order.hardRelief = true) : (order.hardRelief = false)
-      user.hardRelief = order.hardRelief
+      order.hardRelief = sender.isOn
+      userDefaults.set(order.hardRelief, forKey: "hardRelief")
    }
    @IBAction func orderPlantsSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (order.plants = true) : (order.plants = false)
-      user.plants = order.plants
+      order.plants = sender.isOn
+      userDefaults.set(order.plants, forKey: "plants")
    }
    
    // MARK: - Присвоение user.location текущего местоположения
@@ -121,23 +109,24 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
                                             longitude: CLLocationDegrees(user.longitude!))
       reverseGeocodeCoordinate(position)
       // после нажатия кнопочки надо обновить поле текстфилда
+      locationTextField.text = user.location
       NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
-                                      object: user.location)
+                                      object: nil)
    }
    
    // MARK: - Подтверждение заявки
    @IBAction func orderConfirmButton(_ sender: UIButton) {
       newData() // дублируем присваивание на всякий пожарный
       //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
-      orderPrice.resignFirstResponder()
-      orderWorkLocation.resignFirstResponder()
-      orderWorkArea.resignFirstResponder()
+      priceTextField.resignFirstResponder()
+      locationTextField.resignFirstResponder()
+      workAreaTextField.resignFirstResponder()
       
       guard order.price != nil else {
          warningAlert(emptyField: "Стоимость покоса", currentVC: self)
          return
       }
-      guard order.workLocation != "" else {
+      guard order.location != "" else {
          warningAlert(emptyField: "Адрес покоса", currentVC: self)
          return
       }

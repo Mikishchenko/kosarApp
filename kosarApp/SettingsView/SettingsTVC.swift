@@ -20,38 +20,59 @@ class SettingsTableController: UITableViewController {
    @IBOutlet weak var phoneSwitch: UISwitch!
    @IBOutlet weak var messagesSwitch: UISwitch!
    @IBOutlet weak var microphoneSwitch: UISwitch!
+   @IBOutlet weak var resetUserDefaultsData: UIButton!
    
    // MARK: - Отображение:
    override func viewDidLoad() {
       super.viewDidLoad()
-
+      resetUserDefaultsData.layer.cornerRadius = 12
       // MARK: - Текущие значения настроек
-      setSwitchPosition(switcher: geopositionSwitch, value: settings.geoposition)
-      setSwitchPosition(switcher: photosSwitch, value: settings.photos)
-      setSwitchPosition(switcher: cameraSwitch, value: settings.camera)
-      setSwitchPosition(switcher: phoneSwitch, value: settings.phone)
-      setSwitchPosition(switcher: messagesSwitch, value: settings.messages)
-      setSwitchPosition(switcher: microphoneSwitch, value: settings.microphone)
+      setSwitchPosition(switcher: geopositionSwitch, key: "geoposition")
+      setSwitchPosition(switcher: photosSwitch, key: "photos")
+      setSwitchPosition(switcher: cameraSwitch, key: "camera")
+      setSwitchPosition(switcher: phoneSwitch, key: "phone")
+      setSwitchPosition(switcher: messagesSwitch, key: "messages")
+      setSwitchPosition(switcher: microphoneSwitch, key: "microphone")
    }
    
    // MARK: - Присваивание новых значений при переключении переключателей
    @IBAction func geoposition(_ sender: UISwitch) {
-      sender.isOn ? (settings.geoposition = true) : (settings.geoposition = false)
+      settings.geoposition = sender.isOn
+      userDefaults.set(settings.geoposition, forKey: "geoposition")
+//      sender.isOn ? (settings.geoposition = true) : (settings.geoposition = false)
    }
    @IBAction func photos(_ sender: UISwitch) {
-      sender.isOn ? (settings.photos = true) : (settings.photos = false)
+      settings.photos = sender.isOn
+      userDefaults.set(settings.photos, forKey: "photos")
+//      sender.isOn ? (settings.photos = true) : (settings.photos = false)
    }
    @IBAction func camera(_ sender: UISwitch) {
-      sender.isOn ? (settings.camera = true) : (settings.camera = false)
+      settings.camera = sender.isOn
+      userDefaults.set(settings.camera, forKey: "camera")
+//      sender.isOn ? (settings.camera = true) : (settings.camera = false)
    }
    @IBAction func phone(_ sender: UISwitch) {
-      sender.isOn ? (settings.phone = true) : (settings.phone = false)
+      settings.phone = sender.isOn
+      userDefaults.set(settings.phone, forKey: "phone")
+//      sender.isOn ? (settings.phone = true) : (settings.phone = false)
    }
    @IBAction func messages(_ sender: UISwitch) {
-      sender.isOn ? (settings.messages = true) : (settings.messages = false)
+      settings.messages = sender.isOn
+      userDefaults.set(settings.messages, forKey: "messages")
+//      sender.isOn ? (settings.messages = true) : (settings.messages = false)
    }
    @IBAction func microphone(_ sender: UISwitch) {
-      sender.isOn ? (settings.microphone = true) : (settings.microphone = false)
+      settings.microphone = sender.isOn
+      userDefaults.set(settings.microphone, forKey: "microphone")
+//      sender.isOn ? (settings.microphone = true) : (settings.microphone = false)
+   }
+   
+   @IBAction func resetUserDefaultsData(_ sender: UIButton) {
+      let defaults = UserDefaults.standard
+      let dictionary = defaults.dictionaryRepresentation()
+      dictionary.keys.forEach { key in
+         defaults.removeObject(forKey: key)
+      }
    }
    
    //MARK: - Переполнение памяти
@@ -61,6 +82,9 @@ class SettingsTableController: UITableViewController {
 }
 
 //MARK: - Показывает текущее значение переключателя
-public func setSwitchPosition(switcher: UISwitch, value: Bool?) {
-   value == true ? switcher.setOn(true, animated: false) : switcher.setOn(false, animated: false)
+public func setSwitchPosition(switcher: UISwitch, key: String) {
+   if let object = userDefaults.object(forKey: key) as? Bool {
+      switcher.setOn(object, animated: false)
+   }
+//   value == true ? switcher.setOn(true, animated: false) : switcher.setOn(false, animated: false)
 }

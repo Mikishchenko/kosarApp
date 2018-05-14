@@ -24,7 +24,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="248"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gHb-lb-lwF">
-                                <rect key="frame" x="133" y="72" width="108" height="108"/>
+                                <rect key="frame" x="133.5" y="72" width="108" height="108"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="gHb-lb-lwF" secondAttribute="height" multiplier="1:1" id="1PF-PK-u5e"/>
                                     <constraint firstAttribute="width" constant="108" id="m4m-aW-Zq7"/>
@@ -49,7 +49,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="zRG-Tj-ofA">
-                                <rect key="frame" x="133" y="220" width="108" height="20"/>
+                                <rect key="frame" x="133.5" y="220" width="108" height="20"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="20" id="bhH-PT-0x1"/>
                                 </constraints>
@@ -98,10 +98,10 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="userAvatar" destination="gHb-lb-lwF" id="VxQ-lX-Cpu"/>
-                        <outlet property="userInfo" destination="XKV-Un-cEd" id="dcs-Kz-dy1"/>
-                        <outlet property="userName" destination="qnz-1f-wnT" id="Le8-NN-QyJ"/>
-                        <outlet property="userRating" destination="zRG-Tj-ofA" id="PPR-yd-qnT"/>
+                        <outlet property="avatarImage" destination="gHb-lb-lwF" id="VxQ-lX-Cpu"/>
+                        <outlet property="infoLabel" destination="XKV-Un-cEd" id="dcs-Kz-dy1"/>
+                        <outlet property="nameLabel" destination="qnz-1f-wnT" id="Le8-NN-QyJ"/>
+                        <outlet property="ratingImage" destination="zRG-Tj-ofA" id="PPR-yd-qnT"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GUH-Tk-30I" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -493,17 +493,17 @@
                         </connections>
                     </tableView>
                     <connections>
-                        <outlet property="clientWorker" destination="IyW-8C-QuC" id="kl5-Nv-fad"/>
+                        <outlet property="clientWorkerSegment" destination="IyW-8C-QuC" id="kl5-Nv-fad"/>
                         <outlet property="electricitySwitch" destination="wR7-s3-RPs" id="kuB-ek-IaK"/>
                         <outlet property="equipmentSwitch" destination="OhC-ZH-eOh" id="L0a-74-T2E"/>
                         <outlet property="hardReliefSwitch" destination="UlA-MV-mV9" id="x7H-cT-ajT"/>
+                        <outlet property="infoTextField" destination="uAZ-DI-HPf" id="Dhf-rx-3jL"/>
+                        <outlet property="locationTextField" destination="CiE-Bq-kwk" id="LJT-3m-WKe"/>
+                        <outlet property="nameTextField" destination="rrJ-JU-X6L" id="x3L-aL-Ve0"/>
                         <outlet property="plantsSwitch" destination="NwL-yF-MV1" id="Nff-kI-Ffa"/>
+                        <outlet property="priceTextField" destination="zhL-Nd-aFX" id="yDT-dE-rXY"/>
                         <outlet property="transportSwitch" destination="1xs-Go-DyV" id="yBU-Fj-Tav"/>
-                        <outlet property="userInfo" destination="uAZ-DI-HPf" id="Dhf-rx-3jL"/>
-                        <outlet property="userName" destination="rrJ-JU-X6L" id="x3L-aL-Ve0"/>
-                        <outlet property="userPrice" destination="zhL-Nd-aFX" id="yDT-dE-rXY"/>
-                        <outlet property="workArea" destination="u2X-Am-wBo" id="Sd2-Js-afS"/>
-                        <outlet property="workLocation" destination="CiE-Bq-kwk" id="LJT-3m-WKe"/>
+                        <outlet property="workAreaTextField" destination="u2X-Am-wBo" id="Sd2-Js-afS"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qyx-oi-DKa" userLabel="First Responder" sceneMemberID="firstResponder"/>

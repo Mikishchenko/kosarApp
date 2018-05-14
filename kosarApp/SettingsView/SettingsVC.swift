@@ -10,10 +10,10 @@ import UIKit
 
 class SettingsController: UIViewController {
    
-   @IBOutlet weak var userAvatar: UIImageView!
-   @IBOutlet weak var userName: UILabel!
-   @IBOutlet weak var userInfo: UILabel!
-   @IBOutlet weak var userRating: UIImageView!
+   @IBOutlet weak var avatarImage: UIImageView!
+   @IBOutlet weak var nameLabel: UILabel!
+   @IBOutlet weak var infoLabel: UILabel!
+   @IBOutlet weak var ratingImage: UIImageView!
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -25,7 +25,7 @@ class SettingsController: UIViewController {
    
    // селектор к наблюдателю. Назначает полученные значения на лейблы в хедер
    @objc func textFieldTextDidEndEditing(ncParam: NSNotification) {
-      userNameInfo(userName: userName, userInfo: userInfo)
+      userNameInfo(userName: nameLabel, userInfo: infoLabel)
    }
 
    override func viewDidAppear(_ animated: Bool) {
@@ -34,9 +34,9 @@ class SettingsController: UIViewController {
    }
    // MARK: - наполнение Header данными User
    func userInfoInHeader() {
-      userAvatar.image = UIImage(named: "User avatar")
-      userNameInfo(userName: userName, userInfo: userInfo)
-      userRating.image = UIImage(named: "Rating 4")
+      avatarImage.image = UIImage(named: "User avatar")
+      userNameInfo(userName: nameLabel, userInfo: infoLabel)
+      ratingImage.image = UIImage(named: "Rating 4")
    }
    
    // MARK: - Переполнение памяти

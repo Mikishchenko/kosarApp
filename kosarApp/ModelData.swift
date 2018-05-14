@@ -136,7 +136,7 @@ class Contractor {
 
 class Order {
    var price: UInt?
-   var workLocation: String?
+   var location: String?
    var workArea: UInt?
    var electricity: Bool?
    var hardRelief: Bool?
@@ -146,8 +146,8 @@ class Order {
 
 class Offer {
    var price: UInt?
-   var workLocation: String?
-   var workerInfo: String?
+   var location: String?
+   var info: String?
    var equipment: Bool?
    var electricity: Bool?
    var transport: Bool?

@@ -491,12 +491,12 @@
                     </tableView>
                     <size key="freeformSize" width="343" height="254"/>
                     <connections>
+                        <outlet property="locationTextField" destination="uJB-g5-8xu" id="WSJ-rI-yeQ"/>
                         <outlet property="orderElectricitySwitch" destination="rdf-2O-gsu" id="h1b-FC-8Sa"/>
                         <outlet property="orderHardReliefSwitch" destination="6jB-za-yeX" id="BwL-lq-FIw"/>
                         <outlet property="orderPlantsSwitch" destination="LW7-XL-vn1" id="87U-yP-8fp"/>
-                        <outlet property="orderPrice" destination="VV6-5i-ooU" id="s5R-1f-WZq"/>
-                        <outlet property="orderWorkArea" destination="vC1-km-d2I" id="YsT-S1-NTg"/>
-                        <outlet property="orderWorkLocation" destination="uJB-g5-8xu" id="WSJ-rI-yeQ"/>
+                        <outlet property="priceTextField" destination="VV6-5i-ooU" id="s5R-1f-WZq"/>
+                        <outlet property="workAreaTextField" destination="vC1-km-d2I" id="YsT-S1-NTg"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="6OI-RY-qYM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -661,7 +661,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="splashButton" destination="AoS-wt-Hgz" id="Ush-u0-R3G"/>
-                        <outlet property="splashScreen" destination="3LG-tD-Jrz" id="gfg-Rc-auO"/>
+                        <outlet property="splashScreenImage" destination="3LG-tD-Jrz" id="gfg-Rc-auO"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="GoZ-g4-p31" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -859,11 +859,11 @@
                     </tableView>
                     <size key="freeformSize" width="343" height="132"/>
                     <connections>
-                        <outlet property="contractorConditions" destination="j2z-CD-yKg" id="MIu-UQ-UUl"/>
-                        <outlet property="contractorDistance" destination="Bua-me-taA" id="hOJ-LS-K7M"/>
-                        <outlet property="contractorName" destination="U9w-Wa-jSL" id="eL8-wg-4v5"/>
-                        <outlet property="contractorPrice" destination="vtn-7L-tVY" id="Kdl-r4-JCA"/>
-                        <outlet property="contractorRating" destination="4d1-ig-VGD" id="SDw-7q-M8Z"/>
+                        <outlet property="conditionsLabel" destination="j2z-CD-yKg" id="MIu-UQ-UUl"/>
+                        <outlet property="distanceLabel" destination="Bua-me-taA" id="hOJ-LS-K7M"/>
+                        <outlet property="nameLabel" destination="U9w-Wa-jSL" id="eL8-wg-4v5"/>
+                        <outlet property="priceLabel" destination="vtn-7L-tVY" id="Kdl-r4-JCA"/>
+                        <outlet property="ratingImage" destination="4d1-ig-VGD" id="SDw-7q-M8Z"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="2Se-gD-h8Q" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1211,12 +1211,12 @@
                     </tableView>
                     <size key="freeformSize" width="343" height="254"/>
                     <connections>
+                        <outlet property="infoTextField" destination="IDD-eA-Hw2" id="pvQ-v0-LxH"/>
+                        <outlet property="locationTextField" destination="xEb-VN-2FF" id="7Kd-hl-yhx"/>
                         <outlet property="offerElectricitySwitch" destination="99M-29-0so" id="ONL-bu-ZJA"/>
                         <outlet property="offerEquipmentSwitch" destination="mWf-R1-DdD" id="DXo-xf-ba2"/>
-                        <outlet property="offerPrice" destination="kvx-zD-RAt" id="aGO-34-mKN"/>
                         <outlet property="offerTransportSwitch" destination="tgN-0t-nWT" id="R2Z-w6-JWR"/>
-                        <outlet property="offerWorkLocation" destination="xEb-VN-2FF" id="7Kd-hl-yhx"/>
-                        <outlet property="offerWorkerInfo" destination="IDD-eA-Hw2" id="pvQ-v0-LxH"/>
+                        <outlet property="priceTextField" destination="kvx-zD-RAt" id="aGO-34-mKN"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="MeZ-LG-wiX" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -1427,13 +1427,13 @@
                     </tableView>
                     <size key="freeformSize" width="343" height="236"/>
                     <connections>
-                        <outlet property="contractorConditions" destination="cXW-3f-EOq" id="Y3L-GT-915"/>
-                        <outlet property="contractorDistance" destination="PcB-bp-geF" id="XO9-OY-zo6"/>
-                        <outlet property="contractorImage" destination="Ccc-cP-goe" id="5cc-7Y-8gh"/>
-                        <outlet property="contractorInfo" destination="FUx-B6-SNy" id="bRj-BM-iVI"/>
-                        <outlet property="contractorName" destination="7NI-CF-bHz" id="vEM-i8-pdO"/>
-                        <outlet property="contractorPrice" destination="Qob-bW-vLb" id="Vhg-3z-b6A"/>
-                        <outlet property="contractorRating" destination="akL-Lp-VPF" id="bBZ-AO-EUG"/>
+                        <outlet property="conditionsLabel" destination="cXW-3f-EOq" id="Y3L-GT-915"/>
+                        <outlet property="distanceLabel" destination="PcB-bp-geF" id="XO9-OY-zo6"/>
+                        <outlet property="infoLabel" destination="FUx-B6-SNy" id="bRj-BM-iVI"/>
+                        <outlet property="nameLabel" destination="7NI-CF-bHz" id="vEM-i8-pdO"/>
+                        <outlet property="photoImage" destination="Ccc-cP-goe" id="5cc-7Y-8gh"/>
+                        <outlet property="priceLabel" destination="Qob-bW-vLb" id="Vhg-3z-b6A"/>
+                        <outlet property="ratingImage" destination="akL-Lp-VPF" id="bBZ-AO-EUG"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="xDF-YH-8cB" userLabel="First Responder" sceneMemberID="firstResponder"/>

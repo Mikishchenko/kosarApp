@@ -9,7 +9,7 @@
 import UIKit
 
 // MARK: - Установка первоначальных данных истории
-var userHistory = SampleData.generateUserHistoryData()
+var userHistory = [Contractor]()
 
 class HistoryTableController: UITableViewController {
    
@@ -30,6 +30,7 @@ class HistoryTableController: UITableViewController {
    
    // MARK: - Устанавливает количество записей в истории
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+      guard userHistory.isEmpty == false  else { return 0 }
       return userHistory.count
    }
    
@@ -46,7 +47,6 @@ class HistoryTableController: UITableViewController {
    // MARK: - Позволяет удалять записи из истории смахиванием влево
    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete {
-         print("Deleted")
          userHistory.remove(at: indexPath.row)
          self.tableView.deleteRows(at: [indexPath], with: .automatic)
       }

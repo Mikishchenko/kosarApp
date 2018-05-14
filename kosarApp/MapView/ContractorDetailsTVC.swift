@@ -11,13 +11,13 @@ import GoogleMaps
 
 class ContractorDetailsTVC: UITableViewController {
    
-   @IBOutlet weak var contractorImage: UIImageView!
-   @IBOutlet weak var contractorPrice: UILabel!
-   @IBOutlet weak var contractorName: UILabel!
-   @IBOutlet weak var contractorRating: UIImageView!
-   @IBOutlet weak var contractorDistance: UILabel!
-   @IBOutlet weak var contractorInfo: UILabel!
-   @IBOutlet weak var contractorConditions: UILabel!
+   @IBOutlet weak var photoImage: UIImageView!
+   @IBOutlet weak var priceLabel: UILabel!
+   @IBOutlet weak var nameLabel: UILabel!
+   @IBOutlet weak var ratingImage: UIImageView!
+   @IBOutlet weak var distanceLabel: UILabel!
+   @IBOutlet weak var infoLabel: UILabel!
+   @IBOutlet weak var conditionsLabel: UILabel!
    
    let currentPartner = partners[partnerID ?? 0]
    
@@ -48,13 +48,13 @@ class ContractorDetailsTVC: UITableViewController {
    
    // MARK: - Имея userID текущего партнера, отображаем его параметры
    fileprivate func setCurrentPartnersParameters() {
-      contractorImage.image = UIImage(named: (currentPartner?.image!)!)
-      contractorPrice.text = String(describing: currentPartner?.price! ?? 0)
-      contractorName.text = currentPartner?.name
-      contractorRating.image = UIImage(named: (currentPartner?.rating!)!)
-      contractorDistance.text = String(describing: currentPartner?.distance! ?? 0.0)
-      contractorInfo.text = currentPartner?.info
-      contractorConditions.text = (setConditions(currentPartner: currentPartner!))
+      photoImage.image = UIImage(named: (currentPartner?.image!)!)
+      priceLabel.text = String(describing: currentPartner?.price! ?? 0)
+      nameLabel.text = currentPartner?.name
+      ratingImage.image = UIImage(named: (currentPartner?.rating!)!)
+      distanceLabel.text = String(describing: currentPartner?.distance! ?? 0.0)
+      infoLabel.text = currentPartner?.info
+      conditionsLabel.text = (setConditions(currentPartner: currentPartner!))
    }
    
    override func didReceiveMemoryWarning() {
