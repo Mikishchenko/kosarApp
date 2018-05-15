@@ -96,6 +96,7 @@ class HistoryController: UIViewController {
       alert.addAction(alertAction5)
       
       self.present(alert, animated: true, completion: nil)
+      
    }
    
    // MARK: - Присвоение рейтинга и установка наблюдателя
