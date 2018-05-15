@@ -117,22 +117,22 @@ class UserSettings {
    }
 }
 
-class Contractor {
-   // MARK: Properties for UserHistory
-   var photo: String
-   var name: String
-   var date: Date
-   var rating: String?
-   var iD: userID
-   // Initializer for UserHistory
-   init(photo: String, name: String, date: Date, rating: String?, iD: userID) {
-      self.photo = photo
-      self.name = name
-      self.date = date
-      self.rating = rating
-      self.iD = iD
-   }
-}
+//class Contractor {
+//   // MARK: Properties for UserHistory
+//   var photo: String
+//   var name: String
+//   var date: Date
+//   var rating: String?
+//   var iD: userID
+//   // Initializer for UserHistory
+//   init(photo: String, name: String, date: Date, rating: String?, iD: userID) {
+//      self.photo = photo
+//      self.name = name
+//      self.date = date
+//      self.rating = rating
+//      self.iD = iD
+//   }
+//}
 
 class Order {
    var price: UInt?

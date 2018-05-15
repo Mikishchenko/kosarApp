@@ -21,8 +21,8 @@ class HistoryCell: UITableViewCell {
       didSet {
          guard let contractor = contractor else { return }
          
-         photoImage.image = UIImage(named: contractor.photo)
-         dateLabel.text = contractor.date.to(format: "dd.MM.yyyy")
+         photoImage.image = UIImage(named: contractor.photo!)
+         dateLabel.text = contractor.date?.to(format: "dd.MM.yyyy")
          nameLabel.text = contractor.name
          ratingImage.image = UIImage(named: contractor.rating ?? "Rating 0")
       }

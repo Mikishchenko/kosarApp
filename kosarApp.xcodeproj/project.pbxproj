@@ -21,6 +21,7 @@
 		250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFCA206235A40013BECF /* SettingsTVC.swift */; };
 		2556765A204ADCE400978446 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25567659204ADCE400978446 /* SplashVC.swift */; };
 		2556765C204AE78600978446 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2556765B204AE78600978446 /* Podfile */; };
+		257164A520AB0E16009D7E49 /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257164A420AB0E16009D7E49 /* CoreDataHandler.swift */; };
 		259B3C7E204ADA3D00D7B2C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */; };
 		259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7F204ADA3D00D7B2C2 /* MapVC.swift */; };
 		259B3C83204ADA3D00D7B2C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C81204ADA3D00D7B2C2 /* Main.storyboard */; };
@@ -50,6 +51,7 @@
 		250EDFCA206235A40013BECF /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
 		25567659204ADCE400978446 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		2556765B204AE78600978446 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		257164A420AB0E16009D7E49 /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 		259B3C7A204ADA3D00D7B2C2 /* kosarApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kosarApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		259B3C7F204ADA3D00D7B2C2 /* MapVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapVC.swift; sourceTree = "<group>"; };
@@ -146,6 +148,7 @@
 				259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */,
 				250EDFC1206235A30013BECF /* ModelData.swift */,
 				250EDFC8206235A40013BECF /* SampleData.swift */,
+				257164A420AB0E16009D7E49 /* CoreDataHandler.swift */,
 				25A775B6207BCE04005663CA /* MapView */,
 				25E12FB2207D64EC00CA9C25 /* SplashView */,
 				250EDFD5206235C90013BECF /* HistoryView */,
@@ -324,6 +327,7 @@
 				25A775B5207BCDEC005663CA /* OrderTVC.swift in Sources */,
 				250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */,
 				259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */,
+				257164A520AB0E16009D7E49 /* CoreDataHandler.swift in Sources */,
 				259B3C7E204ADA3D00D7B2C2 /* AppDelegate.swift in Sources */,
 				259B3C86204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld in Sources */,
 				2556765A204ADCE400978446 /* SplashVC.swift in Sources */,

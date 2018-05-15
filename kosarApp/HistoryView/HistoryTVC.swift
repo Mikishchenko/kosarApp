@@ -9,13 +9,14 @@
 import UIKit
 
 // MARK: - Установка первоначальных данных истории
-var userHistory = [Contractor]()
+var userHistory: [Contractor]? = []
 
 class HistoryTableController: UITableViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
+      // получаем объекты в виде массива из Core Data
+      userHistory = CoreDataHandler.fetchObject()
       self.clearsSelectionOnViewWillAppear = false
       // выставляем наблюдателя за изменением рейтинга
       NotificationCenter.default.addObserver(self, selector: #selector(self.updateRating(notification:)),
@@ -30,25 +31,27 @@ class HistoryTableController: UITableViewController {
    
    // MARK: - Устанавливает количество записей в истории
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-      guard userHistory.isEmpty == false  else { return 0 }
-      return userHistory.count
+      guard userHistory?.isEmpty == false  else { return 0 }
+      return userHistory!.count
    }
    
    // MARK: - Формирование типовой записи истории
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       // сортируем массив контракторов по дате
-      var sortedUserHistory = userHistory.sorted {( $0.date > $1.date)}
+      var sortedUserHistory = userHistory?.sorted {( $0.date! > $1.date! )}
       
       let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
-      cell.contractor = sortedUserHistory[indexPath.row]
+      cell.contractor = sortedUserHistory?[indexPath.row]
       return cell
    }
    
    // MARK: - Позволяет удалять записи из истории смахиванием влево
    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete {
-         userHistory.remove(at: indexPath.row)
-         self.tableView.deleteRows(at: [indexPath], with: .automatic)
+         if CoreDataHandler.deleteObject(contractor: userHistory![indexPath.row]) {
+            userHistory = CoreDataHandler.fetchObject()
+            self.tableView.deleteRows(at: [indexPath], with: .automatic)
+         }
       }
    }
    

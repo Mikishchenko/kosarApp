@@ -63,12 +63,9 @@ func setConditions(currentPartner: Partner) -> String {
    return conditions as String
 }
 
-// MARK: - Добавление партнера в userHistory
+// MARK: - Добавление партнера в сущность Contractor
 func addContractorInUserHistory (id: userID, name: String, photo: String) {
-   let contractor = Contractor(photo: photo, name: name, date: Date(timeIntervalSinceNow: 0), rating: nil, iD: id)
-   userHistory.append(contractor)
-//   userDefaults.set(userHistory, forKey: "userHistory")
-   print(contractor.date)
+   _ = CoreDataHandler.saveObject(photo: photo, date: Date(timeIntervalSinceNow: 0), rating: nil, name: name, iD: id)
 }
 
 // это расширение необходимо для корректной отработки всплывающих окон, иначе они растягиваются на весь экран

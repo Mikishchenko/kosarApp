@@ -21,11 +21,11 @@ class HistoryController: UIViewController {
       
       // MARK: - Наблюдатель за окончанием редактирования текстфилда
       NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
-      guard userHistory.isEmpty == false else {
+      guard userHistory?.isEmpty == false else {
          return
       }
       // MARK: - Проверка на отсутствие рейтинга у контракторов в истории
-      for contractor in userHistory {
+      for contractor in userHistory! {
          if contractor.rating == nil {
             alertWorkComplete(contractor: contractor)
          }
@@ -52,7 +52,7 @@ class HistoryController: UIViewController {
    
    // MARK: - Если у кого-то из контракторов отсутствует рейтинг, уточняем: Выполнена работа или нет?
    func alertWorkComplete(contractor: Contractor) {
-      let alert = UIAlertController(title: "Контрагент: \(contractor.name), дата: \(contractor.date.to(format: "dd.MM.yyyy"))", message: "Работа выполнена?", preferredStyle: .alert)
+      let alert = UIAlertController(title: "Контрагент: \(String(describing: contractor.name)), дата: \(String(describing: contractor.date?.to(format: "dd.MM.yyyy")))", message: "Работа выполнена?", preferredStyle: .alert)
       let yesAction = UIAlertAction(title: "ДА", style: .default) { (action) in
          self.alertSetRating(contractor: contractor)
       }
@@ -67,7 +67,7 @@ class HistoryController: UIViewController {
    // MARK: - Если работа выполнена, нужно поставить оценку.
    func alertSetRating(contractor: Contractor) {
       let alert = UIAlertController(title: "ПОЖАЛУЙСТА ОЦЕНИТЕ КОНТРАГЕНТА",
-                                    message: " \(contractor.name), дата: \(contractor.date.to(format: "dd.MM.yyyy"))", preferredStyle: .alert)
+                                    message: " \(String(describing: contractor.name)), дата: \(String(describing: contractor.date?.to(format: "dd.MM.yyyy")))", preferredStyle: .alert)
       let alertAction1 = UIAlertAction(title: "", style: .default) { (action) in
          self.setRating(contractor: contractor, rating: "Rating 1")
       }

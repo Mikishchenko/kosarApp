@@ -16,19 +16,19 @@ final class SampleData {
          User(type: .client, image: "User avatar")
    }
    
-   static func generateUserHistoryData() -> [Contractor] {
-      let historyDate = Date()
-      return [
-         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ",
-                    date: historyDate.from("15.03.2018")!, rating: "Rating 5", iD: 5),
-         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ",
-                    date: historyDate.from("01.03.2018")!, rating: "Rating 4", iD: 5),
-         Contractor(photo: "Worker3", name: "Джамшут",
-                    date: historyDate.from("10.02.2018")!, rating: "Rating 5", iD: 7),
-         Contractor(photo: "Worker4", name: "Равшан",
-                    date: historyDate.from("24.04.2018")!, rating: nil, iD: 8)
-      ]
-   }
+//   static func generateUserHistoryData() -> [Contractor] {
+//      let historyDate = Date()
+//      return [
+//         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ",
+//                    date: historyDate.from("15.03.2018")!, rating: "Rating 5", iD: 5),
+//         Contractor(photo: "Worker1", name: "Фёдор КОСОРЕЗОВ",
+//                    date: historyDate.from("01.03.2018")!, rating: "Rating 4", iD: 5),
+//         Contractor(photo: "Worker3", name: "Джамшут",
+//                    date: historyDate.from("10.02.2018")!, rating: "Rating 5", iD: 7),
+//         Contractor(photo: "Worker4", name: "Равшан",
+//                    date: historyDate.from("24.04.2018")!, rating: nil, iD: 8)
+//      ]
+//   }
    
    static func generateUserSettingsData() -> UserSettings {
       return
