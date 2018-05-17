@@ -29,6 +29,13 @@
                                     <constraint firstAttribute="width" constant="108" id="A4Y-IX-TEl"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="KSJ-cA-qgP">
+                                <rect key="frame" x="147" y="86" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="KSJ-cA-qgP" secondAttribute="height" multiplier="1:1" id="CcB-xU-Hxt"/>
+                                    <constraint firstAttribute="height" constant="80" id="oWu-WR-Xfe"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя пользователя" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Cpd-Ac-Njb">
                                 <rect key="frame" x="10" y="180" width="355" height="20"/>
                                 <constraints>
@@ -73,9 +80,11 @@
                             <constraint firstItem="mbe-Ss-XG7" firstAttribute="top" secondItem="Cpd-Ac-Njb" secondAttribute="bottom" id="OUh-K2-j2L"/>
                             <constraint firstItem="mbe-Ss-XG7" firstAttribute="leading" secondItem="tvm-Cv-qGD" secondAttribute="leading" constant="10" id="VWr-xT-m1F"/>
                             <constraint firstItem="m5I-BA-u0s" firstAttribute="leading" secondItem="VMQ-gN-hMZ" secondAttribute="leading" id="Whr-Kf-JG9"/>
+                            <constraint firstItem="KSJ-cA-qgP" firstAttribute="centerX" secondItem="VMQ-gN-hMZ" secondAttribute="centerX" id="X1c-r7-CIq"/>
                             <constraint firstItem="O3H-x6-v4b" firstAttribute="leading" secondItem="tvm-Cv-qGD" secondAttribute="leading" id="ZjR-pk-YHH"/>
                             <constraint firstItem="m5I-BA-u0s" firstAttribute="top" secondItem="mbe-Ss-XG7" secondAttribute="bottom" id="bO0-Ua-mJN"/>
                             <constraint firstItem="m5I-BA-u0s" firstAttribute="trailing" secondItem="VMQ-gN-hMZ" secondAttribute="trailing" id="bv1-EK-2iE"/>
+                            <constraint firstItem="KSJ-cA-qgP" firstAttribute="centerY" secondItem="VMQ-gN-hMZ" secondAttribute="centerY" id="cG7-zs-wyd"/>
                             <constraint firstItem="O3H-x6-v4b" firstAttribute="top" secondItem="Wvo-Xx-gJV" secondAttribute="top" id="cXS-Ng-OWD"/>
                             <constraint firstItem="Cpd-Ac-Njb" firstAttribute="top" secondItem="VMQ-gN-hMZ" secondAttribute="bottom" id="cYu-yR-hyk"/>
                             <constraint firstItem="VMQ-gN-hMZ" firstAttribute="top" secondItem="tvm-Cv-qGD" secondAttribute="top" constant="8" id="pL0-Jg-TKG"/>
@@ -98,7 +107,8 @@
                         </barButtonItem>
                     </navigationItem>
                     <connections>
-                        <outlet property="avatarImage" destination="VMQ-gN-hMZ" id="iQ5-dw-Rej"/>
+                        <outlet property="avatarBackgroundImage" destination="VMQ-gN-hMZ" id="iQ5-dw-Rej"/>
+                        <outlet property="avatarImage" destination="KSJ-cA-qgP" id="TtG-0r-xsN"/>
                         <outlet property="infoLabel" destination="mbe-Ss-XG7" id="ymt-ZA-qpM"/>
                         <outlet property="nameLabel" destination="Cpd-Ac-Njb" id="Pe7-mJ-urW"/>
                         <outlet property="ratingImage" destination="m5I-BA-u0s" id="KWn-Cv-Tbd"/>

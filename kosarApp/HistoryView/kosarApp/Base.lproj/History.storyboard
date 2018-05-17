@@ -30,6 +30,13 @@
                                     <constraint firstAttribute="height" constant="108" id="Jjg-lg-iyO"/>
                                 </constraints>
                             </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="m99-9q-fqC">
+                                <rect key="frame" x="147" y="86" width="80" height="80"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="80" id="A5B-OI-RPq"/>
+                                    <constraint firstAttribute="width" secondItem="m99-9q-fqC" secondAttribute="height" multiplier="1:1" id="Br5-la-rUv"/>
+                                </constraints>
+                            </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Имя пользователя" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZXq-nK-cGp">
                                 <rect key="frame" x="10" y="180" width="355" height="20"/>
                                 <constraints>
@@ -63,6 +70,7 @@
                         </subviews>
                         <constraints>
                             <constraint firstItem="teG-fm-xQ1" firstAttribute="centerX" secondItem="S89-RL-L2Q" secondAttribute="centerX" id="2PH-B6-WtO"/>
+                            <constraint firstItem="m99-9q-fqC" firstAttribute="centerY" secondItem="teG-fm-xQ1" secondAttribute="centerY" id="H7p-13-2Qd"/>
                             <constraint firstItem="teG-fm-xQ1" firstAttribute="top" secondItem="gOe-Rb-GTF" secondAttribute="top" constant="8" id="MJS-Yg-ui0"/>
                             <constraint firstItem="UL6-nu-fY4" firstAttribute="centerX" secondItem="S89-RL-L2Q" secondAttribute="centerX" id="PJL-W6-ctw"/>
                             <constraint firstItem="3Ol-5y-mVQ" firstAttribute="trailing" secondItem="gOe-Rb-GTF" secondAttribute="trailing" id="PoI-8E-tTD"/>
@@ -71,6 +79,7 @@
                             <constraint firstItem="UL6-nu-fY4" firstAttribute="leading" secondItem="teG-fm-xQ1" secondAttribute="leading" id="XZm-qk-Y6Z"/>
                             <constraint firstItem="3Ol-5y-mVQ" firstAttribute="top" secondItem="S89-RL-L2Q" secondAttribute="top" id="YDg-L8-dpk"/>
                             <constraint firstItem="7l9-Ao-mi2" firstAttribute="bottom" secondItem="gOe-Rb-GTF" secondAttribute="bottom" id="dum-5W-iQl"/>
+                            <constraint firstItem="m99-9q-fqC" firstAttribute="centerX" secondItem="teG-fm-xQ1" secondAttribute="centerX" id="eAY-T9-qt9"/>
                             <constraint firstItem="UL6-nu-fY4" firstAttribute="top" secondItem="NuJ-5M-DDi" secondAttribute="bottom" id="hw9-jK-Aer"/>
                             <constraint firstItem="ZXq-nK-cGp" firstAttribute="top" secondItem="teG-fm-xQ1" secondAttribute="bottom" id="mOa-w8-hX1"/>
                             <constraint firstItem="3Ol-5y-mVQ" firstAttribute="leading" secondItem="gOe-Rb-GTF" secondAttribute="leading" id="nGh-Cn-aAE"/>
@@ -99,7 +108,8 @@
                     <simulatedNavigationBarMetrics key="simulatedTopBarMetrics"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics" translucent="NO"/>
                     <connections>
-                        <outlet property="avatarImage" destination="teG-fm-xQ1" id="Yfm-Ht-an4"/>
+                        <outlet property="avatarBackgroundImage" destination="teG-fm-xQ1" id="Yfm-Ht-an4"/>
+                        <outlet property="avatarImage" destination="m99-9q-fqC" id="Rxc-j6-pVt"/>
                         <outlet property="infoLabel" destination="NuJ-5M-DDi" id="01Q-pG-6Wu"/>
                         <outlet property="nameLabel" destination="ZXq-nK-cGp" id="72R-Ie-Wgf"/>
                         <outlet property="ratingImage" destination="UL6-nu-fY4" id="fLW-pc-y0z"/>

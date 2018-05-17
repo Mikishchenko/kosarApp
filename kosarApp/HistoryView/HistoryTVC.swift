@@ -24,6 +24,7 @@ class HistoryTableController: UITableViewController {
    }
    // перезагрузка таблицы
    @objc func updateRating(notification: Notification){
+      userHistory = CoreDataHandler.fetchObject()
       self.tableView.reloadData()
    }
    

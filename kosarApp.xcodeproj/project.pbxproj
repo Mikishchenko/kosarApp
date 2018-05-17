@@ -29,6 +29,9 @@
 		259B3C88204ADA3D00D7B2C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C87204ADA3D00D7B2C2 /* Assets.xcassets */; };
 		259B3C8B204ADA3D00D7B2C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C89204ADA3D00D7B2C2 /* LaunchScreen.storyboard */; };
 		25A775B5207BCDEC005663CA /* OrderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A775B4207BCDEC005663CA /* OrderTVC.swift */; };
+		25D5E99120AB907100016E6E /* AvatarTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D5E99020AB907100016E6E /* AvatarTVC.swift */; };
+		25D5E99320AB9A9600016E6E /* AvatarCVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D5E99220AB9A9600016E6E /* AvatarCVCell.swift */; };
+		25D5E99520AB9D8900016E6E /* AvatarTVCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D5E99420AB9D8900016E6E /* AvatarTVCell.swift */; };
 		25E12FB1207D64C600CA9C25 /* InfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E12FB0207D64C600CA9C25 /* InfoTVC.swift */; };
 		25E12FB4207E2CC500CA9C25 /* OfferTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E12FB3207E2CC500CA9C25 /* OfferTVC.swift */; };
 		25FF00EC20861A1300FA6158 /* ContactorInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FF00EB20861A1300FA6158 /* ContactorInfoTVC.swift */; };
@@ -61,6 +64,9 @@
 		259B3C8A204ADA3D00D7B2C2 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		259B3C8C204ADA3D00D7B2C2 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25A775B4207BCDEC005663CA /* OrderTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OrderTVC.swift; sourceTree = "<group>"; };
+		25D5E99020AB907100016E6E /* AvatarTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTVC.swift; sourceTree = "<group>"; };
+		25D5E99220AB9A9600016E6E /* AvatarCVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarCVCell.swift; sourceTree = "<group>"; };
+		25D5E99420AB9D8900016E6E /* AvatarTVCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarTVCell.swift; sourceTree = "<group>"; };
 		25E12FB0207D64C600CA9C25 /* InfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoTVC.swift; sourceTree = "<group>"; };
 		25E12FB3207E2CC500CA9C25 /* OfferTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferTVC.swift; sourceTree = "<group>"; };
 		25FF00EB20861A1300FA6158 /* ContactorInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactorInfoTVC.swift; sourceTree = "<group>"; };
@@ -109,6 +115,9 @@
 				250EDFB8206235440013BECF /* Profile.storyboard */,
 				250EDFC3206235A30013BECF /* ProfileVC.swift */,
 				250EDFC4206235A40013BECF /* ProfileTVC.swift */,
+				25D5E99020AB907100016E6E /* AvatarTVC.swift */,
+				25D5E99420AB9D8900016E6E /* AvatarTVCell.swift */,
+				25D5E99220AB9A9600016E6E /* AvatarCVCell.swift */,
 			);
 			name = ProfileView;
 			path = ..;
@@ -317,6 +326,8 @@
 				250EDFCC206235A40013BECF /* HistoryVC.swift in Sources */,
 				25E12FB4207E2CC500CA9C25 /* OfferTVC.swift in Sources */,
 				250EDFCD206235A40013BECF /* ProfileVC.swift in Sources */,
+				25D5E99120AB907100016E6E /* AvatarTVC.swift in Sources */,
+				25D5E99320AB9A9600016E6E /* AvatarCVCell.swift in Sources */,
 				250EDFCE206235A40013BECF /* ProfileTVC.swift in Sources */,
 				250EDFD0206235A40013BECF /* SettingsVC.swift in Sources */,
 				250EDFD1206235A40013BECF /* HistoryCell.swift in Sources */,
@@ -325,6 +336,7 @@
 				250EDFD2206235A40013BECF /* SampleData.swift in Sources */,
 				250EDFD3206235A40013BECF /* HistoryTVC.swift in Sources */,
 				25A775B5207BCDEC005663CA /* OrderTVC.swift in Sources */,
+				25D5E99520AB9D8900016E6E /* AvatarTVCell.swift in Sources */,
 				250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */,
 				259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */,
 				257164A520AB0E16009D7E49 /* CoreDataHandler.swift in Sources */,

@@ -165,12 +165,12 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Mwn-Xu-4j7">
                                                     <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                                     <color key="backgroundColor" red="0.54117647059999996" green="0.70588235290000001" blue="0.27450980390000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <state key="normal" title="Оставить заявку">
                                                         <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
                                                     <connections>
-                                                        <action selector="infoButton:" destination="NLK-R0-wwh" eventType="touchUpInside" id="bDP-zX-EnE"/>
+                                                        <action selector="newEditOrderButton:" destination="NLK-R0-wwh" eventType="touchUpInside" id="Ck3-Mm-dA5"/>
                                                     </connections>
                                                 </button>
                                             </subviews>
@@ -192,7 +192,7 @@
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ye3-cZ-kK2">
                                                     <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
                                                     <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                     <state key="normal" title="Удалить заявку">
                                                         <color key="titleColor" red="1" green="0.14913141730000001" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     </state>
@@ -221,10 +221,10 @@
                     <connections>
                         <outlet property="extensionWorkAreaOrDeleteButton" destination="ye3-cZ-kK2" id="tcI-Sy-p1v"/>
                         <outlet property="infoAvPriceLabel" destination="hLh-ry-Cba" id="vy1-hS-Loa"/>
-                        <outlet property="infoButtonLabel" destination="Mwn-Xu-4j7" id="B9x-dK-b8P"/>
                         <outlet property="infoClientsLabel" destination="vxP-Lj-d0v" id="3V1-gz-2aI"/>
                         <outlet property="infoWorkAreaLabel" destination="9ay-dn-XzJ" id="eKM-Md-U2N"/>
                         <outlet property="infoWorkersLabel" destination="n5H-3a-pw7" id="gIu-Qe-P6E"/>
+                        <outlet property="newEditOrderButton" destination="Mwn-Xu-4j7" id="B9x-dK-b8P"/>
                     </connections>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Wsg-lg-Y66" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -806,7 +806,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="zvq-GA-ACF"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                             <state key="normal" title="Подробнее">
                                                                 <color key="titleColor" red="0.1785576046" green="0.42341881990000002" blue="0.135537833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
@@ -820,7 +820,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="vHV-NX-xBh"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                             <state key="normal" title="Звонок">
                                                                 <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
@@ -1374,7 +1374,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="2o2-si-3lS"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                             <state key="normal" title="Сообщение">
                                                                 <color key="titleColor" red="0.1785576046" green="0.42341881990000002" blue="0.135537833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>
@@ -1388,7 +1388,7 @@
                                                             <constraints>
                                                                 <constraint firstAttribute="height" constant="44" id="kDX-26-WWb"/>
                                                             </constraints>
-                                                            <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                            <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
                                                             <state key="normal" title="Звонок">
                                                                 <color key="titleColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                             </state>

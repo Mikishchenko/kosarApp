@@ -28,7 +28,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    
    var locationManager = CLLocationManager()
    // создание отдельной кнопки ИНФО
-   var oneInfoButton = UIButton()
+   var infoButton = UIButton()
    
    override func viewDidLoad() {
       super.viewDidLoad()
@@ -57,11 +57,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       setCameraPosition(latitude: user.latitude,
                         longitude: user.longitude, zoom: zoomLevel)
       mapView.clear()
+      // получение иконки Пользователя
+      if let object = userDefaults.object(forKey: "image") {
+         user.image = object as? String
+      } else {
+         user.image = "avatarDefault"
+      }
       // отображение Пользователя на карте
-      setMapMarker(markerKey: 0, markerIcon: "userAvatar",
+      setMapMarker(markerKey: 0, markerIcon: user.image!,
                    latitude: user.latitude!, longitude: user.longitude!)
-      guard let object = userDefaults.object(forKey: "typeChoiseIsDone") else { return }
-         print("typeChoiseIsDone =\(object)")
+      // если это не первый вход и выбор типа совершён, то кнопки выбора типа не нужны
+      guard userDefaults.object(forKey: "typeChoiseIsDone") != nil else { return }
          typeChoice()
    }
    
@@ -80,17 +86,17 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       customeNavBar(viewController: self)
       
       // про кнопку ИНФО
-      oneInfoButton = UIButton(type: .roundedRect)
-      oneInfoButton.frame = CGRect(x: 10, y: self.view.bounds.maxY - 67,
+      infoButton = UIButton(type: .roundedRect)
+      infoButton.frame = CGRect(x: 10, y: self.view.bounds.maxY - 67,
                                    width: self.view.bounds.width - 20, height: 44)
-      oneInfoButton.backgroundColor = #colorLiteral(red: 0.5411764706, green: 0.7058823529, blue: 0.2745098039, alpha: 1)
-      oneInfoButton.layer.cornerRadius = 12
-      oneInfoButton.setTitle("Информация", for: .normal)
-      oneInfoButton.setTitleColor(UIColor.white, for: .normal)
-      oneInfoButton.titleLabel?.font = UIFont?(.systemFont(ofSize: 18))
-      oneInfoButton.addTarget(self, action: #selector(oneInfoButtonPressed(_:)), for: .touchUpInside)
+      infoButton.backgroundColor = #colorLiteral(red: 0.5411764706, green: 0.7058823529, blue: 0.2745098039, alpha: 1)
+      infoButton.layer.cornerRadius = 12
+      infoButton.setTitle("Информация", for: .normal)
+      infoButton.setTitleColor(UIColor.white, for: .normal)
+      infoButton.titleLabel?.font = UIFont?(.systemFont(ofSize: 18))
+      infoButton.addTarget(self, action: #selector(oneInfoButtonPressed(_:)), for: .touchUpInside)
       guard infoAlertIsActive == false || orderOfferAlertIsActive == false else { return }
-      self.view.addSubview(oneInfoButton)
+      self.view.addSubview(infoButton)
       // отображение остальных объектов на карте
       for partner in partners {
          let partnerType: Type = ((user.type == .client) ? .worker : .client)
@@ -214,8 +220,16 @@ public func popoverVC(currentVC: UIViewController, identifierPopoverVC: String, 
    // отключение стрелочки у popoverController
    popoverTableVC?.sourceView = currentVC.view
    popoverTableVC?.permittedArrowDirections = UIPopoverArrowDirection(rawValue: 0)
+   // изменение координат у конкретных всплывающих окон
+   var yValue = 0
+   switch identifierPopoverVC {
+   case "AvatarTVC":
+      yValue = Int(currentVC.view.center.y)
+   default:
+      yValue = Int(currentVC.view.bounds.maxY)
+   }
    // начальная точка popoverController (левая нижняя)
-   popoverTableVC?.sourceRect = CGRect(x: 10, y: currentVC.view.bounds.maxY, width: 0, height: 0)
+   popoverTableVC?.sourceRect = CGRect(x: 10, y: yValue, width: 0, height: 0)
    // размеры popoverController
    popoverTVC.preferredContentSize = CGSize(width: currentVC.view.bounds.width, height: heightPopoverVC)
    // презентация контроллера

@@ -10,6 +10,7 @@ import UIKit
 
 class HistoryController: UIViewController {
    
+   @IBOutlet weak var avatarBackgroundImage: UIImageView!
    @IBOutlet weak var avatarImage: UIImageView!
    @IBOutlet weak var nameLabel: UILabel!
    @IBOutlet weak var infoLabel: UILabel!
@@ -17,8 +18,6 @@ class HistoryController: UIViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      userInfoInHeader()
-      
       // MARK: - Наблюдатель за окончанием редактирования текстфилда
       NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
       guard userHistory?.isEmpty == false else {
@@ -38,16 +37,11 @@ class HistoryController: UIViewController {
    }
    
    // NavBar нужно именно здесь вызывать
-   override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(true)
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)
       customeNavBar(viewController: self)
-   }
-   
-   // MARK: - Наполнение Header данными User
-   func userInfoInHeader() {
-      avatarImage.image = UIImage(named: "User avatar")
-      userNameInfo(userName: nameLabel, userInfo: infoLabel)
-      ratingImage.image = UIImage(named: "Rating 4")
+      userInfoInHeader(background: avatarBackgroundImage, avatar: avatarImage,
+                       name: nameLabel, info: infoLabel, rating: ratingImage)
    }
    
    // MARK: - Если у кого-то из контракторов отсутствует рейтинг, уточняем: Выполнена работа или нет?
@@ -56,9 +50,7 @@ class HistoryController: UIViewController {
       let yesAction = UIAlertAction(title: "ДА", style: .default) { (action) in
          self.alertSetRating(contractor: contractor)
       }
-      let noAction = UIAlertAction(title: "НЕТ", style: .default) { (action) in
-         print("Работа не выполнена")
-      }
+      let noAction = UIAlertAction(title: "НЕТ", style: .default)
       alert.addAction(yesAction)
       alert.addAction(noAction)
       self.present(alert, animated: true, completion: nil)
@@ -96,7 +88,6 @@ class HistoryController: UIViewController {
       alert.addAction(alertAction5)
       
       self.present(alert, animated: true, completion: nil)
-      
    }
    
    // MARK: - Присвоение рейтинга и установка наблюдателя
@@ -118,8 +109,8 @@ class HistoryController: UIViewController {
    }
 }
 
-// MARK: Заполнение имени и краткой информации
+// MARK: - Заполнение имени и краткой информации
 public func userNameInfo(userName: UILabel, userInfo: UILabel) {
-   userName.text = userDefaults.object(forKey: "name") as? String //user.name ?? ""
-   userInfo.text = userDefaults.object(forKey: "info") as? String //user.info ?? ""
+   userName.text = userDefaults.object(forKey: "name") as? String
+   userInfo.text = userDefaults.object(forKey: "info") as? String
 }

@@ -13,7 +13,12 @@ final class SampleData {
    // MARK: All data for our User in start
    static func generateUserData() -> User {
       return
-         User(type: .client, image: "User avatar")
+         User(type: .client, image: "avatarDefault")
+   }
+   
+   static func generateAvatars() -> [String] {
+      return [ "Client1", "Client2", "Client3", "Client4",
+               "Worker1", "Worker2", "Worker3", "Worker4" ]
    }
    
 //   static func generateUserHistoryData() -> [Contractor] {

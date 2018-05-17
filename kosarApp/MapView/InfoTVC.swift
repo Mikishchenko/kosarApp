@@ -15,7 +15,7 @@ class InfoTableViewController: UITableViewController {
    @IBOutlet weak var infoClientsLabel: UILabel!
    @IBOutlet weak var infoWorkersLabel: UILabel!
    @IBOutlet weak var infoAvPriceLabel: UILabel!
-   @IBOutlet weak var infoButtonLabel: UIButton!
+   @IBOutlet weak var newEditOrderButton: UIButton!
    @IBOutlet weak var extensionWorkAreaOrDeleteButton: UIButton!
    
    override func viewDidLoad() {
@@ -45,13 +45,13 @@ class InfoTableViewController: UITableViewController {
          (infoAvPriceLabel.text = String(sumOrdersPrice / clietnsInSearch) + " - " + String(sumOffersPrice / workersInSearch) + " руб/сотка")
       // формирование внешнего вида Информационного сообщения (варианты надписей на кнопках)
       if orderOfferIsActive {
-         fillButtonLabel(button: infoButtonLabel,
+         fillButtonLabel(button: newEditOrderButton,
                          forClient: "Редактировать заявку", forWorker: "Редактировать объявление")
          fillButtonLabel(button: extensionWorkAreaOrDeleteButton,
                          forClient: "Удалить заявку", forWorker: "Удалить объявление")
          return
       } else {
-         fillButtonLabel(button: infoButtonLabel,
+         fillButtonLabel(button: newEditOrderButton,
                          forClient: "Оформить заявку", forWorker: "Разместить объявление")
          fillButtonLabel(button: extensionWorkAreaOrDeleteButton,
                          forClient: "Расширить зону поиска", forWorker: "Расширить зону поиска")
@@ -67,7 +67,7 @@ class InfoTableViewController: UITableViewController {
    }
    
    // MARK: - Нажатие кнопки подтверждения/редактирования Заявки/Объявления
-   @IBAction func infoButton(_ sender: UIButton) {
+   @IBAction func newEditOrderButton(_ sender: UIButton) {
       user.type == .client ?
          popoverVC(currentVC: self, identifierPopoverVC: "OrderTVC", heightPopoverVC: 254) :
          popoverVC(currentVC: self, identifierPopoverVC: "OfferTVC", heightPopoverVC: 254)
@@ -78,7 +78,7 @@ class InfoTableViewController: UITableViewController {
       switch orderOfferIsActive{
       case true:
          eraseOrderOffer()
-         self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
       case false:
          searchArea += 10.0
          zoomLevel -= 1.0
