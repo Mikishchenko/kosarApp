@@ -33,9 +33,22 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    // MARK: - Отображение:
    override func viewDidLoad() {
       super.viewDidLoad()
-      
-      // MARK: - Текущие значения профиля
-      
+      // назначение уведомления на окончание редактирования в текстфилдах
+      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nameTextField)
+      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: infoTextField)
+      // выставляем наблюдателя за нажатием userLocationButton
+      NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
+                                             name: Notification.Name("userLocationButtonPressed"),
+                                             object: nil)
+   }
+   // перезагрузка таблицы
+   @objc func updateTextfield(notification: Notification){
+      self.tableView.reloadData()
+   }
+   
+   // MARK: - Текущие значения профиля
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)      
       // выбор сегмента (отображение текущей роли: Заказчик или Исполнитель)
       if let type = userDefaults.object(forKey: "type") {
          clientWorkerSegment.selectedSegmentIndex = type as! Int
@@ -54,17 +67,6 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
       setSwitchPosition(switcher: transportSwitch, key: "transport")
       setSwitchPosition(switcher: hardReliefSwitch, key: "hardRelief")
       setSwitchPosition(switcher: plantsSwitch, key: "plants")
-      // назначение уведомления на окончание редактирования в текстфилдах
-      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nameTextField)
-      NotificationCenter.default.post(name: NSNotification.Name.UITextFieldTextDidEndEditing, object: infoTextField)
-      // выставляем наблюдателя за нажатием userLocationButton
-      NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
-                                             name: Notification.Name("userLocationButtonPressed"),
-                                             object: nil)
-   }
-   // перезагрузка таблицы
-   @objc func updateTextfield(notification: Notification){
-      self.tableView.reloadData()
    }
    
    // MARK: - TextFieldDelegate
@@ -105,10 +107,16 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
       switch reason {
       case .committed:
          user.price = UInt(priceTextField.text!)
+         userDefaults.set(user.price, forKey: "price")
          user.name = nameTextField.text
+         userDefaults.set(user.name, forKey: "name")
          user.info = infoTextField.text
+         userDefaults.set(user.info, forKey: "info")
          user.location = locationTextField.text
+         userDefaults.set(user.location, forKey: "location")
          user.workArea = UInt(workAreaTextField.text!)
+         userDefaults.set(user.workArea, forKey: "workArea")
+         userDefaults.synchronize()
          return
       case .cancelled:
          break

@@ -123,11 +123,11 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       workAreaTextField.resignFirstResponder()
       
       guard order.price != nil else {
-         warningAlert(emptyField: "Стоимость покоса", currentVC: self)
+         alertWarning(emptyField: "Стоимость покоса", currentVC: self)
          return
       }
       guard order.location != "" else {
-         warningAlert(emptyField: "Адрес покоса", currentVC: self)
+         alertWarning(emptyField: "Адрес покоса", currentVC: self)
          return
       }
       alert(message: "Ваша заявка принята", currentVC: self)

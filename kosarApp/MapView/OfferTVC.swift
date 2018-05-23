@@ -151,11 +151,11 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       infoTextField.resignFirstResponder()
       
       guard offer.price != nil else {
-         warningAlert(emptyField: "Стоимость покоса", currentVC: self)
+         alertWarning(emptyField: "Стоимость покоса", currentVC: self)
          return
       }
       guard offer.location != "" else {
-         warningAlert(emptyField: "Адрес покоса", currentVC: self)
+         alertWarning(emptyField: "Адрес покоса", currentVC: self)
          return
       }
       alert(message: "Ваше объявление зарегистрировано", currentVC: self)
@@ -168,7 +168,7 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
 }
 
 // MARK: - Сообщение о незаполненном обязательном поле
-public func warningAlert(emptyField: String, currentVC: UIViewController) {
+public func alertWarning(emptyField: String, currentVC: UIViewController) {
    let alert = UIAlertController(title: "НЕДОСТАТОЧНО ДАННЫХ",
                                  message: "Пожалуйста заполните поле \"\(emptyField)\"", preferredStyle: .alert)
    let orderAction = UIAlertAction(title: "OK", style: .cancel) { (action) in}

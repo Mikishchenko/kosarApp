@@ -97,25 +97,25 @@ class Partner: UsersProtocol {
    }
 }
 
-class UserSettings {
-   // MARK: Properties for UserSettings
-   var geoposition: Bool
-   var photos: Bool
-   var camera: Bool
-   var phone: Bool
-   var messages: Bool
-   var microphone: Bool
-   // Initializer for UserSettings
-   init(geoposition: Bool, photos: Bool, camera: Bool, phone: Bool,  messages: Bool, microphone: Bool) {
-      self.photos = photos
-      self.geoposition = geoposition
-      self.photos = photos
-      self.camera = camera
-      self.phone = phone
-      self.messages = messages
-      self.microphone = microphone
-   }
-}
+//class UserSettings {
+//   // MARK: Properties for UserSettings
+//   var geoposition: Bool
+//   var photos: Bool
+//   var camera: Bool
+//   var phone: Bool
+//   var messages: Bool
+//   var microphone: Bool
+//   // Initializer for UserSettings
+//   init(geoposition: Bool, photos: Bool, camera: Bool, phone: Bool,  messages: Bool, microphone: Bool) {
+//      self.photos = photos
+//      self.geoposition = geoposition
+//      self.photos = photos
+//      self.camera = camera
+//      self.phone = phone
+//      self.messages = messages
+//      self.microphone = microphone
+//   }
+//}
 
 //class Contractor {
 //   // MARK: Properties for UserHistory

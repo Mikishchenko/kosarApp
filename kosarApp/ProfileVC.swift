@@ -20,6 +20,10 @@ class ProfileController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       self.blurEffect.isHidden = true
+
+      userInfoInHeader(background: avatarBackgroundImage, avatar: avatarImage,
+                       name: nameLabel, info: infoLabel, rating: ratingImage)
+      
       // наблюдатель за окончанием редактирования текстфилда
       NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing),
                                              name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
@@ -91,7 +95,6 @@ public func userInfoInHeader(background: UIImageView, avatar: UIImageView,
 // MARK: - Заполнение картинок из userDefaults
 public func imageFromUserDefaults(_ headersField: UIImageView, key: String, defaultImageName: String) {
    if let object = userDefaults.object(forKey: key) {
-//      user.image = object as? String
       headersField.image = UIImage(named: (object as? String)!)
    } else {
       headersField.image = UIImage(named: defaultImageName)

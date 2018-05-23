@@ -19,8 +19,11 @@ class HistoryController: UIViewController {
    override func viewDidLoad() {
       super.viewDidLoad()
       // MARK: - Наблюдатель за окончанием редактирования текстфилда
-      NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
+      NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing),
+                                             name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
       guard userHistory?.isEmpty == false else {
+         alertSimpleInfo(message: "В Вашей истории нет записей.\nСвяжитесь с кем-нибудь из контрагентов.",
+                         currentVC: self)
          return
       }
       // MARK: - Проверка на отсутствие рейтинга у контракторов в истории
@@ -46,7 +49,8 @@ class HistoryController: UIViewController {
    
    // MARK: - Если у кого-то из контракторов отсутствует рейтинг, уточняем: Выполнена работа или нет?
    func alertWorkComplete(contractor: Contractor) {
-      let alert = UIAlertController(title: "Контрагент: \(String(describing: contractor.name)), дата: \(String(describing: contractor.date?.to(format: "dd.MM.yyyy")))", message: "Работа выполнена?", preferredStyle: .alert)
+      let alert = UIAlertController(title: "РАБОТА ВЫПОЛНЕНА?",
+                                    message: "Контрагент: \(contractor.name ?? ""),\n дата: \(contractor.date?.to(format: "dd.MM.yyyy") ?? "")", preferredStyle: .alert)
       let yesAction = UIAlertAction(title: "ДА", style: .default) { (action) in
          self.alertSetRating(contractor: contractor)
       }
@@ -59,54 +63,38 @@ class HistoryController: UIViewController {
    // MARK: - Если работа выполнена, нужно поставить оценку.
    func alertSetRating(contractor: Contractor) {
       let alert = UIAlertController(title: "ПОЖАЛУЙСТА ОЦЕНИТЕ КОНТРАГЕНТА",
-                                    message: " \(String(describing: contractor.name)), дата: \(String(describing: contractor.date?.to(format: "dd.MM.yyyy")))", preferredStyle: .alert)
-      let alertAction1 = UIAlertAction(title: "", style: .default) { (action) in
-         self.setRating(contractor: contractor, rating: "Rating 1")
+                                    message: " \(contractor.name ?? ""), дата: \(contractor.date?.to(format: "dd.MM.yyyy") ?? "")", preferredStyle: .alert)
+      // заполняем кнопки вариантами рейтинга
+      for index in 1...5 {
+         // присваиваем значение рейтинга в клоужере
+         let alertAction = UIAlertAction(title: "", style: .default) { (action) in
+            contractor.rating = "Rating \(index)"
+            CoreDataHandler.refreshObjectsRating(iD: UInt(contractor.iD),
+                                                 date: contractor.date!, rating: contractor.rating)
+            // после выставления оценки изменится рейтинг в таблице с историей
+            NotificationCenter.default.post(name: Notification.Name("isRated"), object: nil)
+         }
+         // заполняем кнопку изображением рейтинга, присвоить рейтинг можно нажав на него
+         alertAction.setValue(UIImage(named: "Rating \(index)")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal),
+                              forKey: "image")
+         alert.addAction(alertAction)
       }
-      let alertAction2 = UIAlertAction(title: "", style: .default) { (action) in
-         self.setRating(contractor: contractor, rating: "Rating 2")
-      }
-      let alertAction3 = UIAlertAction(title: "", style: .default) { (action) in
-         self.setRating(contractor: contractor, rating: "Rating 3")
-      }
-      let alertAction4 = UIAlertAction(title: "", style: .default) { (action) in
-         self.setRating(contractor: contractor, rating: "Rating 4")
-      }
-      let alertAction5 = UIAlertAction(title: "", style: .default) { (action) in
-         self.setRating(contractor: contractor, rating: "Rating 5")
-      }
-      setAlertActionImage(alertAction1, ratingImage: "Rating 1")
-      setAlertActionImage(alertAction2, ratingImage: "Rating 2")
-      setAlertActionImage(alertAction3, ratingImage: "Rating 3")
-      setAlertActionImage(alertAction4, ratingImage: "Rating 4")
-      setAlertActionImage(alertAction5, ratingImage: "Rating 5")
-      
-      alert.addAction(alertAction1)
-      alert.addAction(alertAction2)
-      alert.addAction(alertAction3)
-      alert.addAction(alertAction4)
-      alert.addAction(alertAction5)
-      
       self.present(alert, animated: true, completion: nil)
-   }
-   
-   // MARK: - Присвоение рейтинга и установка наблюдателя
-   fileprivate func setRating(contractor: Contractor, rating: String) {
-      contractor.rating = rating
-      // после выставления оценки изменится рейтинг в таблице с историей
-      NotificationCenter.default.post(name: Notification.Name("isRated"), object: nil)
-   }
-   
-   // MARK: - Вставка картинки рейтинга в alertAction
-   fileprivate func setAlertActionImage(_ alertAction: UIAlertAction, ratingImage: String) {
-      alertAction.setValue(UIImage(named: ratingImage)?.withRenderingMode(UIImageRenderingMode.alwaysOriginal),
-                           forKey: "image")
    }
    
    // MARK: - Переполнение памяти
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
    }
+}
+
+// MARK: - Простое информационное сообщение
+public func alertSimpleInfo(message: String, currentVC: UIViewController) {
+   let alert = UIAlertController(title: "ИНФОРМАЦИЯ",
+                                 message: message, preferredStyle: .alert)
+   let action = UIAlertAction(title: "OK", style: .cancel, handler: nil)
+   alert.addAction(action)
+   currentVC.present(alert, animated: true, completion: nil)
 }
 
 // MARK: - Заполнение имени и краткой информации

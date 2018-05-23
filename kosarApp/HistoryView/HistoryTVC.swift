@@ -28,8 +28,7 @@ class HistoryTableController: UITableViewController {
       self.tableView.reloadData()
    }
    
-   // MARK: - Table view data source
-   
+   // tableView data source
    // MARK: - Устанавливает количество записей в истории
    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
       guard userHistory?.isEmpty == false  else { return 0 }
@@ -46,6 +45,7 @@ class HistoryTableController: UITableViewController {
       return cell
    }
    
+   // tableView delegate
    // MARK: - Позволяет удалять записи из истории смахиванием влево
    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete {

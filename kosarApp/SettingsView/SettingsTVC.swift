@@ -8,9 +8,6 @@
 
 import UIKit
 
-// MARK: - Установка первоначальных настроек
-var settings = SampleData.generateUserSettingsData()
-
 class SettingsTableController: UITableViewController {
    
    // MARK: - Объекты, которые мы будем отображать
@@ -22,11 +19,16 @@ class SettingsTableController: UITableViewController {
    @IBOutlet weak var microphoneSwitch: UISwitch!
    @IBOutlet weak var resetUserDefaultsData: UIButton!
    
-   // MARK: - Отображение:
+   // MARK: - Отображение текстфилдов и кнопки сброса настроек
    override func viewDidLoad() {
       super.viewDidLoad()
+      // у красной кнопки скруглённые углы
       resetUserDefaultsData.layer.cornerRadius = 12
-      // MARK: - Текущие значения настроек
+   }
+   
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)
+      // текущие значения настроек
       setSwitchPosition(switcher: geopositionSwitch, key: "geoposition")
       setSwitchPosition(switcher: photosSwitch, key: "photos")
       setSwitchPosition(switcher: cameraSwitch, key: "camera")
@@ -37,42 +39,33 @@ class SettingsTableController: UITableViewController {
    
    // MARK: - Присваивание новых значений при переключении переключателей
    @IBAction func geoposition(_ sender: UISwitch) {
-      settings.geoposition = sender.isOn
-      userDefaults.set(settings.geoposition, forKey: "geoposition")
-//      sender.isOn ? (settings.geoposition = true) : (settings.geoposition = false)
+      userDefaults.set(sender.isOn, forKey: "geoposition")
    }
    @IBAction func photos(_ sender: UISwitch) {
-      settings.photos = sender.isOn
-      userDefaults.set(settings.photos, forKey: "photos")
-//      sender.isOn ? (settings.photos = true) : (settings.photos = false)
+      userDefaults.set(sender.isOn, forKey: "photos")
    }
    @IBAction func camera(_ sender: UISwitch) {
-      settings.camera = sender.isOn
-      userDefaults.set(settings.camera, forKey: "camera")
-//      sender.isOn ? (settings.camera = true) : (settings.camera = false)
+      userDefaults.set(sender.isOn, forKey: "camera")
    }
    @IBAction func phone(_ sender: UISwitch) {
-      settings.phone = sender.isOn
-      userDefaults.set(settings.phone, forKey: "phone")
-//      sender.isOn ? (settings.phone = true) : (settings.phone = false)
+      userDefaults.set(sender.isOn, forKey: "phone")
    }
    @IBAction func messages(_ sender: UISwitch) {
-      settings.messages = sender.isOn
-      userDefaults.set(settings.messages, forKey: "messages")
-//      sender.isOn ? (settings.messages = true) : (settings.messages = false)
+      userDefaults.set(sender.isOn, forKey: "messages")
    }
    @IBAction func microphone(_ sender: UISwitch) {
-      settings.microphone = sender.isOn
-      userDefaults.set(settings.microphone, forKey: "microphone")
-//      sender.isOn ? (settings.microphone = true) : (settings.microphone = false)
+      userDefaults.set(sender.isOn, forKey: "microphone")
    }
    
+   // MARK: - Сброс всех настроек из userDefaults
    @IBAction func resetUserDefaultsData(_ sender: UIButton) {
       let defaults = UserDefaults.standard
       let dictionary = defaults.dictionaryRepresentation()
       dictionary.keys.forEach { key in
          defaults.removeObject(forKey: key)
       }
+      userDefaults.synchronize()
+      tableView.reloadData()
    }
    
    //MARK: - Переполнение памяти
@@ -85,6 +78,7 @@ class SettingsTableController: UITableViewController {
 public func setSwitchPosition(switcher: UISwitch, key: String) {
    if let object = userDefaults.object(forKey: key) as? Bool {
       switcher.setOn(object, animated: false)
+   } else {
+      switcher.setOn(false, animated: false)
    }
-//   value == true ? switcher.setOn(true, animated: false) : switcher.setOn(false, animated: false)
 }

@@ -34,13 +34,7 @@ final class SampleData {
 //                    date: historyDate.from("24.04.2018")!, rating: nil, iD: 8)
 //      ]
 //   }
-   
-   static func generateUserSettingsData() -> UserSettings {
-      return
-         UserSettings(geoposition: false, photos: false, camera: false,
-                      phone: false, messages: false, microphone: false)
-   }
-   
+
    // MARK: All data about our Partners in start
    static func generatePartnersData() -> [userID:Partner] {
       return [

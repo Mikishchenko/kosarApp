@@ -26,6 +26,7 @@ class AvatarTableViewController: UITableViewController {
       // назначения уведомления об окончании выбра аватара
       NotificationCenter.default.post(name: Notification.Name("popOverVCWillDismissed"), object: nil)
    }
+   // MARK: - Отмена выбора изображения
    @IBAction func cancelChoiceButton(_ sender: UIButton) {
       dismiss(animated: true, completion: nil)
       // назначения уведомления об окончании выбра аватара
@@ -37,7 +38,8 @@ class AvatarTableViewController: UITableViewController {
       // Dispose of any resources that can be recreated.
    }
    // MARK: - Отображение в ячеейке AvatarTVCell коллекции картинок из ячейки AvatarCVCell
-   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
+   override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell,
+                           forRowAt indexPath: IndexPath) {
       if let tableViewCell = cell as? AvatarTableViewCell {
          tableViewCell.setCollectionViewDelegate(delegate: self, forRow: indexPath.row)
       }
@@ -51,8 +53,10 @@ extension AvatarTableViewController: UICollectionViewDelegate, UICollectionViewD
       return avatarsArray.count
    }
    // MARK: - Определяем, что будем показывать в повторяющейся ячейке AvatarCVCell
-   func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-      if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCVCell", for: indexPath) as? AvatarCollectionViewCell {
+   func collectionView(_ collectionView: UICollectionView,
+                       cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+      if let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "AvatarCVCell",
+                                                       for: indexPath) as? AvatarCollectionViewCell {
          let imageName = avatarsArray[indexPath.row]
          cell.avatarImage.image = UIImage(named: "\(imageName)")
          return cell

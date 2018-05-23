@@ -65,7 +65,11 @@ func setConditions(currentPartner: Partner) -> String {
 
 // MARK: - Добавление партнера в сущность Contractor
 func addContractorInUserHistory (id: userID, name: String, photo: String) {
-   _ = CoreDataHandler.saveObject(photo: photo, date: Date(timeIntervalSinceNow: 0), rating: nil, name: name, iD: id)
+   for index in userHistory! {
+      guard index.iD != id && index.date != Date(timeIntervalSinceNow: 0) else { return }
+   }
+   CoreDataHandler.saveObject(photo: photo, date: Date(timeIntervalSinceNow: 0),
+                              rating: nil, name: name, iD: id)
 }
 
 // это расширение необходимо для корректной отработки всплывающих окон, иначе они растягиваются на весь экран

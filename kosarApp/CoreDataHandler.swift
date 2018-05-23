@@ -18,7 +18,7 @@ class CoreDataHandler: NSObject {
    }
    
    // MARK: - Сохранение объекта в сущность Contractor
-   class func saveObject(photo: String, date: Date, rating: String?, name: String, iD: UInt) -> Bool {
+   class func saveObject(photo: String, date: Date, rating: String?, name: String, iD: UInt) {
       let context = getContext()
       let entity = NSEntityDescription.entity(forEntityName: "Contractor", in: context)
       let manageObject = NSManagedObject(entity: entity!, insertInto: context)
@@ -31,21 +31,23 @@ class CoreDataHandler: NSObject {
       
       do {
          try context.save()
-         return true
+         return
       } catch {
-         return false
+         print("Сохранить объект не удалось")
+         return
       }
    }
    
-   // MARK: - Получение объекта
+   // MARK: - Получение всех объектов сущности
    class func fetchObject() -> [Contractor]? {
       let context = getContext()
-      var contractor: [Contractor]? = nil
+      var objects: [Contractor]? = nil
       do {
-         contractor = try context.fetch(Contractor.fetchRequest())
-         return contractor
+         objects = try context.fetch(Contractor.fetchRequest())
+         return objects
       } catch {
-         return contractor
+         print("Получить объекты не удалось")
+         return objects
       }
    }
    
@@ -57,7 +59,28 @@ class CoreDataHandler: NSObject {
          try context.save()
          return true
       } catch {
+         print("Удалить объект не удалось")
          return false
+      }
+   }
+   
+   // MARK: - Обновление значения рейтинга у объекта
+   class func refreshObjectsRating(iD: UInt, date: Date, rating: String?) {
+      let context = getContext()
+      var objects: [Contractor]? = nil
+      do {
+         objects = try context.fetch(Contractor.fetchRequest())
+         guard (objects?.count)! > 0 else { return }
+         for object in objects! {
+            if object.iD == iD && object.date == date {
+               object.setValue(object.rating, forKey: "rating")
+            }
+         }
+         try context.save()
+         return
+      } catch {
+         print("Обновить рейтинг объекта не удалось")
+         return
       }
    }
 }
