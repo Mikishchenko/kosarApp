@@ -71,6 +71,14 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      return newDataForEveryTextField(textField)
+   }
+   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+      return newDataForEveryTextField(textField)
+   }
+
+   // обновление значений userDefaults из каждого текстфилда
+   func newDataForEveryTextField(_ textField: UITextField) -> Bool {
       switch textField {
       case priceTextField:
          userDefaults.set(UInt(priceTextField.text!), forKey: "price")
@@ -96,7 +104,7 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
          return true
       }
    }
-   
+
    // если хотя бы в одном поле нажать DONE, то сохраняются значения всех полей
    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
       switch reason {
