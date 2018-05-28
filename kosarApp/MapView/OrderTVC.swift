@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 
 // MARK: - Инициализаруем заявку
-var order = Order()
+//var order = Order()
 
 class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
@@ -44,23 +44,25 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      return newDataForEveryTextField(textField)
+   }
+   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+      return newDataForEveryTextField(textField)
+   }
+   
+   // обновление значений userDefaults из каждого текстфилда
+   func newDataForEveryTextField(_ textField: UITextField) -> Bool {
       switch textField {
       case priceTextField:
-         order.price = UInt(priceTextField.text!)
-         userDefaults.set(order.price, forKey: "price")
-         user.price = order.price
+         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
          priceTextField.resignFirstResponder()
          return true
       case locationTextField:
-         order.location = locationTextField.text
-         userDefaults.set(order.location, forKey: "location")
-         user.location = order.location
+         userDefaults.set(locationTextField.text, forKey: "location")
          locationTextField.resignFirstResponder()
          return true
       case workAreaTextField:
-         order.workArea = UInt(workAreaTextField.text!)
-         userDefaults.set(order.workArea, forKey: "workArea")
-         user.workArea = order.workArea
+         userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
          workAreaTextField.resignFirstResponder()
          return true
       default:
@@ -79,54 +81,46 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       }
    }
    
-   // MARK: - Присваивание значений из текстфилдов
+   // MARK: - Присваивание значений из всех текстфилдов
    fileprivate func newData() {
-      order.price = UInt(priceTextField.text!)
-      order.location = locationTextField.text
-      order.workArea = UInt(workAreaTextField.text!)
-      user.price = order.price
-      user.location = order.location
-      user.workArea = order.workArea
+      userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+      userDefaults.set(locationTextField.text, forKey: "location")
+      userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
+      //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
+      priceTextField.resignFirstResponder()
+      locationTextField.resignFirstResponder()
+      workAreaTextField.resignFirstResponder()
    }
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func orderElectricitySwitcher(_ sender: UISwitch) {
-      order.electricity = sender.isOn
-      userDefaults.set(order.electricity, forKey: "electricity")
+      userDefaults.set(sender.isOn, forKey: "electricity")
    }
    @IBAction func orderHardReliefSwitcher(_ sender: UISwitch) {
-      order.hardRelief = sender.isOn
-      userDefaults.set(order.hardRelief, forKey: "hardRelief")
+      userDefaults.set(sender.isOn, forKey: "hardRelief")
    }
    @IBAction func orderPlantsSwitcher(_ sender: UISwitch) {
-      order.plants = sender.isOn
-      userDefaults.set(order.plants, forKey: "plants")
+      userDefaults.set(sender.isOn, forKey: "plants")
    }
    
-   // MARK: - Присвоение user.location текущего местоположения
+   // MARK: - Присвоение location текущего местоположения
    @IBAction func userLocationButton(_ sender: UIButton) {
       let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
                                             longitude: CLLocationDegrees(user.longitude!))
-      reverseGeocodeCoordinate(position)
+      locationTextField.becomeFirstResponder()
       // после нажатия кнопочки надо обновить поле текстфилда
-      locationTextField.text = user.location
-      NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
-                                      object: nil)
+      locationTextField.text = reverseGeocodeCoordinate(position)
    }
    
    // MARK: - Подтверждение заявки
    @IBAction func orderConfirmButton(_ sender: UIButton) {
       newData() // дублируем присваивание на всякий пожарный
-      //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
-      priceTextField.resignFirstResponder()
-      locationTextField.resignFirstResponder()
-      workAreaTextField.resignFirstResponder()
-      
-      guard order.price != nil else {
+      // проверяем заполнение обязательных полей
+      guard UInt(priceTextField.text!) != nil else {
          alertWarning(emptyField: "Стоимость покоса", currentVC: self)
          return
       }
-      guard order.location != "" else {
+      guard locationTextField.text != "" else {
          alertWarning(emptyField: "Адрес покоса", currentVC: self)
          return
       }

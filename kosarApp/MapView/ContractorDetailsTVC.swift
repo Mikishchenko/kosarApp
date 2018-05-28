@@ -37,6 +37,8 @@ class ContractorDetailsTVC: UITableViewController {
       addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
                                  photo: (currentPartner?.image)!)
       print("Пользователь пытается отправить сообщение Контрагету")
+      resignFirstResponder()
+      dismiss(animated: true, completion: nil)
    }
    
    @IBAction func callButton(_ sender: UIButton) {
@@ -44,6 +46,8 @@ class ContractorDetailsTVC: UITableViewController {
       addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
                                  photo: (currentPartner?.image)!)
       print("Пользователь пытается дозвониться до Контрагета")
+      resignFirstResponder()
+      dismiss(animated: true, completion: nil)
    }
    
    // MARK: - Имея userID текущего партнера, отображаем его параметры

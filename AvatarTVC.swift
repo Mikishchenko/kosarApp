@@ -14,20 +14,19 @@ class AvatarTableViewController: UITableViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      self.becomeFirstResponder()
    }
    
-   @IBAction func choosePhotoButton(_ sender: UIButton) {
-   }
-   @IBAction func makePhotoButton(_ sender: UIButton) {
-   }
    @IBAction func saveChoiceButton(_ sender: UIButton) {
       userDefaults.set(user.image, forKey: "image")
+      self.resignFirstResponder()
       dismiss(animated: true, completion: nil)
       // назначения уведомления об окончании выбра аватара
       NotificationCenter.default.post(name: Notification.Name("popOverVCWillDismissed"), object: nil)
    }
    // MARK: - Отмена выбора изображения
    @IBAction func cancelChoiceButton(_ sender: UIButton) {
+      self.resignFirstResponder()
       dismiss(animated: true, completion: nil)
       // назначения уведомления об окончании выбра аватара
       NotificationCenter.default.post(name: Notification.Name("popOverVCWillDismissed"), object: nil)

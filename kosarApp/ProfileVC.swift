@@ -67,7 +67,7 @@ class ProfileController: UIViewController {
    public func alertYesNo(message: String) {
       let alert = UIAlertController(title: "ВНИМАНИЕ!", message: message, preferredStyle: .alert)
       let yesAction = UIAlertAction(title: "ДА", style: .default) { (action) in
-         popoverVC(currentVC: self, identifierPopoverVC: "AvatarTVC", heightPopoverVC: 320)
+         popoverVC(currentVC: self, identifierPopoverVC: "AvatarTVC", heightPopoverVC: 232)
       }
       let noAction = UIAlertAction(title: "НЕТ", style: .default) { (action) in
          self.blurEffectOnOff()

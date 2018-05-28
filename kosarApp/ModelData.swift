@@ -134,24 +134,24 @@ class Partner: UsersProtocol {
 //   }
 //}
 
-class Order {
-   var price: UInt?
-   var location: String?
-   var workArea: UInt?
-   var electricity: Bool?
-   var hardRelief: Bool?
-   var plants: Bool?
-   
-}
+//class Order {
+//   var price: UInt?
+//   var location: String?
+//   var workArea: UInt?
+//   var electricity: Bool?
+//   var hardRelief: Bool?
+//   var plants: Bool?
+//
+//}
 
-class Offer {
-   var price: UInt?
-   var location: String?
-   var info: String?
-   var equipment: Bool?
-   var electricity: Bool?
-   var transport: Bool?
-}
+//class Offer {
+//   var price: UInt?
+//   var location: String?
+//   var info: String?
+//   var equipment: Bool?
+//   var electricity: Bool?
+//   var transport: Bool?
+//}
 
 // MARK: - Расширяем функционал типа Date, может конвертироваться в String и обратно
 extension Date {

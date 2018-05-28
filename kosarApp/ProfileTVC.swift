@@ -73,28 +73,23 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
       switch textField {
       case priceTextField:
-         user.price = UInt(priceTextField.text!)
-         userDefaults.set(user.price, forKey: "price")
+         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
          priceTextField.resignFirstResponder()
          return true
       case nameTextField:
-         user.name = nameTextField.text
-         userDefaults.set(user.name, forKey: "name")
+         userDefaults.set(nameTextField.text, forKey: "name")
          nameTextField.resignFirstResponder()
          return true
       case infoTextField:
-         user.info = infoTextField.text
-         userDefaults.set(user.info, forKey: "info")
+         userDefaults.set(infoTextField.text, forKey: "info")
          infoTextField.resignFirstResponder()
          return true
       case locationTextField:
-         user.location = locationTextField.text
-         userDefaults.set(user.location, forKey: "location")
+         userDefaults.set(locationTextField.text, forKey: "location")
          locationTextField.resignFirstResponder()
          return true
       case workAreaTextField:
-         user.workArea = UInt(workAreaTextField.text!)
-         userDefaults.set(user.workArea, forKey: "workArea")
+         userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
          workAreaTextField.resignFirstResponder()
          return true
       default:
@@ -106,16 +101,11 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
       switch reason {
       case .committed:
-         user.price = UInt(priceTextField.text!)
-         userDefaults.set(user.price, forKey: "price")
-         user.name = nameTextField.text
-         userDefaults.set(user.name, forKey: "name")
-         user.info = infoTextField.text
-         userDefaults.set(user.info, forKey: "info")
-         user.location = locationTextField.text
-         userDefaults.set(user.location, forKey: "location")
-         user.workArea = UInt(workAreaTextField.text!)
-         userDefaults.set(user.workArea, forKey: "workArea")
+         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+         userDefaults.set(nameTextField.text, forKey: "name")
+         userDefaults.set(infoTextField.text, forKey: "info")
+         userDefaults.set(locationTextField.text, forKey: "location")
+         userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
          userDefaults.synchronize()
          return
       case .cancelled:
@@ -127,42 +117,35 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    @IBAction func clientWorkerSegment(_ sender: UISegmentedControl) {
       user.type = (sender.selectedSegmentIndex == 0 ? .client : .worker)
       userDefaults.set(sender.selectedSegmentIndex, forKey: "type")
-      userDefaults.set(true, forKey: "typeChoiseIsDone")
+      userDefaults.set(true, forKey: "typeChoiceIsDone")
       // при смене типа пользователя, обнуляем заявки / объявления
-      eraseOrderOffer()
+      orderOfferIsActive = false
       typeChoiceIsDone = true
       tableView.reloadData() // обновление вида профиля после смены типа пользователя
    }
    @IBAction func electricitySwitcher(_ sender: UISwitch) {
-      user.electricity = (sender.isOn ? true : false)
-      userDefaults.set(user.electricity, forKey: "electricity")
+      userDefaults.set(sender.isOn, forKey: "electricity")
    }
    @IBAction func equipmentSwitcher(_ sender: UISwitch) {
-      user.equipment = (sender.isOn ? true : false)
-      userDefaults.set(user.equipment, forKey: "equipment")
+      userDefaults.set(sender.isOn, forKey: "equipment")
    }
    @IBAction func transportSwitcher(_ sender: UISwitch) {
-      user.transport = (sender.isOn ? true : false)
-      userDefaults.set(user.transport, forKey: "transport")
+      userDefaults.set(sender.isOn, forKey: "transport")
    }
    @IBAction func hardReliefSwitcher(_ sender: UISwitch) {
-      user.hardRelief = (sender.isOn ? true : false)
-      userDefaults.set(user.hardRelief, forKey: "hardRelief")
+      userDefaults.set(sender.isOn, forKey: "hardRelief")
    }
    @IBAction func plantsSwitcher(_ sender: UISwitch) {
-      user.plants = (sender.isOn ? true : false)
-      userDefaults.set(user.plants, forKey: "plants")
+      userDefaults.set(sender.isOn, forKey: "plants")
    }
    
-   // MARK: - Присвоение user.location текущего местоположения
+   // MARK: - Присвоение location текущего местоположения
    @IBAction func userLocationButton(_ sender: UIButton) {
       let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
                                             longitude: CLLocationDegrees(user.longitude!))
-      reverseGeocodeCoordinate(position)
+      locationTextField.becomeFirstResponder()
       // после нажатия кнопочки надо обновить поле текстфилда
-      locationTextField.text = user.location
-      NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
-                                      object: nil)
+      locationTextField.text = reverseGeocodeCoordinate(position)
    }
    
    // MARK: - Сокрытие некоторых элементов для пользователя Worker

@@ -75,11 +75,10 @@ class InfoTableViewController: UITableViewController {
    
    //MARK: - Нажатие кнопки удаления Заявки-Объявления или Расширения зоны поиска
    @IBAction func extensionWorkAreaOrDeleteButton(_ sender: UIButton) {
-      switch orderOfferIsActive{
-      case true:
-         eraseOrderOffer()
-         self.view.window?.rootViewController?.dismiss(animated: false, completion: nil)
-      case false:
+      if orderOfferIsActive {
+         orderOfferIsActive = false
+         dismiss(animated: false, completion: nil)
+      } else {
          searchArea += 10.0
          zoomLevel -= 1.0
          dismiss(animated: true, completion: nil)
@@ -89,13 +88,6 @@ class InfoTableViewController: UITableViewController {
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
    }
-}
-
-// MARK: - Стирание заявки или объявления
-public func eraseOrderOffer() {
-   orderOfferIsActive = false
-   order = Order()
-   offer = Offer()
 }
 
 // MARK: - Для корректной отработки всплывающих окон, иначе они растягиваются на весь экран

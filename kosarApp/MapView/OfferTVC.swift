@@ -10,7 +10,7 @@ import UIKit
 import GoogleMaps
 
 // MARK: - Инициализаруем объявление
-var offer = Offer()
+//var offer = Offer()
 
 class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
@@ -46,56 +46,33 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-      switch textField {
-      case priceTextField:
-         offer.price = UInt(priceTextField.text!)
-         userDefaults.set(offer.price, forKey: "price")
-         user.price = offer.price
-         priceTextField.resignFirstResponder()
-         return true
-      case locationTextField:
-         offer.location = locationTextField.text
-         userDefaults.set(offer.location, forKey: "location")
-         user.location = offer.location
-         locationTextField.resignFirstResponder()
-         return true
-      case infoTextField:
-         offer.info = infoTextField.text
-         userDefaults.set(offer.info, forKey: "info")
-         user.info = offer.info
-         infoTextField.resignFirstResponder()
-         return true
-      default:
-         return true
-      }
+      return newDataForEveryTextField(textField)
    }
    
    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+      return newDataForEveryTextField(textField)
+   }
+   
+   // обновление значений userDefaults из каждого текстфилда
+   func newDataForEveryTextField(_ textField: UITextField) -> Bool {
       switch textField {
       case priceTextField:
-         offer.price = UInt(priceTextField.text!)
-         userDefaults.set(offer.price, forKey: "price")
-         user.price = offer.price
+         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
          priceTextField.resignFirstResponder()
          return true
       case locationTextField:
-         offer.location = locationTextField.text
-         userDefaults.set(offer.location, forKey: "location")
-         user.location = offer.location
+         userDefaults.set(locationTextField.text, forKey: "location")
          locationTextField.resignFirstResponder()
          return true
       case infoTextField:
-         offer.info = infoTextField.text
-         userDefaults.set(offer.info, forKey: "info")
-         user.info = offer.info
+         userDefaults.set(infoTextField.text, forKey: "info")
          infoTextField.resignFirstResponder()
          return true
       default:
          return true
       }
-
    }
-   
+
    // MARK: - Если хотя бы в одном поле нажать DONE, то сохраняются значения всех полей
    func textFieldDidEndEditing(_ textField: UITextField, reason: UITextFieldDidEndEditingReason) {
       switch reason {
@@ -109,52 +86,44 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание значений из текстфилдов
    fileprivate func newData() {
-      offer.price = UInt(priceTextField.text!)
-      offer.location = locationTextField.text
-      offer.info = infoTextField.text
-      user.price = offer.price
-      user.location = offer.location
-      user.info = offer.info
+      userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+      userDefaults.set(locationTextField.text, forKey: "location")
+      userDefaults.set(infoTextField.text, forKey: "info")
+      //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
+      priceTextField.resignFirstResponder()
+      locationTextField.resignFirstResponder()
+      infoTextField.resignFirstResponder()
    }
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func offerEquipmentSwitcher(_ sender: UISwitch) {
-      offer.equipment = sender.isOn
-      userDefaults.set(offer.equipment, forKey: "equipment")
+      userDefaults.set(sender.isOn, forKey: "equipment")
    }
    @IBAction func offerElectricitySwitcher(_ sender: UISwitch) {
-      offer.electricity = sender.isOn
-      userDefaults.set(offer.electricity, forKey: "electricity")
+      userDefaults.set(sender.isOn, forKey: "electricity")
    }
    @IBAction func offerTransportSwitcher(_ sender: UISwitch) {
-      offer.transport = sender.isOn
-      userDefaults.set(offer.transport, forKey: "transport")
+      userDefaults.set(sender.isOn, forKey: "transport")
    }
    
-   // MARK: - Присвоение user.location текущего местоположения
+   // MARK: - Присвоение location текущего местоположения
    @IBAction func userLocationButton(_ sender: UIButton) {
       let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
                                             longitude: CLLocationDegrees(user.longitude!))
-      reverseGeocodeCoordinate(position)
+      locationTextField.becomeFirstResponder()
       // после нажатия кнопочки надо обновить поле текстфилда
-      locationTextField.text = user.location
-      NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
-                                      object: nil)
+      locationTextField.text = reverseGeocodeCoordinate(position)
    }
    
    // MARK: Подтверждение оформления объявления
    @IBAction func offerConfirmButton(_ sender: UIButton) {
       newData() // дублируем присваивание на всякий пожарный
-      //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
-      priceTextField.resignFirstResponder()
-      locationTextField.resignFirstResponder()
-      infoTextField.resignFirstResponder()
-      
-      guard offer.price != nil else {
+      // проверяем заполнение обязательных полей
+      guard UInt(priceTextField.text!) != nil else {
          alertWarning(emptyField: "Стоимость покоса", currentVC: self)
          return
       }
-      guard offer.location != "" else {
+      guard locationTextField.text != "" else {
          alertWarning(emptyField: "Адрес покоса", currentVC: self)
          return
       }

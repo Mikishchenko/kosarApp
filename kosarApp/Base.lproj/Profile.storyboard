@@ -548,7 +548,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="AvatarTVC" id="ENA-ZF-fWQ" customClass="AvatarTableViewController" customModule="kosarApp" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" scrollEnabled="NO" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" dataMode="static" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" id="VdS-br-s7O">
-                        <rect key="frame" x="0.0" y="0.0" width="343" height="320"/>
+                        <rect key="frame" x="0.0" y="0.0" width="343" height="232"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <sections>
@@ -635,62 +635,8 @@
                                             <outlet property="avatarCollectionView" destination="EM3-AT-eF9" id="zGr-9J-6Vd"/>
                                         </connections>
                                     </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="6Tw-hN-4Mi">
-                                        <rect key="frame" x="0.0" y="144" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="6Tw-hN-4Mi" id="HLO-wt-B9Q">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gOd-0V-Xs6">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
-                                                    <color key="backgroundColor" red="0.82653301950000002" green="0.88647848370000004" blue="0.61481004949999996" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <state key="normal" title="Выберите фото">
-                                                        <color key="titleColor" red="0.1785576046" green="0.42341881990000002" blue="0.135537833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="choosePhotoButton:" destination="ENA-ZF-fWQ" eventType="touchUpInside" id="HwQ-M0-Vhq"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="trailing" secondItem="gOd-0V-Xs6" secondAttribute="trailing" id="B4U-Xr-5Kd"/>
-                                                <constraint firstItem="gOd-0V-Xs6" firstAttribute="leading" secondItem="HLO-wt-B9Q" secondAttribute="leading" id="Kog-Li-BAr"/>
-                                                <constraint firstAttribute="bottom" secondItem="gOd-0V-Xs6" secondAttribute="bottom" id="M5y-Ay-X2w"/>
-                                                <constraint firstItem="gOd-0V-Xs6" firstAttribute="top" secondItem="HLO-wt-B9Q" secondAttribute="top" id="hRH-VN-5SJ"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
-                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="1eI-Pn-OsK">
-                                        <rect key="frame" x="0.0" y="188" width="343" height="44"/>
-                                        <autoresizingMask key="autoresizingMask"/>
-                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="1eI-Pn-OsK" id="aoZ-b2-pVf">
-                                            <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
-                                            <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="BfZ-HK-Liu">
-                                                    <rect key="frame" x="0.0" y="0.0" width="343" height="43.5"/>
-                                                    <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                                    <fontDescription key="fontDescription" type="system" weight="medium" pointSize="18"/>
-                                                    <state key="normal" title="Сделайте новое фото">
-                                                        <color key="titleColor" red="0.1785576046" green="0.42341881990000002" blue="0.135537833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                                    </state>
-                                                    <connections>
-                                                        <action selector="makePhotoButton:" destination="ENA-ZF-fWQ" eventType="touchUpInside" id="ftX-vD-vLv"/>
-                                                    </connections>
-                                                </button>
-                                            </subviews>
-                                            <constraints>
-                                                <constraint firstAttribute="bottom" secondItem="BfZ-HK-Liu" secondAttribute="bottom" id="0XU-7A-eC9"/>
-                                                <constraint firstItem="BfZ-HK-Liu" firstAttribute="leading" secondItem="aoZ-b2-pVf" secondAttribute="leading" id="P1E-7u-ANS"/>
-                                                <constraint firstAttribute="trailing" secondItem="BfZ-HK-Liu" secondAttribute="trailing" id="UGT-Bx-8Oy"/>
-                                                <constraint firstItem="BfZ-HK-Liu" firstAttribute="top" secondItem="aoZ-b2-pVf" secondAttribute="top" id="Voh-TV-G02"/>
-                                            </constraints>
-                                        </tableViewCellContentView>
-                                    </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="jgX-nQ-rfX">
-                                        <rect key="frame" x="0.0" y="232" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="144" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="jgX-nQ-rfX" id="ITt-Se-LdS">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
@@ -718,7 +664,7 @@
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                     <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" selectionStyle="none" indentationWidth="10" rowHeight="44" id="NJu-GS-PG9">
-                                        <rect key="frame" x="0.0" y="276" width="343" height="44"/>
+                                        <rect key="frame" x="0.0" y="188" width="343" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="NJu-GS-PG9" id="mLK-Pw-ase">
                                             <rect key="frame" x="0.0" y="0.0" width="343" height="44"/>
@@ -753,7 +699,7 @@
                             <outlet property="delegate" destination="ENA-ZF-fWQ" id="Cto-QV-bZ5"/>
                         </connections>
                     </tableView>
-                    <size key="freeformSize" width="343" height="320"/>
+                    <size key="freeformSize" width="343" height="232"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="brE-bk-5Tv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

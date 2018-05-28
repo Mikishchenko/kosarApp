@@ -57,17 +57,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       setCameraPosition(latitude: user.latitude,
                         longitude: user.longitude, zoom: zoomLevel)
       mapView.clear()
-      // получение иконки Пользователя
-      if let object = userDefaults.object(forKey: "image") {
-         user.image = object as? String
-      } else {
-         user.image = "avatarDefault"
-      }
       // отображение Пользователя на карте
-      setMapMarker(markerKey: 0, markerIcon: user.image!,
+      setMapMarker(markerKey: 0, markerIcon: (userDefaults.object(forKey: "image")as? String) ?? "avatarDefault",
                    latitude: user.latitude!, longitude: user.longitude!)
       // если это не первый вход и выбор типа совершён, то кнопки выбора типа не нужны
-      guard userDefaults.object(forKey: "typeChoiseIsDone") != nil else { return }
+      guard userDefaults.object(forKey: "typeChoiceIsDone") != nil else { return }
          typeChoice()
    }
    
@@ -166,7 +160,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    @IBAction func clientButton(_ sender: UIButton) {
       user.type = .client
       userDefaults.set(0, forKey: "type")
-      userDefaults.set(true, forKey: "typeChoiseIsDone")
+      userDefaults.set(true, forKey: "typeChoiceIsDone")
       typeChoice()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
@@ -175,7 +169,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    @IBAction func workerButton(_ sender: UIButton) {
       user.type = .worker
       userDefaults.set(1, forKey: "type")
-      userDefaults.set(true, forKey: "typeChoiseIsDone")
+      userDefaults.set(true, forKey: "typeChoiceIsDone")
       typeChoice()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
@@ -188,15 +182,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
 }
 
 // MARK: - Геокодирование (получение адреса по имеющимся координатам)
-public func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) {
+public func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) -> String {
    let geocoder = GMSGeocoder()
    geocoder.reverseGeocodeCoordinate(coordinate) { response, error in
       guard let address = response?.firstResult() , let lines = address.lines else {
          return
       }
       user.location = lines.joined()
+      NotificationCenter.default.post(name: Notification.Name("userLocationButtonPressed"),
+                                      object: nil)
       print(user.location!)
    }
+   return user.location ?? "идёт поиск ... нажмите ещё раз"
 }
 
 // MARK: - Пользовательский navBar полупрозрачный и с темными Items

@@ -34,6 +34,8 @@ class ContactorInfoTableViewController: UITableViewController {
       addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
                                  photo: (currentPartner?.image)!)
       print("Пользователь пытается дозвониться до Контрагета")
+      resignFirstResponder()
+      dismiss(animated: true, completion: nil)
    }
 
     override func didReceiveMemoryWarning() {
@@ -65,9 +67,19 @@ func setConditions(currentPartner: Partner) -> String {
 
 // MARK: - Добавление партнера в сущность Contractor
 func addContractorInUserHistory (id: userID, name: String, photo: String) {
-   for index in userHistory! {
-      guard index.iD != id && index.date != Date(timeIntervalSinceNow: 0) else { return }
+   // для каждого контрактора из истории проверяем   
+   let sortedUserHistory = userHistory?.sorted {( $0.date! > $1.date! )}
+   for index in sortedUserHistory! {
+      print("\(index.iD) : \(String(describing: index.date!.to(format: "dd.MM.yyyy"))) -> \(id) : \(Date(timeIntervalSinceNow: 0).to(format: "dd.MM.yyyy"))")
+      // если с НИМ ранее на контакт не выходили, идём дальше по циклу
+      guard index.iD != id else {
+         // или если контачили НЕ СЕГОДНЯ, завершаем цикл, иначе выходим из функции
+         if index.date!.to(format: "dd.MM.yyyy") != Date(timeIntervalSinceNow: 0).to(format: "dd.MM.yyyy") {
+            break
+         } else { return }
+      }
    }
+   // добавляем в историю
    CoreDataHandler.saveObject(photo: photo, date: Date(timeIntervalSinceNow: 0),
                               rating: nil, name: name, iD: id)
 }

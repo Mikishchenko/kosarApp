@@ -38,7 +38,7 @@ class HistoryTableController: UITableViewController {
    // MARK: - Формирование типовой записи истории
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       // сортируем массив контракторов по дате
-      var sortedUserHistory = userHistory?.sorted {( $0.date! > $1.date! )}
+      let sortedUserHistory = userHistory?.sorted {( $0.date! > $1.date! )}
       
       let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
       cell.contractor = sortedUserHistory?[indexPath.row]
