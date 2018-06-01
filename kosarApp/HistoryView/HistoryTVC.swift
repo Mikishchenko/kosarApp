@@ -38,10 +38,10 @@ class HistoryTableController: UITableViewController {
    // MARK: - Формирование типовой записи истории
    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
       // сортируем массив контракторов по дате
-      let sortedUserHistory = userHistory?.sorted {( $0.date! > $1.date! )}
+      userHistory = userHistory?.sorted {( $0.date! > $1.date! )}
       
       let cell = tableView.dequeueReusableCell(withIdentifier: "HistoryCell", for: indexPath) as! HistoryCell
-      cell.contractor = sortedUserHistory?[indexPath.row]
+      cell.contractor = userHistory?[indexPath.row]
       return cell
    }
    
@@ -50,7 +50,7 @@ class HistoryTableController: UITableViewController {
    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
       if editingStyle == .delete {
          if CoreDataHandler.deleteObject(contractor: userHistory![indexPath.row]) {
-            userHistory = CoreDataHandler.fetchObject()
+            userHistory!.remove(at: indexPath.row)
             self.tableView.deleteRows(at: [indexPath], with: .automatic)
          }
       }
