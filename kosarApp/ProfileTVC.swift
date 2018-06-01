@@ -82,22 +82,28 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
       switch textField {
       case priceTextField:
          userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+         userDefaults.synchronize()
          priceTextField.resignFirstResponder()
          return true
       case nameTextField:
          userDefaults.set(nameTextField.text, forKey: "name")
+         userDefaults.synchronize()
          nameTextField.resignFirstResponder()
          return true
       case infoTextField:
          userDefaults.set(infoTextField.text, forKey: "info")
+         userDefaults.synchronize()
          infoTextField.resignFirstResponder()
          return true
       case locationTextField:
+         performGoogleSearch(for: locationTextField.text!)
          userDefaults.set(locationTextField.text, forKey: "location")
+         userDefaults.synchronize()
          locationTextField.resignFirstResponder()
          return true
       case workAreaTextField:
          userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
+         userDefaults.synchronize()
          workAreaTextField.resignFirstResponder()
          return true
       default:
@@ -126,6 +132,7 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
       user.type = (sender.selectedSegmentIndex == 0 ? .client : .worker)
       userDefaults.set(sender.selectedSegmentIndex, forKey: "type")
       userDefaults.set(true, forKey: "typeChoiceIsDone")
+      userDefaults.synchronize()
       // при смене типа пользователя, обнуляем заявки / объявления
       orderOfferIsActive = false
       typeChoiceIsDone = true
@@ -133,24 +140,32 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    }
    @IBAction func electricitySwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "electricity")
+      userDefaults.synchronize()
    }
    @IBAction func equipmentSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "equipment")
+      userDefaults.synchronize()
    }
    @IBAction func transportSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "transport")
+      userDefaults.synchronize()
    }
    @IBAction func hardReliefSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "hardRelief")
+      userDefaults.synchronize()
    }
    @IBAction func plantsSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "plants")
+      userDefaults.synchronize()
    }
    
    // MARK: - Присвоение location текущего местоположения
    @IBAction func userLocationButton(_ sender: UIButton) {
-      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
-                                            longitude: CLLocationDegrees(user.longitude!))
+      customLocation = false
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLatitude") as! Double),
+                                            longitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLongitude") as! Double))
       locationTextField.becomeFirstResponder()
       // после нажатия кнопочки надо обновить поле текстфилда
       locationTextField.text = reverseGeocodeCoordinate(position)

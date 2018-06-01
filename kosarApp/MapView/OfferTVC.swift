@@ -58,14 +58,18 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       switch textField {
       case priceTextField:
          userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+         userDefaults.synchronize()
          priceTextField.resignFirstResponder()
          return true
       case locationTextField:
+         performGoogleSearch(for: locationTextField.text!)
          userDefaults.set(locationTextField.text, forKey: "location")
+         userDefaults.synchronize()
          locationTextField.resignFirstResponder()
          return true
       case infoTextField:
          userDefaults.set(infoTextField.text, forKey: "info")
+         userDefaults.synchronize()
          infoTextField.resignFirstResponder()
          return true
       default:
@@ -89,6 +93,7 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       userDefaults.set(UInt(priceTextField.text!), forKey: "price")
       userDefaults.set(locationTextField.text, forKey: "location")
       userDefaults.set(infoTextField.text, forKey: "info")
+      userDefaults.synchronize()
       //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
       priceTextField.resignFirstResponder()
       locationTextField.resignFirstResponder()
@@ -98,18 +103,24 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func offerEquipmentSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "equipment")
+      userDefaults.synchronize()
    }
    @IBAction func offerElectricitySwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "electricity")
+      userDefaults.synchronize()
    }
    @IBAction func offerTransportSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "transport")
+      userDefaults.synchronize()
    }
    
    // MARK: - Присвоение location текущего местоположения
    @IBAction func userLocationButton(_ sender: UIButton) {
-      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
-                                            longitude: CLLocationDegrees(user.longitude!))
+      customLocation = false
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLatitude") as! Double),
+                                            longitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLongitude") as! Double))
       locationTextField.becomeFirstResponder()
       // после нажатия кнопочки надо обновить поле текстфилда
       locationTextField.text = reverseGeocodeCoordinate(position)

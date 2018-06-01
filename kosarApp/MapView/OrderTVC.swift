@@ -44,10 +44,12 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      tableView.reloadData()
       return newDataForEveryTextField(textField)
    }
    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
-      return newDataForEveryTextField(textField)
+      tableView.reloadData()
+     return newDataForEveryTextField(textField)
    }
    
    // обновление значений userDefaults из каждого текстфилда
@@ -55,14 +57,19 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       switch textField {
       case priceTextField:
          userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+         userDefaults.synchronize()
          priceTextField.resignFirstResponder()
          return true
       case locationTextField:
+//         locationTextField.text = String(describing: performGoogleSearch(for: locationTextField.text!))
+         performGoogleSearch(for: locationTextField.text!)
          userDefaults.set(locationTextField.text, forKey: "location")
+         userDefaults.synchronize()
          locationTextField.resignFirstResponder()
          return true
       case workAreaTextField:
          userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
+         userDefaults.synchronize()
          workAreaTextField.resignFirstResponder()
          return true
       default:
@@ -86,6 +93,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       userDefaults.set(UInt(priceTextField.text!), forKey: "price")
       userDefaults.set(locationTextField.text, forKey: "location")
       userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
+      userDefaults.synchronize()
       //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
       priceTextField.resignFirstResponder()
       locationTextField.resignFirstResponder()
@@ -95,18 +103,24 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func orderElectricitySwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "electricity")
+      userDefaults.synchronize()
    }
    @IBAction func orderHardReliefSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "hardRelief")
+      userDefaults.synchronize()
    }
    @IBAction func orderPlantsSwitcher(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "plants")
+      userDefaults.synchronize()
    }
    
    // MARK: - Присвоение location текущего местоположения
    @IBAction func userLocationButton(_ sender: UIButton) {
-      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(user.latitude!),
-                                            longitude: CLLocationDegrees(user.longitude!))
+      customLocation = false
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLatitude") as! Double),
+                                            longitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLongitude") as! Double))
       locationTextField.becomeFirstResponder()
       // после нажатия кнопочки надо обновить поле текстфилда
       locationTextField.text = reverseGeocodeCoordinate(position)

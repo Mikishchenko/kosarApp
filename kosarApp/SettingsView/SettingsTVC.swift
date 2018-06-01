@@ -40,21 +40,27 @@ class SettingsTableController: UITableViewController {
    // MARK: - Присваивание новых значений при переключении переключателей
    @IBAction func geoposition(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "geoposition")
+      userDefaults.synchronize()
    }
    @IBAction func photos(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "photos")
+      userDefaults.synchronize()
    }
    @IBAction func camera(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "camera")
+      userDefaults.synchronize()
    }
    @IBAction func phone(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "phone")
+      userDefaults.synchronize()
    }
    @IBAction func messages(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "messages")
+      userDefaults.synchronize()
    }
    @IBAction func microphone(_ sender: UISwitch) {
       userDefaults.set(sender.isOn, forKey: "microphone")
+      userDefaults.synchronize()
    }
    
    // MARK: - Сброс всех настроек из userDefaults

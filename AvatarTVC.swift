@@ -19,6 +19,7 @@ class AvatarTableViewController: UITableViewController {
    
    @IBAction func saveChoiceButton(_ sender: UIButton) {
       userDefaults.set(user.image, forKey: "image")
+      userDefaults.synchronize()
       self.resignFirstResponder()
       dismiss(animated: true, completion: nil)
       // назначения уведомления об окончании выбра аватара

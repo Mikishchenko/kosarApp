@@ -17,6 +17,9 @@ var orderOfferAlertIsActive = false
 var searchArea: Double = 10.0
 var zoomLevel: Float = 11.0
 var partnerID: userID?
+var customLocation = false
+var customLatitude: Double = 0.00
+var customLongitude: Double = 0.00
 
 // MARK: - Данные о ближайших партнерах из SampleData
 let partners = SampleData.generatePartnersData()
@@ -32,27 +35,18 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      // старт отслеживания геопозиции пользователя, объявление делегатов и MyLocationButton
-      locationManager.requestWhenInUseAuthorization()
-      locationManager.startUpdatingLocation()
-      locationManager.delegate = self
-      mapView.delegate = self
-      mapView.isMyLocationEnabled = true
-      mapView.settings.setAllGesturesEnabled(true)
-      mapView.settings.zoomGestures = true
-      // сглаживание углов у кнопок
-      buttonItems.forEach { (button) in
-         button.layer.cornerRadius = 12
-      }
    }
    
-   // Handle incoming location events.
+   // Обработка входящих событий местоположения
    func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
       let location: CLLocation = locations.last!
       print("Location: \(location)")
-      // сохранения координат пользователя
-      user.latitude = location.coordinate.latitude
-      user.longitude = location.coordinate.longitude
+      userDefaults.set(location.coordinate.latitude, forKey: "currentLatitude")
+      userDefaults.set(location.coordinate.longitude, forKey: "currentLongitude")
+      userDefaults.synchronize()
+      // сохранение текущих координат пользователя или замена их на введенный адрес в поле location
+      user.latitude = customLocation ? customLatitude : userDefaults.object(forKey: "currentLatitude") as! Double
+      user.longitude = customLocation ? customLongitude : userDefaults.object(forKey: "currentLongitude") as! Double
       // настройка камеры для отображения карты
       setCameraPosition(latitude: user.latitude,
                         longitude: user.longitude, zoom: zoomLevel)
@@ -67,6 +61,19 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
+      // старт отслеживания геопозиции пользователя, объявление делегатов и MyLocationButton
+      locationManager.requestWhenInUseAuthorization()
+      locationManager.startUpdatingLocation()
+      locationManager.delegate = self
+      mapView.delegate = self
+      mapView.isMyLocationEnabled = true
+      mapView.settings.setAllGesturesEnabled(true)
+      mapView.settings.zoomGestures = true
+
+      // сглаживание углов у кнопок
+      buttonItems.forEach { (button) in
+         button.layer.cornerRadius = 12
+      }
       // чтобы кнопки не появлялись после совершения выбора типа пользователя
       typeChoiceIsDone ? (typeChoice()) : (self.navigationController?.navigationBar.isHidden = true)
    }
@@ -162,6 +169,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       userDefaults.set(0, forKey: "type")
       userDefaults.set(true, forKey: "typeChoiceIsDone")
       typeChoice()
+      userDefaults.synchronize()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
    }
@@ -170,6 +178,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       user.type = .worker
       userDefaults.set(1, forKey: "type")
       userDefaults.set(true, forKey: "typeChoiceIsDone")
+      userDefaults.synchronize()
       typeChoice()
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
@@ -181,7 +190,53 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    }
 }
 
-// MARK: - Геокодирование (получение адреса по имеющимся координатам)
+// MARK: - Геокодирование (получение координат по заданному адресу)
+public func performGoogleSearch(for string: String) {
+   // настройка запроса
+   var components = URLComponents(string: "https://maps.googleapis.com/maps/api/geocode/json")!
+   let key = URLQueryItem(name: "key", value: "AIzaSyAua1YJbwI6-uKW6BuHuyMa-5yq4sef9F8")
+   let address = URLQueryItem(name: "address", value: string)
+   components.queryItems = [key, address]
+   
+   let task = URLSession.shared.dataTask(with: components.url!) { data, response, error in
+      // проверки корректности полученного ответа
+      guard let data = data, let httpResponse = response as? HTTPURLResponse,
+         httpResponse.statusCode == 200, error == nil else {
+         print(String(describing: response))
+         print(String(describing: error))
+         return
+      }
+      guard let json = try! JSONSerialization.jsonObject(with: data) as? [String: Any] else {
+         print("not JSON format expected")
+         print(String(data: data, encoding: .utf8) ?? "Not string?!?")
+         return
+      }
+      guard let results = json["results"] as? [[String: Any]],
+         let status = json["status"] as? String,
+         status == "OK" else {
+            print("no results")
+            print(String(describing: json))
+            return
+      }
+      DispatchQueue.main.async {
+         // извлечнеие из полученного ответа, точного адреса и координат
+         let strings = results.compactMap { $0["formatted_address"] as? String }
+         print(strings[0])
+         let geometry = results.compactMap { $0["geometry"] as? [String: Any] }
+         let location = geometry.compactMap { $0["location"] as? [String: Any] }
+         let latitude = location.compactMap { $0["lat"] as? Double }
+         let longitude = location.compactMap { $0["lng"] as? Double }
+         print("\(latitude[0]) - \(longitude[0])")
+         // установка пользовательских координат
+         customLocation = true
+         customLatitude = latitude[0]
+         customLongitude = longitude[0]
+      }
+   }
+   task.resume()
+}
+
+// MARK: - Обратное геокодирование (получение адреса по имеющимся координатам)
 public func reverseGeocodeCoordinate(_ coordinate: CLLocationCoordinate2D) -> String {
    let geocoder = GMSGeocoder()
    geocoder.reverseGeocodeCoordinate(coordinate) { response, error in

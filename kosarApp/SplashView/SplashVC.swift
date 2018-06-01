@@ -41,7 +41,8 @@ class SplashViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   override func viewDidAppear(_ animated: Bool) {
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)
       // включение NavigationBar на текущем ViewController, полупрозрачный, изменение цвета символов
       customeNavBar(viewController: self)
    }
