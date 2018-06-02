@@ -20,6 +20,7 @@ class InfoTableViewController: UITableViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      tableView.isScrollEnabled = false
       // получение данных информационного сообщения
       var clietnsInSearch: UInt = 0, workersInSearch: UInt = 0
       var sumOrdersPrice: UInt = 0, sumOffersPrice: UInt = 0

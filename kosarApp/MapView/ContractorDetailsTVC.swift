@@ -20,7 +20,12 @@ class ContractorDetailsTVC: UITableViewController {
    @IBOutlet weak var conditionsLabel: UILabel!
    
    let currentPartner = partners[partnerID ?? 0]
-   
+      
+   override func viewDidLoad() {
+      super.viewDidLoad()
+      tableView.isScrollEnabled = false
+   }
+
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
       setCurrentPartnersParameters()

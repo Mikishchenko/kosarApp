@@ -14,6 +14,7 @@ class AvatarTableViewController: UITableViewController {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      tableView.isScrollEnabled = false
       self.becomeFirstResponder()
    }
    

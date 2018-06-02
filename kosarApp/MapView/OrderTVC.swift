@@ -23,6 +23,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
    override func viewDidLoad() {
       super.viewDidLoad()
+      tableView.isScrollEnabled = false
       // текстфилды
       setTextFieldValueAndDelegate(delegate: self, textField: priceTextField, key: "price")
       setTextFieldValueAndDelegate(delegate: self, textField: locationTextField, key: "location")
