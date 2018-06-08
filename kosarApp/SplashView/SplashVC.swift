@@ -10,7 +10,7 @@ import UIKit
 
 class SplashViewController: UIViewController {
 
-   @IBOutlet weak var splashScreen: UIImageView!
+   @IBOutlet weak var splashScreenImage: UIImageView!
    @IBOutlet weak var splashButton: UIButton!
    
    // создаем два массива: названий сплэшэкранов и кнопок для перехода на следующий экран
@@ -22,7 +22,7 @@ class SplashViewController: UIViewController {
    @IBAction func splashButtonPressed(_ sender: UIButton) {
    // при нажатии на кнопочки внизу сплэшэкрана отображается следующий экран и следующая кнопка из двух массивов
       if index < 4 { // всего экранов 5, первый в массив не включал. Проверка на извлечение существующего экрана
-         splashScreen.image = UIImage(named: arrayScreens[index])
+         splashScreenImage.image = UIImage(named: arrayScreens[index])
          splashButton.setBackgroundImage(UIImage(named: arrayButtons[index]), for: .normal)
          index += 1
       }
@@ -32,7 +32,7 @@ class SplashViewController: UIViewController {
    override func viewDidLoad() {
         super.viewDidLoad()
       // отображение первого экрана и первой кнопки на сплэшах
-      splashScreen.image = UIImage(named: "aboutScreen1")
+      splashScreenImage.image = UIImage(named: "aboutScreen1")
       splashButton.setBackgroundImage(UIImage(named: "splashButton1"), for: .normal)
     }
 
@@ -41,7 +41,8 @@ class SplashViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-   override func viewDidAppear(_ animated: Bool) {
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)
       // включение NavigationBar на текущем ViewController, полупрозрачный, изменение цвета символов
       customeNavBar(viewController: self)
    }

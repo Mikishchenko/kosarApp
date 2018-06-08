@@ -10,33 +10,28 @@ import UIKit
 
 class SettingsController: UIViewController {
    
-   @IBOutlet weak var userAvatar: UIImageView!
-   @IBOutlet weak var userName: UILabel!
-   @IBOutlet weak var userInfo: UILabel!
-   @IBOutlet weak var userRating: UIImageView!
+   @IBOutlet weak var avatarBackgroundImage: UIImageView!
+   @IBOutlet weak var avatarImage: UIImageView!
+   @IBOutlet weak var nameLabel: UILabel!
+   @IBOutlet weak var infoLabel: UILabel!
+   @IBOutlet weak var ratingImage: UIImageView!
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      userInfoInHeader()
-
       // наблюдатель за окончанием редактирования текстфилда
       NotificationCenter.default.addObserver(self, selector: #selector(textFieldTextDidEndEditing), name: NSNotification.Name.UITextFieldTextDidEndEditing, object: nil)
    }
    
    // селектор к наблюдателю. Назначает полученные значения на лейблы в хедер
    @objc func textFieldTextDidEndEditing(ncParam: NSNotification) {
-      userNameInfo(userName: userName, userInfo: userInfo)
+      userNameInfo(userName: nameLabel, userInfo: infoLabel)
    }
 
-   override func viewDidAppear(_ animated: Bool) {
-      super.viewDidAppear(true)
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)
       customeNavBar(viewController: self)
-   }
-   // MARK: - наполнение Header данными User
-   func userInfoInHeader() {
-      userAvatar.image = UIImage(named: "User avatar")
-      userNameInfo(userName: userName, userInfo: userInfo)
-      userRating.image = UIImage(named: "Rating 4")
+      userInfoInHeader(background: avatarBackgroundImage, avatar: avatarImage,
+                       name: nameLabel, info: infoLabel, rating: ratingImage)
    }
    
    // MARK: - Переполнение памяти

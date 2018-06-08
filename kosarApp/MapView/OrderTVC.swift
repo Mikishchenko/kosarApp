@@ -7,59 +7,71 @@
 //
 
 import UIKit
+import GoogleMaps
 
 // MARK: - Инициализаруем заявку
-var order = Order()
+//var order = Order()
 
 class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
-   @IBOutlet weak var orderPrice: UITextField!
-   @IBOutlet weak var orderWorkLocation: UITextField!
-   @IBOutlet weak var orderWorkArea: UITextField!
+   @IBOutlet weak var priceTextField: UITextField!
+   @IBOutlet weak var locationTextField: UITextField!
+   @IBOutlet weak var workAreaTextField: UITextField!
    @IBOutlet weak var orderElectricitySwitch: UISwitch!
    @IBOutlet weak var orderHardReliefSwitch: UISwitch!
    @IBOutlet weak var orderPlantsSwitch: UISwitch!
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      
+      tableView.isScrollEnabled = false
       // текстфилды
-      var orderPriceString: String
-      order.price != nil ? (orderPriceString = "\(order.price!)") : (orderPriceString = "")
-      setTextFieldValueAndDelegate(textField: orderPrice, value: orderPriceString)
-      setTextFieldValueAndDelegate(textField: orderWorkLocation, value: order.workLocation)
-      var orderWorkAreaString: String
-      order.workArea != nil ? (orderWorkAreaString = "\(order.workArea!)") : (orderWorkAreaString = "")
-      setTextFieldValueAndDelegate(textField: orderWorkArea, value: orderWorkAreaString)
+      setTextFieldValueAndDelegate(delegate: self, textField: priceTextField, key: "price")
+      setTextFieldValueAndDelegate(delegate: self, textField: locationTextField, key: "location")
+      setTextFieldValueAndDelegate(delegate: self, textField: workAreaTextField, key: "workArea")
+      // переключатели
+      setSwitchPosition(switcher: orderElectricitySwitch, key: "electricity")
+      setSwitchPosition(switcher: orderHardReliefSwitch, key: "hardRelief")
+      setSwitchPosition(switcher: orderPlantsSwitch, key: "plants")
       
-      // переключатели (функция лежит в SettingsTableController)
-      setSwitchPosition(switcher: orderElectricitySwitch, value: order.electricity)
-      setSwitchPosition(switcher: orderHardReliefSwitch, value: order.hardRelief)
-      setSwitchPosition(switcher: orderPlantsSwitch, value: order.plants)
-      
-      orderAlertIsActive = true
+      orderOfferAlertIsActive = true
+      NotificationCenter.default.addObserver(self, selector: #selector(self.updateTextfield(notification:)),
+                                             name: Notification.Name("userLocationButtonPressed"),
+                                             object: nil)
    }
-   
-   // MARK: - Отображение текущего значения текстфилда и назначение делегата
-   func setTextFieldValueAndDelegate(textField: UITextField, value: String?) {
-      textField.text = value
-      textField.delegate = self
+   // перезагрузка таблицы
+   @objc func updateTextfield(notification: Notification){
+      self.tableView.reloadData()
    }
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      tableView.reloadData()
+      return newDataForEveryTextField(textField)
+   }
+   func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+      tableView.reloadData()
+     return newDataForEveryTextField(textField)
+   }
+   
+   // обновление значений userDefaults из каждого текстфилда
+   func newDataForEveryTextField(_ textField: UITextField) -> Bool {
       switch textField {
-      case orderPrice:
-         order.price = Int(orderPrice.text!)
-         orderPrice.resignFirstResponder()
+      case priceTextField:
+         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+         userDefaults.synchronize()
+         priceTextField.resignFirstResponder()
          return true
-      case orderWorkLocation:
-         order.workLocation = orderWorkLocation.text
-         orderWorkLocation.resignFirstResponder()
+      case locationTextField:
+//         locationTextField.text = String(describing: performGoogleSearch(for: locationTextField.text!))
+         performGoogleSearch(for: locationTextField.text!)
+         userDefaults.set(locationTextField.text, forKey: "location")
+         userDefaults.synchronize()
+         locationTextField.resignFirstResponder()
          return true
-      case orderWorkArea:
-         order.workArea = Int(orderWorkArea.text!)
-         orderWorkArea.resignFirstResponder()
+      case workAreaTextField:
+         userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
+         userDefaults.synchronize()
+         workAreaTextField.resignFirstResponder()
          return true
       default:
          return true
@@ -77,41 +89,57 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       }
    }
    
-   // MARK: - Присваивание значений из текстфилдов
+   // MARK: - Присваивание значений из всех текстфилдов
    fileprivate func newData() {
-      order.price = Int(orderPrice.text!)
-      order.workLocation = orderWorkLocation.text
-      order.workArea = Int(orderWorkArea.text!)
+      userDefaults.set(UInt(priceTextField.text!), forKey: "price")
+      userDefaults.set(locationTextField.text, forKey: "location")
+      userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
+      userDefaults.synchronize()
+      //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
+      priceTextField.resignFirstResponder()
+      locationTextField.resignFirstResponder()
+      workAreaTextField.resignFirstResponder()
    }
    
    // MARK: - Присваивание новых значений при изменении положений переключателей
    @IBAction func orderElectricitySwitcher(_ sender: UISwitch) {
-      sender.isOn ? (order.electricity = true) : (order.electricity = false)
+      userDefaults.set(sender.isOn, forKey: "electricity")
+      userDefaults.synchronize()
    }
    @IBAction func orderHardReliefSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (order.hardRelief = true) : (order.hardRelief = false)
+      userDefaults.set(sender.isOn, forKey: "hardRelief")
+      userDefaults.synchronize()
    }
    @IBAction func orderPlantsSwitcher(_ sender: UISwitch) {
-      sender.isOn ? (order.plants = true) : (order.plants = false)
+      userDefaults.set(sender.isOn, forKey: "plants")
+      userDefaults.synchronize()
+   }
+   
+   // MARK: - Присвоение location текущего местоположения
+   @IBAction func userLocationButton(_ sender: UIButton) {
+      customLocation = false
+      let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLatitude") as! Double),
+                                            longitude: CLLocationDegrees(userDefaults.object(forKey:
+                                             "currentLongitude") as! Double))
+      locationTextField.becomeFirstResponder()
+      // после нажатия кнопочки надо обновить поле текстфилда
+      locationTextField.text = reverseGeocodeCoordinate(position)
    }
    
    // MARK: - Подтверждение заявки
    @IBAction func orderConfirmButton(_ sender: UIButton) {
       newData() // дублируем присваивание на всякий пожарный
-      //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
-      orderPrice.resignFirstResponder()
-      orderWorkLocation.resignFirstResponder()
-      orderWorkArea.resignFirstResponder()
-      
-      guard order.price != nil else {
-         warningAlert(emptyField: "Стоимость покоса", currentVC: self)
+      // проверяем заполнение обязательных полей
+      guard UInt(priceTextField.text!) != nil else {
+         alertWarning(emptyField: "Стоимость покоса", currentVC: self)
          return
       }
-      guard order.workLocation != "" else {
-         warningAlert(emptyField: "Адрес покоса", currentVC: self)
+      guard locationTextField.text != "" else {
+         alertWarning(emptyField: "Адрес покоса", currentVC: self)
          return
       }
-      alert(message: "Ваша заявка принята", currentVC: self, orderOrOfferWillActive: orderIsActive)
+      alert(message: "Ваша заявка принята", currentVC: self)
    }
    
    //MARK: - Переполнение памяти

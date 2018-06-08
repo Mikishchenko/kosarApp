@@ -8,9 +8,6 @@
 
 import UIKit
 
-// MARK: - Установка первоначальных настроек
-var settings = SampleData.generateUserSettingsData()
-
 class SettingsTableController: UITableViewController {
    
    // MARK: - Объекты, которые мы будем отображать
@@ -20,38 +17,61 @@ class SettingsTableController: UITableViewController {
    @IBOutlet weak var phoneSwitch: UISwitch!
    @IBOutlet weak var messagesSwitch: UISwitch!
    @IBOutlet weak var microphoneSwitch: UISwitch!
+   @IBOutlet weak var resetUserDefaultsData: UIButton!
    
-   // MARK: - Отображение:
+   // MARK: - Отображение текстфилдов и кнопки сброса настроек
    override func viewDidLoad() {
       super.viewDidLoad()
-
-      // MARK: - Текущие значения настроек
-      setSwitchPosition(switcher: geopositionSwitch, value: settings.geoposition)
-      setSwitchPosition(switcher: photosSwitch, value: settings.photos)
-      setSwitchPosition(switcher: cameraSwitch, value: settings.camera)
-      setSwitchPosition(switcher: phoneSwitch, value: settings.phone)
-      setSwitchPosition(switcher: messagesSwitch, value: settings.messages)
-      setSwitchPosition(switcher: microphoneSwitch, value: settings.microphone)
+      // у красной кнопки скруглённые углы
+      resetUserDefaultsData.layer.cornerRadius = 12
+   }
+   
+   override func viewWillAppear(_ animated: Bool) {
+      super.viewWillAppear(true)
+      // текущие значения настроек
+      setSwitchPosition(switcher: geopositionSwitch, key: "geoposition")
+      setSwitchPosition(switcher: photosSwitch, key: "photos")
+      setSwitchPosition(switcher: cameraSwitch, key: "camera")
+      setSwitchPosition(switcher: phoneSwitch, key: "phone")
+      setSwitchPosition(switcher: messagesSwitch, key: "messages")
+      setSwitchPosition(switcher: microphoneSwitch, key: "microphone")
    }
    
    // MARK: - Присваивание новых значений при переключении переключателей
    @IBAction func geoposition(_ sender: UISwitch) {
-      sender.isOn ? (settings.geoposition = true) : (settings.geoposition = false)
+      userDefaults.set(sender.isOn, forKey: "geoposition")
+      userDefaults.synchronize()
    }
    @IBAction func photos(_ sender: UISwitch) {
-      sender.isOn ? (settings.photos = true) : (settings.photos = false)
+      userDefaults.set(sender.isOn, forKey: "photos")
+      userDefaults.synchronize()
    }
    @IBAction func camera(_ sender: UISwitch) {
-      sender.isOn ? (settings.camera = true) : (settings.camera = false)
+      userDefaults.set(sender.isOn, forKey: "camera")
+      userDefaults.synchronize()
    }
    @IBAction func phone(_ sender: UISwitch) {
-      sender.isOn ? (settings.phone = true) : (settings.phone = false)
+      userDefaults.set(sender.isOn, forKey: "phone")
+      userDefaults.synchronize()
    }
    @IBAction func messages(_ sender: UISwitch) {
-      sender.isOn ? (settings.messages = true) : (settings.messages = false)
+      userDefaults.set(sender.isOn, forKey: "messages")
+      userDefaults.synchronize()
    }
    @IBAction func microphone(_ sender: UISwitch) {
-      sender.isOn ? (settings.microphone = true) : (settings.microphone = false)
+      userDefaults.set(sender.isOn, forKey: "microphone")
+      userDefaults.synchronize()
+   }
+   
+   // MARK: - Сброс всех настроек из userDefaults
+   @IBAction func resetUserDefaultsData(_ sender: UIButton) {
+      let defaults = UserDefaults.standard
+      let dictionary = defaults.dictionaryRepresentation()
+      dictionary.keys.forEach { key in
+         defaults.removeObject(forKey: key)
+      }
+      userDefaults.synchronize()
+      tableView.reloadData()
    }
    
    //MARK: - Переполнение памяти
@@ -61,6 +81,10 @@ class SettingsTableController: UITableViewController {
 }
 
 //MARK: - Показывает текущее значение переключателя
-public func setSwitchPosition(switcher: UISwitch, value: Bool?) {
-   value == true ? switcher.setOn(true, animated: false) : switcher.setOn(false, animated: false)
+public func setSwitchPosition(switcher: UISwitch, key: String) {
+   if let object = userDefaults.object(forKey: key) as? Bool {
+      switcher.setOn(object, animated: false)
+   } else {
+      switcher.setOn(false, animated: false)
+   }
 }

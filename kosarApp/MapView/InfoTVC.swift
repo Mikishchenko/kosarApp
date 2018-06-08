@@ -7,39 +7,57 @@
 //
 
 import UIKit
+import GoogleMaps
 
 class InfoTableViewController: UITableViewController {
    
    @IBOutlet weak var infoWorkAreaLabel: UILabel!
    @IBOutlet weak var infoClientsLabel: UILabel!
    @IBOutlet weak var infoWorkersLabel: UILabel!
-   @IBOutlet weak var infoMaxOrderPriceLabel: UILabel!
-   @IBOutlet weak var infoMinOfferPriceLabel: UILabel!
-   @IBOutlet weak var infoButtonLabel: UIButton!
-   @IBOutlet weak var infoDeleteButtonLabel: UIButton!
+   @IBOutlet weak var infoAvPriceLabel: UILabel!
+   @IBOutlet weak var newEditOrderButton: UIButton!
+   @IBOutlet weak var extensionWorkAreaOrDeleteButton: UIButton!
    
    override func viewDidLoad() {
       super.viewDidLoad()
-      infoWorkAreaLabel.text = "3"
-      infoClientsLabel.text = "4"
-      infoWorkersLabel.text = "4"
-      infoMaxOrderPriceLabel.text = "250"
-      infoMinOfferPriceLabel.text = "350"
-      guard orderIsActive == false && offerIsActive == false else {
-         fillButtonLabel(button: infoButtonLabel,
+      tableView.isScrollEnabled = false
+      // получение данных информационного сообщения
+      var clietnsInSearch: UInt = 0, workersInSearch: UInt = 0
+      var sumOrdersPrice: UInt = 0, sumOffersPrice: UInt = 0
+      for partner in partners {
+         // сортировка по значению диапозона поиска
+         guard partner.value.distance! <= searchArea else { continue }
+         switch partner.value.type {
+         case .client:
+            clietnsInSearch += 1
+            sumOrdersPrice += partner.value.price!
+         case .worker:
+            workersInSearch += 1
+            sumOffersPrice += partner.value.price!
+         }
+      }
+      // заполнение данных Информационного сообщения
+      infoWorkAreaLabel.text = String(searchArea)
+      infoClientsLabel.text = String(clietnsInSearch)
+      infoWorkersLabel.text = String(workersInSearch)
+      // проверка на нулевые значения clietnsInSearch и workersInSearch
+      (clietnsInSearch == 0 || workersInSearch == 0) ?
+         (infoAvPriceLabel.text = "не известны") :
+         (infoAvPriceLabel.text = String(sumOrdersPrice / clietnsInSearch) + " - " + String(sumOffersPrice / workersInSearch) + " руб/сотка")
+      // формирование внешнего вида Информационного сообщения (варианты надписей на кнопках)
+      if orderOfferIsActive {
+         fillButtonLabel(button: newEditOrderButton,
                          forClient: "Редактировать заявку", forWorker: "Редактировать объявление")
-         fillButtonLabel(button: infoDeleteButtonLabel,
+         fillButtonLabel(button: extensionWorkAreaOrDeleteButton,
                          forClient: "Удалить заявку", forWorker: "Удалить объявление")
          return
+      } else {
+         fillButtonLabel(button: newEditOrderButton,
+                         forClient: "Оформить заявку", forWorker: "Разместить объявление")
+         fillButtonLabel(button: extensionWorkAreaOrDeleteButton,
+                         forClient: "Расширить зону поиска", forWorker: "Расширить зону поиска")
+         infoAlertIsActive = true
       }
-      fillButtonLabel(button: infoButtonLabel,
-                      forClient: "Оформить заявку", forWorker: "Разместить объявление")
-      infoAlertIsActive = true
-   }
-   
-   // вроде не работает это плавное удаление окна
-   override func viewWillDisappear(_ animated: Bool) {
-      dismiss(animated: true, completion: nil)
    }
    
    // MARK: - Выбор надписи на кнопке в зависимости от типа (Заказчик или Исполнитель)
@@ -49,30 +67,28 @@ class InfoTableViewController: UITableViewController {
          button.setTitle(forWorker, for: .normal)
    }
    
-   // MARK: - Нажатие кнопки подтверждения/редактирования
-   @IBAction func infoButton(_ sender: UIButton) {
+   // MARK: - Нажатие кнопки подтверждения/редактирования Заявки/Объявления
+   @IBAction func newEditOrderButton(_ sender: UIButton) {
       user.type == .client ?
          popoverVC(currentVC: self, identifierPopoverVC: "OrderTVC", heightPopoverVC: 254) :
          popoverVC(currentVC: self, identifierPopoverVC: "OfferTVC", heightPopoverVC: 254)
    }
    
-   //MARK: - Нажатие кнопки удаления
-   @IBAction func infoDeleteButton(_ sender: UIButton) {
-      eraseOrderOffer()
-      self.view.window?.rootViewController?.dismiss(animated: true, completion: nil)
+   //MARK: - Нажатие кнопки удаления Заявки-Объявления или Расширения зоны поиска
+   @IBAction func extensionWorkAreaOrDeleteButton(_ sender: UIButton) {
+      if orderOfferIsActive {
+         orderOfferIsActive = false
+         dismiss(animated: false, completion: nil)
+      } else {
+         searchArea += 10.0
+         zoomLevel -= 1.0
+         dismiss(animated: true, completion: nil)
+      }
    }
    
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
    }
-}
-
-// MARK: - Стирание заявки или объявления
-public func eraseOrderOffer() {
-   orderIsActive = false
-   offerIsActive = false
-   order = Order()
-   offer = Offer()
 }
 
 // MARK: - Для корректной отработки всплывающих окон, иначе они растягиваются на весь экран
