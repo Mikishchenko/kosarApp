@@ -8,6 +8,7 @@
 
 import UIKit
 import GoogleMaps
+import MessageUI
 
 class ContractorDetailsTVC: UITableViewController {
    
@@ -20,12 +21,12 @@ class ContractorDetailsTVC: UITableViewController {
    @IBOutlet weak var conditionsLabel: UILabel!
    
    let currentPartner = partners[partnerID ?? 0]
-      
+   
    override func viewDidLoad() {
       super.viewDidLoad()
       tableView.isScrollEnabled = false
    }
-
+   
    override func viewWillAppear(_ animated: Bool) {
       super.viewWillAppear(true)
       setCurrentPartnersParameters()
@@ -37,22 +38,14 @@ class ContractorDetailsTVC: UITableViewController {
    }
    
    //MARK: - Кнопки
+   
    @IBAction func messageButton(_ sender: UIButton) {
-      // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
-                                 photo: (currentPartner?.image)!)
-      print("Пользователь пытается отправить сообщение Контрагету")
-      resignFirstResponder()
-      dismiss(animated: true, completion: nil)
+      smsToPartner("1111111111", currentPartner: currentPartner!, currentVC: self)
    }
    
    @IBAction func callButton(_ sender: UIButton) {
-      // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
-                                 photo: (currentPartner?.image)!)
-      print("Пользователь пытается дозвониться до Контрагета")
-      resignFirstResponder()
-      dismiss(animated: true, completion: nil)
+      // дозваниваемся до контрагента
+      callToPartner("1111111111", currentPartner: currentPartner!, currentVC: self)
    }
    
    // MARK: - Имея userID текущего партнера, отображаем его параметры
@@ -65,10 +58,19 @@ class ContractorDetailsTVC: UITableViewController {
       infoLabel.text = currentPartner?.info
       conditionsLabel.text = (setConditions(currentPartner: currentPartner!))
    }
-   
-   override func didReceiveMemoryWarning() {
-      super.didReceiveMemoryWarning()
-      // Dispose of any resources that can be recreated.
+}
+
+// MARK: - Отправляем смс контрагенту
+func smsToPartner(_ number: String, currentPartner: Partner, currentVC: UITableViewController) {
+   let url = URL(string: "sms://\(number)")!
+   if UIApplication.shared.canOpenURL(url) {
+      UIApplication.shared.open(url)
    }
+   print("Пользователь пытается отправить смс Контрагету")
+   // добавляем партнера в историю
+   addContractorInUserHistory(id: partnerID!, name: (currentPartner.name)!,
+                              photo: (currentPartner.image)!)
+   currentVC.resignFirstResponder()
+   currentVC.dismiss(animated: true, completion: nil)
 }
 

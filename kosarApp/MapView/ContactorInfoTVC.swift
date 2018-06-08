@@ -35,12 +35,8 @@ class ContactorInfoTableViewController: UITableViewController {
       popoverVC(currentVC: self, identifierPopoverVC: "ContractorDetailsTVC", heightPopoverVC: 236)
    }
    @IBAction func callButton(_ sender: UIButton) {
-      // добавляем партнера в историю
-      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
-                                 photo: (currentPartner?.image)!)
-      print("Пользователь пытается дозвониться до Контрагета")
-      resignFirstResponder()
-      dismiss(animated: true, completion: nil)
+      // дозваниваемся до контрагента
+      callToPartner("1111111111", currentPartner: currentPartner!, currentVC: self)
    }
 
     override func didReceiveMemoryWarning() {
@@ -58,6 +54,20 @@ class ContactorInfoTableViewController: UITableViewController {
    }
 }
 
+// MARK: - Осуществляем звонок контрагенту
+func callToPartner(_ number: String, currentPartner: Partner, currentVC: UITableViewController) {
+   let url = URL(string: "tel://\(number)")!
+   if UIApplication.shared.canOpenURL(url) {
+      UIApplication.shared.open(url)
+   }
+   print("Пользователь пытается дозвониться до Контрагета")
+   // добавляем партнера в историю
+   addContractorInUserHistory(id: partnerID!, name: (currentPartner.name)!,
+                              photo: (currentPartner.image)!)
+   currentVC.resignFirstResponder()
+   currentVC.dismiss(animated: true, completion: nil)
+}
+
 // MARK: - Заполнение параметров у текущего партнера из данных его профиля
 func setConditions(currentPartner: Partner) -> String {
    var conditions = ""
@@ -72,7 +82,9 @@ func setConditions(currentPartner: Partner) -> String {
 
 // MARK: - Добавление партнера в сущность Contractor
 func addContractorInUserHistory (id: userID, name: String, photo: String) {
-   // для каждого контрактора из истории проверяем   
+   // получаем объекты в виде массива из Core Data
+   userHistory = CoreDataHandler.fetchObject()
+   // для каждого контрактора из истории проверяем
    let sortedUserHistory = userHistory?.sorted {( $0.date! > $1.date! )}
    for index in sortedUserHistory! {
       print("\(index.iD) : \(String(describing: index.date!.to(format: "dd.MM.yyyy"))) -> \(id) : \(Date(timeIntervalSinceNow: 0).to(format: "dd.MM.yyyy"))")
