@@ -70,8 +70,8 @@ class InfoTableViewController: UITableViewController {
    // MARK: - Нажатие кнопки подтверждения/редактирования Заявки/Объявления
    @IBAction func newEditOrderButton(_ sender: UIButton) {
       user.type == .client ?
-         popoverVC(currentVC: self, identifierPopoverVC: "OrderTVC", heightPopoverVC: 254) :
-         popoverVC(currentVC: self, identifierPopoverVC: "OfferTVC", heightPopoverVC: 254)
+         popoverVC(currentVC: self, identifierPopoverVC: "OrderTVC", heightPopoverVC: 289) :
+         popoverVC(currentVC: self, identifierPopoverVC: "OfferTVC", heightPopoverVC: 289)
    }
    
    //MARK: - Нажатие кнопки удаления Заявки-Объявления или Расширения зоны поиска

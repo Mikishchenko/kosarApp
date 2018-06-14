@@ -9,11 +9,9 @@
 import UIKit
 import GoogleMaps
 
-// MARK: - Инициализаруем объявление
-//var offer = Offer()
-
 class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
+   @IBOutlet weak var phoneNumberTextField: UITextField!
    @IBOutlet weak var priceTextField: UITextField!
    @IBOutlet weak var locationTextField: UITextField!
    @IBOutlet weak var infoTextField: UITextField!
@@ -26,6 +24,7 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
       super.viewDidLoad()
       tableView.isScrollEnabled = false
       // текстфилды
+      setTextFieldValueAndDelegate(delegate: self, textField: phoneNumberTextField, key: "phoneNumber")
       setTextFieldValueAndDelegate(delegate: self, textField: priceTextField, key: "price")
       setTextFieldValueAndDelegate(delegate: self, textField: locationTextField, key: "location")
       setTextFieldValueAndDelegate(delegate: self, textField: infoTextField, key: "info")
@@ -46,32 +45,31 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - TextFieldDelegate
    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+      tableView.reloadData()
       return newDataForEveryTextField(textField)
    }
    
    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
+      tableView.reloadData()
       return newDataForEveryTextField(textField)
    }
    
    // обновление значений userDefaults из каждого текстфилда
    func newDataForEveryTextField(_ textField: UITextField) -> Bool {
       switch textField {
+      case phoneNumberTextField:
+         guard validate(value: textField.text!) else {
+            phoneNumberValidInfoAlert(currentVC: self)
+            return false
+         }
+         return newStringForTextField(phoneNumberTextField, key: "phoneNumber")
       case priceTextField:
-         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
-         userDefaults.synchronize()
-         priceTextField.resignFirstResponder()
-         return true
+         return newIntForTextField(priceTextField, key: "price")
       case locationTextField:
          performGoogleSearch(for: locationTextField.text!)
-         userDefaults.set(locationTextField.text, forKey: "location")
-         userDefaults.synchronize()
-         locationTextField.resignFirstResponder()
-         return true
+         return newStringForTextField(locationTextField, key: "location")
       case infoTextField:
-         userDefaults.set(infoTextField.text, forKey: "info")
-         userDefaults.synchronize()
-         infoTextField.resignFirstResponder()
-         return true
+         return newStringForTextField(infoTextField, key: "info")
       default:
          return true
       }
@@ -90,6 +88,7 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание значений из текстфилдов
    fileprivate func newData() {
+      userDefaults.set(phoneNumberTextField.text, forKey: "phoneNumber")
       userDefaults.set(UInt(priceTextField.text!), forKey: "price")
       userDefaults.set(locationTextField.text, forKey: "location")
       userDefaults.set(infoTextField.text, forKey: "info")
@@ -130,6 +129,10 @@ class OfferTableViewController: UITableViewController, UITextFieldDelegate {
    @IBAction func offerConfirmButton(_ sender: UIButton) {
       newData() // дублируем присваивание на всякий пожарный
       // проверяем заполнение обязательных полей
+      guard phoneNumberTextField.text != nil else {
+         alertWarning(emptyField: "Телефон для связи", currentVC: self)
+         return
+      }
       guard UInt(priceTextField.text!) != nil else {
          alertWarning(emptyField: "Стоимость покоса", currentVC: self)
          return

@@ -25,6 +25,7 @@ protocol UsersProtocol {
    var hardRelief: Bool? {get set}
    var latitude: Double? {get set}
    var longitude: Double? {get set}
+   var phoneNumber: String? {get set}
 }
 
 enum Type {
@@ -49,6 +50,7 @@ class User: UsersProtocol {
    var hardRelief: Bool?
    var latitude: Double?
    var longitude: Double?
+   var phoneNumber: String?
    // Initializer for USER
    init(type: Type, image: String) {
       self.type = type
@@ -75,9 +77,10 @@ class Partner: UsersProtocol {
    var hardRelief: Bool?
    var latitude: Double?
    var longitude: Double?
+   var phoneNumber: String?
    var distance: Double?
    // MARK: Initialization for PARTNER
-   init(type: Type, price: UInt?, name: String?, info: String?, image: String, rating: String?, location: String?, electricity: Bool?, equipment: Bool?, transport: Bool?, workArea: UInt?, plants: Bool?, hardRelief: Bool?, latitude: Double?, longitude: Double?, distance: Double?) {
+   init(type: Type, price: UInt?, name: String?, info: String?, image: String, rating: String?, location: String?, electricity: Bool?, equipment: Bool?, transport: Bool?, workArea: UInt?, plants: Bool?, hardRelief: Bool?, latitude: Double?, longitude: Double?, phoneNumber: String?, distance: Double?) {
       self.type = type
       self.price = price
       self.name = name
@@ -93,65 +96,10 @@ class Partner: UsersProtocol {
       self.hardRelief = hardRelief
       self.latitude = latitude
       self.longitude = longitude
+      self.phoneNumber = phoneNumber
       self.distance = distance
    }
 }
-
-//class UserSettings {
-//   // MARK: Properties for UserSettings
-//   var geoposition: Bool
-//   var photos: Bool
-//   var camera: Bool
-//   var phone: Bool
-//   var messages: Bool
-//   var microphone: Bool
-//   // Initializer for UserSettings
-//   init(geoposition: Bool, photos: Bool, camera: Bool, phone: Bool,  messages: Bool, microphone: Bool) {
-//      self.photos = photos
-//      self.geoposition = geoposition
-//      self.photos = photos
-//      self.camera = camera
-//      self.phone = phone
-//      self.messages = messages
-//      self.microphone = microphone
-//   }
-//}
-
-//class Contractor {
-//   // MARK: Properties for UserHistory
-//   var photo: String
-//   var name: String
-//   var date: Date
-//   var rating: String?
-//   var iD: userID
-//   // Initializer for UserHistory
-//   init(photo: String, name: String, date: Date, rating: String?, iD: userID) {
-//      self.photo = photo
-//      self.name = name
-//      self.date = date
-//      self.rating = rating
-//      self.iD = iD
-//   }
-//}
-
-//class Order {
-//   var price: UInt?
-//   var location: String?
-//   var workArea: UInt?
-//   var electricity: Bool?
-//   var hardRelief: Bool?
-//   var plants: Bool?
-//
-//}
-
-//class Offer {
-//   var price: UInt?
-//   var location: String?
-//   var info: String?
-//   var equipment: Bool?
-//   var electricity: Bool?
-//   var transport: Bool?
-//}
 
 // MARK: - Расширяем функционал типа Date, может конвертироваться в String и обратно
 extension Date {
@@ -163,7 +111,6 @@ extension Date {
          return newDate
       } else { return nil }
    }
-   
    // форматируем дату в строку формата "dd.mm.yyyy"
    func to(format:String) -> String {
       let formatter = DateFormatter()

@@ -40,12 +40,23 @@ class ContractorDetailsTVC: UITableViewController {
    //MARK: - Кнопки
    
    @IBAction func messageButton(_ sender: UIButton) {
-      smsToPartner("1111111111", currentPartner: currentPartner!, currentVC: self)
+      // отправляем смс партнеру
+      smsToPartner(currentPartner?.phoneNumber ?? "")
+      // добавляем партнера в историю
+      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
+                                 photo: (currentPartner?.image)!, phoneNumber: (currentPartner?.phoneNumber)!)
+      self.resignFirstResponder()
+      self.dismiss(animated: true, completion: nil)
    }
    
    @IBAction func callButton(_ sender: UIButton) {
       // дозваниваемся до контрагента
-      callToPartner("1111111111", currentPartner: currentPartner!, currentVC: self)
+      callToPartner(currentPartner?.phoneNumber ?? "")
+      // добавляем партнера в историю
+      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
+                                 photo: (currentPartner?.image)!, phoneNumber: (currentPartner?.phoneNumber)!)
+      self.resignFirstResponder()
+      self.dismiss(animated: true, completion: nil)
    }
    
    // MARK: - Имея userID текущего партнера, отображаем его параметры
@@ -61,16 +72,11 @@ class ContractorDetailsTVC: UITableViewController {
 }
 
 // MARK: - Отправляем смс контрагенту
-func smsToPartner(_ number: String, currentPartner: Partner, currentVC: UITableViewController) {
+func smsToPartner(_ number: String) {
    let url = URL(string: "sms://\(number)")!
    if UIApplication.shared.canOpenURL(url) {
       UIApplication.shared.open(url)
+      print("Пользователь отправяет смс Контрагету")
    }
-   print("Пользователь пытается отправить смс Контрагету")
-   // добавляем партнера в историю
-   addContractorInUserHistory(id: partnerID!, name: (currentPartner.name)!,
-                              photo: (currentPartner.image)!)
-   currentVC.resignFirstResponder()
-   currentVC.dismiss(animated: true, completion: nil)
 }
 

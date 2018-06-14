@@ -143,12 +143,18 @@
                                                     <color key="backgroundColor" red="0.82653301954269409" green="0.8864784836769104" blue="0.61481004953384399" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" red="0.1785576046" green="0.42341881990000002" blue="0.135537833" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Сообщение"/>
+                                                    <connections>
+                                                        <action selector="messageButton:" destination="ea4-pg-uJ9" eventType="touchUpInside" id="VQw-2P-zmT"/>
+                                                    </connections>
                                                 </button>
                                                 <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IHx-yn-uIl">
                                                     <rect key="frame" x="187.5" y="0.0" width="187.5" height="30"/>
                                                     <color key="backgroundColor" red="0.54117125269999999" green="0.70739281180000002" blue="0.27843493219999998" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <color key="tintColor" red="0.99999600649999998" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                     <state key="normal" title="Звонок"/>
+                                                    <connections>
+                                                        <action selector="callButton:" destination="ea4-pg-uJ9" eventType="touchUpInside" id="dZB-yg-QPJ"/>
+                                                    </connections>
                                                 </button>
                                             </subviews>
                                         </stackView>

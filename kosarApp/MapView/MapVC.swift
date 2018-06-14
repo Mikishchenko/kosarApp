@@ -133,8 +133,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
          case String(partner.key):
             partnerID = partner.key
          case "0":
-            popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                      heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
+            presentInfoVC()
             return false
          default:
             continue
@@ -160,8 +159,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
    @objc func oneInfoButtonPressed(_ sender: UIButton) {
       typeChoice()
       setCameraPosition(latitude: user.latitude, longitude: user.longitude, zoom: zoomLevel)
-      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
+      presentInfoVC()
    }
    
    @IBAction func clientButton(_ sender: UIButton) {
@@ -170,8 +168,7 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       userDefaults.set(true, forKey: "typeChoiceIsDone")
       typeChoice()
       userDefaults.synchronize()
-      popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
-                heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
+      presentInfoVC()
    }
    
    @IBAction func workerButton(_ sender: UIButton) {
@@ -180,6 +177,11 @@ class MapViewController: UIViewController, GMSMapViewDelegate {
       userDefaults.set(true, forKey: "typeChoiceIsDone")
       userDefaults.synchronize()
       typeChoice()
+      presentInfoVC()
+   }
+   
+   // MARK: - Вызов InfoTVC
+   func presentInfoVC() {
       popoverVC(currentVC: self, identifierPopoverVC: "InfoTVC",
                 heightPopoverVC: (searchArea < 30) || orderOfferIsActive ? 214 : 170)
    }
@@ -311,6 +313,8 @@ extension MapViewController: CLLocationManagerDelegate {
          print("Location status not determined.")
       case .authorizedAlways: fallthrough
       case .authorizedWhenInUse:
+         userDefaults.set(true, forKey: "geoposition")
+         userDefaults.synchronize()
          print("Location status is OK.")
       }
    }

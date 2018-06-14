@@ -81,31 +81,16 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    func newDataForEveryTextField(_ textField: UITextField) -> Bool {
       switch textField {
       case priceTextField:
-         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
-         userDefaults.synchronize()
-         priceTextField.resignFirstResponder()
-         return true
+         return newIntForTextField(priceTextField, key: "price")
       case nameTextField:
-         userDefaults.set(nameTextField.text, forKey: "name")
-         userDefaults.synchronize()
-         nameTextField.resignFirstResponder()
-         return true
+         return newStringForTextField(nameTextField, key: "name")
       case infoTextField:
-         userDefaults.set(infoTextField.text, forKey: "info")
-         userDefaults.synchronize()
-         infoTextField.resignFirstResponder()
-         return true
+         return newStringForTextField(infoTextField, key: "info")
       case locationTextField:
          performGoogleSearch(for: locationTextField.text!)
-         userDefaults.set(locationTextField.text, forKey: "location")
-         userDefaults.synchronize()
-         locationTextField.resignFirstResponder()
-         return true
+         return newStringForTextField(locationTextField, key: "location")
       case workAreaTextField:
-         userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
-         userDefaults.synchronize()
-         workAreaTextField.resignFirstResponder()
-         return true
+         return newIntForTextField(workAreaTextField, key: "workArea")
       default:
          return true
       }
@@ -184,6 +169,22 @@ class ProfileTableController: UITableViewController, UITextFieldDelegate {
    override func didReceiveMemoryWarning() {
       super.didReceiveMemoryWarning()
    }
+}
+
+// MARK: - Обновление текстовых значений userDefault по ключу в указанном TextField
+func newStringForTextField(_ textField: UITextField, key: String) -> Bool {
+   userDefaults.set(textField.text, forKey: key)
+   userDefaults.synchronize()
+   textField.resignFirstResponder()
+   return true
+}
+
+// MARK: - Обновление цифровых значений userDefault по ключу в указанном TextField
+func newIntForTextField(_ textField: UITextField, key: String) -> Bool {
+   userDefaults.set(UInt(textField.text!), forKey: key)
+   userDefaults.synchronize()
+   textField.resignFirstResponder()
+   return true
 }
 
 // MARK: - Отображение текущего значения текстфилда и назначение делегата

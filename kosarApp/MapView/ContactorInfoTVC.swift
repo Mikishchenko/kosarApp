@@ -36,7 +36,12 @@ class ContactorInfoTableViewController: UITableViewController {
    }
    @IBAction func callButton(_ sender: UIButton) {
       // дозваниваемся до контрагента
-      callToPartner("1111111111", currentPartner: currentPartner!, currentVC: self)
+      callToPartner(currentPartner?.phoneNumber ?? "")
+      // добавляем партнера в историю
+      addContractorInUserHistory(id: partnerID!, name: (currentPartner?.name)!,
+                                 photo: (currentPartner?.image)!, phoneNumber: (currentPartner?.phoneNumber)!)
+      self.resignFirstResponder()
+      self.dismiss(animated: true, completion: nil)
    }
 
     override func didReceiveMemoryWarning() {
@@ -54,18 +59,20 @@ class ContactorInfoTableViewController: UITableViewController {
    }
 }
 
+// это расширение необходимо для корректной отработки всплывающих окон, иначе они растягиваются на весь экран
+extension ContactorInfoTableViewController: UIPopoverPresentationControllerDelegate {
+   func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
+      return .none
+   }
+}
+
 // MARK: - Осуществляем звонок контрагенту
-func callToPartner(_ number: String, currentPartner: Partner, currentVC: UITableViewController) {
+func callToPartner(_ number: String) {
    let url = URL(string: "tel://\(number)")!
    if UIApplication.shared.canOpenURL(url) {
       UIApplication.shared.open(url)
+      print("Пользователь делает звонок Контрагету")
    }
-   print("Пользователь пытается дозвониться до Контрагета")
-   // добавляем партнера в историю
-   addContractorInUserHistory(id: partnerID!, name: (currentPartner.name)!,
-                              photo: (currentPartner.image)!)
-   currentVC.resignFirstResponder()
-   currentVC.dismiss(animated: true, completion: nil)
 }
 
 // MARK: - Заполнение параметров у текущего партнера из данных его профиля
@@ -81,7 +88,7 @@ func setConditions(currentPartner: Partner) -> String {
 }
 
 // MARK: - Добавление партнера в сущность Contractor
-func addContractorInUserHistory (id: userID, name: String, photo: String) {
+func addContractorInUserHistory (id: userID, name: String, photo: String, phoneNumber: String) {
    // получаем объекты в виде массива из Core Data
    userHistory = CoreDataHandler.fetchObject()
    // для каждого контрактора из истории проверяем
@@ -98,12 +105,5 @@ func addContractorInUserHistory (id: userID, name: String, photo: String) {
    }
    // добавляем в историю
    CoreDataHandler.saveObject(photo: photo, date: Date(timeIntervalSinceNow: 0),
-                              rating: nil, name: name, iD: id)
-}
-
-// это расширение необходимо для корректной отработки всплывающих окон, иначе они растягиваются на весь экран
-extension ContactorInfoTableViewController: UIPopoverPresentationControllerDelegate {
-   func adaptivePresentationStyle(for controller: UIPresentationController) -> UIModalPresentationStyle {
-      return .none
-   }
+                              rating: nil, name: name, iD: id, phoneNumber: phoneNumber)
 }

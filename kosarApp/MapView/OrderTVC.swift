@@ -9,11 +9,9 @@
 import UIKit
 import GoogleMaps
 
-// MARK: - Инициализаруем заявку
-//var order = Order()
-
 class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
+   @IBOutlet weak var phoneNumberTextField: UITextField!
    @IBOutlet weak var priceTextField: UITextField!
    @IBOutlet weak var locationTextField: UITextField!
    @IBOutlet weak var workAreaTextField: UITextField!
@@ -25,6 +23,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
       super.viewDidLoad()
       tableView.isScrollEnabled = false
       // текстфилды
+      setTextFieldValueAndDelegate(delegate: self, textField: phoneNumberTextField, key: "phoneNumber")
       setTextFieldValueAndDelegate(delegate: self, textField: priceTextField, key: "price")
       setTextFieldValueAndDelegate(delegate: self, textField: locationTextField, key: "location")
       setTextFieldValueAndDelegate(delegate: self, textField: workAreaTextField, key: "workArea")
@@ -50,29 +49,25 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    }
    func textFieldShouldEndEditing(_ textField: UITextField) -> Bool {
       tableView.reloadData()
-     return newDataForEveryTextField(textField)
+      return newDataForEveryTextField(textField)
    }
    
    // обновление значений userDefaults из каждого текстфилда
    func newDataForEveryTextField(_ textField: UITextField) -> Bool {
       switch textField {
+      case phoneNumberTextField:
+         guard validate(value: textField.text!) else {
+            phoneNumberValidInfoAlert(currentVC: self)
+            return false
+         }
+         return newStringForTextField(phoneNumberTextField, key: "phoneNumber")
       case priceTextField:
-         userDefaults.set(UInt(priceTextField.text!), forKey: "price")
-         userDefaults.synchronize()
-         priceTextField.resignFirstResponder()
-         return true
+         return newIntForTextField(priceTextField, key: "price")
       case locationTextField:
-//         locationTextField.text = String(describing: performGoogleSearch(for: locationTextField.text!))
          performGoogleSearch(for: locationTextField.text!)
-         userDefaults.set(locationTextField.text, forKey: "location")
-         userDefaults.synchronize()
-         locationTextField.resignFirstResponder()
-         return true
+         return newStringForTextField(locationTextField, key: "location")
       case workAreaTextField:
-         userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
-         userDefaults.synchronize()
-         workAreaTextField.resignFirstResponder()
-         return true
+         return newIntForTextField(workAreaTextField, key: "workArea")
       default:
          return true
       }
@@ -91,11 +86,13 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    
    // MARK: - Присваивание значений из всех текстфилдов
    fileprivate func newData() {
+      userDefaults.set(phoneNumberTextField.text, forKey: "phoneNumber")
       userDefaults.set(UInt(priceTextField.text!), forKey: "price")
       userDefaults.set(locationTextField.text, forKey: "location")
       userDefaults.set(UInt(workAreaTextField.text!), forKey: "workArea")
       userDefaults.synchronize()
       //снимаем со всех текстфилдов первого ответчика, чтобы убрать клавиатуру
+      phoneNumberTextField.resignFirstResponder()
       priceTextField.resignFirstResponder()
       locationTextField.resignFirstResponder()
       workAreaTextField.resignFirstResponder()
@@ -119,7 +116,7 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    @IBAction func userLocationButton(_ sender: UIButton) {
       customLocation = false
       let position = CLLocationCoordinate2D(latitude: CLLocationDegrees(userDefaults.object(forKey:
-                                             "currentLatitude") as! Double),
+         "currentLatitude") as! Double),
                                             longitude: CLLocationDegrees(userDefaults.object(forKey:
                                              "currentLongitude") as! Double))
       locationTextField.becomeFirstResponder()
@@ -131,6 +128,10 @@ class OrderTableViewController: UITableViewController, UITextFieldDelegate {
    @IBAction func orderConfirmButton(_ sender: UIButton) {
       newData() // дублируем присваивание на всякий пожарный
       // проверяем заполнение обязательных полей
+      guard phoneNumberTextField.text != nil else {
+         alertWarning(emptyField: "Телефон для связи", currentVC: self)
+         return
+      }
       guard UInt(priceTextField.text!) != nil else {
          alertWarning(emptyField: "Стоимость покоса", currentVC: self)
          return

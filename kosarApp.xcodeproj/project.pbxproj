@@ -19,13 +19,13 @@
 		250EDFD2206235A40013BECF /* SampleData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC8206235A40013BECF /* SampleData.swift */; };
 		250EDFD3206235A40013BECF /* HistoryTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFC9206235A40013BECF /* HistoryTVC.swift */; };
 		250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFCA206235A40013BECF /* SettingsTVC.swift */; };
+		253E2A6B20D25DE900369C94 /* kosarApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */; };
 		2556765A204ADCE400978446 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25567659204ADCE400978446 /* SplashVC.swift */; };
 		2556765C204AE78600978446 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2556765B204AE78600978446 /* Podfile */; };
 		257164A520AB0E16009D7E49 /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257164A420AB0E16009D7E49 /* CoreDataHandler.swift */; };
 		259B3C7E204ADA3D00D7B2C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */; };
 		259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7F204ADA3D00D7B2C2 /* MapVC.swift */; };
 		259B3C83204ADA3D00D7B2C2 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C81204ADA3D00D7B2C2 /* Main.storyboard */; };
-		259B3C86204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */; };
 		259B3C88204ADA3D00D7B2C2 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C87204ADA3D00D7B2C2 /* Assets.xcassets */; };
 		259B3C8B204ADA3D00D7B2C2 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 259B3C89204ADA3D00D7B2C2 /* LaunchScreen.storyboard */; };
 		25A775B5207BCDEC005663CA /* OrderTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25A775B4207BCDEC005663CA /* OrderTVC.swift */; };
@@ -52,6 +52,7 @@
 		250EDFC8206235A40013BECF /* SampleData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SampleData.swift; sourceTree = "<group>"; };
 		250EDFC9206235A40013BECF /* HistoryTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HistoryTVC.swift; sourceTree = "<group>"; };
 		250EDFCA206235A40013BECF /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
+		253E2A6A20D25C8500369C94 /* kosarApp v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "kosarApp v2.xcdatamodel"; sourceTree = "<group>"; };
 		25567659204ADCE400978446 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
 		2556765B204AE78600978446 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		257164A420AB0E16009D7E49 /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
@@ -341,12 +342,12 @@
 				250EDFD2206235A40013BECF /* SampleData.swift in Sources */,
 				250EDFD3206235A40013BECF /* HistoryTVC.swift in Sources */,
 				25A775B5207BCDEC005663CA /* OrderTVC.swift in Sources */,
+				253E2A6B20D25DE900369C94 /* kosarApp.xcdatamodeld in Sources */,
 				25D5E99520AB9D8900016E6E /* AvatarTVCell.swift in Sources */,
 				250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */,
 				259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */,
 				257164A520AB0E16009D7E49 /* CoreDataHandler.swift in Sources */,
 				259B3C7E204ADA3D00D7B2C2 /* AppDelegate.swift in Sources */,
-				259B3C86204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld in Sources */,
 				2556765A204ADCE400978446 /* SplashVC.swift in Sources */,
 				25FF00EE20861E3C00FA6158 /* ContractorDetailsTVC.swift in Sources */,
 			);
@@ -571,9 +572,10 @@
 		259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				253E2A6A20D25C8500369C94 /* kosarApp v2.xcdatamodel */,
 				259B3C85204ADA3D00D7B2C2 /* kosarApp.xcdatamodel */,
 			);
-			currentVersion = 259B3C85204ADA3D00D7B2C2 /* kosarApp.xcdatamodel */;
+			currentVersion = 253E2A6A20D25C8500369C94 /* kosarApp v2.xcdatamodel */;
 			path = kosarApp.xcdatamodeld;
 			sourceTree = "<group>";
 			versionGroupType = wrapper.xcdatamodel;

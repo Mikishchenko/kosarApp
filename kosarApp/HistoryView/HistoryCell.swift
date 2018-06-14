@@ -27,10 +27,18 @@ class HistoryCell: UITableViewCell {
          ratingImage.image = UIImage(named: contractor.rating ?? "Rating 0")
       }
    }
+
+   // MARK: - Кнопки
+   @IBAction func messageButton(_ sender: UIButton) {
+      smsToPartner(contractor?.phoneNumber ?? "")
+   }
+   
+   @IBAction func callButton(_ sender: UIButton) {
+      callToPartner(contractor?.phoneNumber ?? "")
+   }
    
    override func awakeFromNib() {
       super.awakeFromNib()
-      // Initialization code
    }
    
    override func setSelected(_ selected: Bool, animated: Bool) {

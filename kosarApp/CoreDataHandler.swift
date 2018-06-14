@@ -18,7 +18,7 @@ class CoreDataHandler: NSObject {
    }
    
    // MARK: - Сохранение объекта в сущность Contractor
-   class func saveObject(photo: String, date: Date, rating: String?, name: String, iD: UInt) {
+   class func saveObject(photo: String, date: Date, rating: String?, name: String, iD: UInt, phoneNumber: String) {
       let context = getContext()
       let entity = NSEntityDescription.entity(forEntityName: "Contractor", in: context)
       let manageObject = NSManagedObject(entity: entity!, insertInto: context)
@@ -28,6 +28,7 @@ class CoreDataHandler: NSObject {
       manageObject.setValue(rating, forKey: "rating")
       manageObject.setValue(name, forKey: "name")
       manageObject.setValue(iD, forKey: "iD")
+      manageObject.setValue(phoneNumber, forKey: "phoneNumber")
       
       do {
          try context.save()
