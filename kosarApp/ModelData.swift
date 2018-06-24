@@ -60,7 +60,8 @@ class User: UsersProtocol {
 
 typealias userID = UInt
 
-class Partner: UsersProtocol {
+@objcMembers
+class Partner: NSObject, UsersProtocol {
    // MARK: Properties for PARTNER
    var type: Type
    var price: UInt?
@@ -99,6 +100,13 @@ class Partner: UsersProtocol {
       self.phoneNumber = phoneNumber
       self.distance = distance
    }
+    
+    public override convenience init() {
+        self.init(type: .client, price: 500, name: "Test user", info: "Test info", image: "45",
+                  rating: "Test rating", location: "Test location",
+                  electricity: true, equipment: true, transport: true, workArea: 6, plants: true, hardRelief: true,
+                  latitude: 55.796307, longitude: 37.684729, phoneNumber: "+70123456789", distance: 0.0)
+    }
 }
 
 // MARK: - Расширяем функционал типа Date, может конвертироваться в String и обратно
