@@ -12,12 +12,18 @@ import GoogleMaps
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
+    
+    let APP_ID = "173818CF-948A-7DE2-FF87-915403DA4900" //backendless application id
+    let API_KEY = "29275937-B527-011A-FF6E-5574D2DF8B00" //backendless ios api key
+    
+    var backendless = Backendless.sharedInstance()
 
    var window: UIWindow?
 
    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
       GMSServices.provideAPIKey("AIzaSyAua1YJbwI6-uKW6BuHuyMa-5yq4sef9F8")
 //      UIApplication.shared.statusBarStyle = .lightContent
+      backendless!.initApp(APP_ID, apiKey:API_KEY)
       return true
    }
 

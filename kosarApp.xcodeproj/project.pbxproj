@@ -21,7 +21,6 @@
 		250EDFD4206235A40013BECF /* SettingsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250EDFCA206235A40013BECF /* SettingsTVC.swift */; };
 		253E2A6B20D25DE900369C94 /* kosarApp.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */; };
 		2556765A204ADCE400978446 /* SplashVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25567659204ADCE400978446 /* SplashVC.swift */; };
-		2556765C204AE78600978446 /* Podfile in Resources */ = {isa = PBXBuildFile; fileRef = 2556765B204AE78600978446 /* Podfile */; };
 		257164A520AB0E16009D7E49 /* CoreDataHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 257164A420AB0E16009D7E49 /* CoreDataHandler.swift */; };
 		259B3C7E204ADA3D00D7B2C2 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */; };
 		259B3C80204ADA3D00D7B2C2 /* MapVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 259B3C7F204ADA3D00D7B2C2 /* MapVC.swift */; };
@@ -36,10 +35,11 @@
 		25E12FB4207E2CC500CA9C25 /* OfferTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E12FB3207E2CC500CA9C25 /* OfferTVC.swift */; };
 		25FF00EC20861A1300FA6158 /* ContactorInfoTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FF00EB20861A1300FA6158 /* ContactorInfoTVC.swift */; };
 		25FF00EE20861E3C00FA6158 /* ContractorDetailsTVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25FF00ED20861E3C00FA6158 /* ContractorDetailsTVC.swift */; };
-		663E5AB4BA37EC3BCB0E33A6 /* libPods-kosarApp.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6C20F21EC24E28FC9D0468CF /* libPods-kosarApp.a */; };
+		C26A29A76B9E51EAA67EBC8D /* Pods_kosarApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 078D0D5D8F317C4C0D4F3386 /* Pods_kosarApp.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		078D0D5D8F317C4C0D4F3386 /* Pods_kosarApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_kosarApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		250EDFB9206235440013BECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = kosarApp/Base.lproj/Profile.storyboard; sourceTree = "<group>"; };
 		250EDFBB206235440013BECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = kosarApp/Base.lproj/Settings.storyboard; sourceTree = "<group>"; };
 		250EDFBD206235440013BECF /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = kosarApp/Base.lproj/History.storyboard; sourceTree = "<group>"; };
@@ -54,7 +54,6 @@
 		250EDFCA206235A40013BECF /* SettingsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsTVC.swift; sourceTree = "<group>"; };
 		253E2A6A20D25C8500369C94 /* kosarApp v2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "kosarApp v2.xcdatamodel"; sourceTree = "<group>"; };
 		25567659204ADCE400978446 /* SplashVC.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SplashVC.swift; sourceTree = "<group>"; };
-		2556765B204AE78600978446 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		257164A420AB0E16009D7E49 /* CoreDataHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataHandler.swift; sourceTree = "<group>"; };
 		259B3C7A204ADA3D00D7B2C2 /* kosarApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = kosarApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		259B3C7D204ADA3D00D7B2C2 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -72,11 +71,8 @@
 		25E12FB3207E2CC500CA9C25 /* OfferTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OfferTVC.swift; sourceTree = "<group>"; };
 		25FF00EB20861A1300FA6158 /* ContactorInfoTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactorInfoTVC.swift; sourceTree = "<group>"; };
 		25FF00ED20861E3C00FA6158 /* ContractorDetailsTVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContractorDetailsTVC.swift; sourceTree = "<group>"; };
-		6C20F21EC24E28FC9D0468CF /* libPods-kosarApp.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-kosarApp.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		785C0872DB8A3888A3D264C3 /* Pods-kosarApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.release.xcconfig"; path = "kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.release.xcconfig"; sourceTree = "<group>"; };
-		AF56E9FFFADDBFF70BF1AC1E /* Pods-kosarApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.debug.xcconfig"; path = "kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.debug.xcconfig"; sourceTree = "<group>"; };
-		D210B68E2DA21B07908EFCFA /* Pods-kosarApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.release.xcconfig"; sourceTree = "<group>"; };
-		E83337FD6AD457F4955BD8F8 /* Pods-kosarApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.debug.xcconfig"; sourceTree = "<group>"; };
+		2E9A0AECC9A413BE84C7F955 /* Pods-kosarApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.release.xcconfig"; path = "Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.release.xcconfig"; sourceTree = "<group>"; };
+		62244807D83B0FE3D05D4CF2 /* Pods-kosarApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-kosarApp.debug.xcconfig"; path = "Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,21 +80,13 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				663E5AB4BA37EC3BCB0E33A6 /* libPods-kosarApp.a in Frameworks */,
+				C26A29A76B9E51EAA67EBC8D /* Pods_kosarApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		12E2DE2D91EB0776ABADFCCC /* Frameworks */ = {
-			isa = PBXGroup;
-			children = (
-				6C20F21EC24E28FC9D0468CF /* libPods-kosarApp.a */,
-			);
-			name = Frameworks;
-			sourceTree = "<group>";
-		};
 		250EDFD5206235C90013BECF /* HistoryView */ = {
 			isa = PBXGroup;
 			children = (
@@ -139,8 +127,8 @@
 			children = (
 				259B3C7C204ADA3D00D7B2C2 /* kosarApp */,
 				259B3C7B204ADA3D00D7B2C2 /* Products */,
-				E8C285926F5E1A36DCCA0A9F /* Pods */,
-				12E2DE2D91EB0776ABADFCCC /* Frameworks */,
+				8E9CA5FBE325AF001F53AFDA /* Pods */,
+				CB4C04CB125FB3E2480D6EF8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -167,7 +155,6 @@
 				250EDFD6206248860013BECF /* ProfileView */,
 				250EDFD7206248D00013BECF /* SettingsView */,
 				259B3C87204ADA3D00D7B2C2 /* Assets.xcassets */,
-				2556765B204AE78600978446 /* Podfile */,
 				259B3C8C204ADA3D00D7B2C2 /* Info.plist */,
 				259B3C84204ADA3D00D7B2C2 /* kosarApp.xcdatamodeld */,
 			);
@@ -195,15 +182,21 @@
 			path = SplashView;
 			sourceTree = "<group>";
 		};
-		E8C285926F5E1A36DCCA0A9F /* Pods */ = {
+		8E9CA5FBE325AF001F53AFDA /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				E83337FD6AD457F4955BD8F8 /* Pods-kosarApp.debug.xcconfig */,
-				D210B68E2DA21B07908EFCFA /* Pods-kosarApp.release.xcconfig */,
-				AF56E9FFFADDBFF70BF1AC1E /* Pods-kosarApp.debug.xcconfig */,
-				785C0872DB8A3888A3D264C3 /* Pods-kosarApp.release.xcconfig */,
+				62244807D83B0FE3D05D4CF2 /* Pods-kosarApp.debug.xcconfig */,
+				2E9A0AECC9A413BE84C7F955 /* Pods-kosarApp.release.xcconfig */,
 			);
 			name = Pods;
+			sourceTree = "<group>";
+		};
+		CB4C04CB125FB3E2480D6EF8 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				078D0D5D8F317C4C0D4F3386 /* Pods_kosarApp.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,11 +206,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 259B3C8F204ADA3D00D7B2C2 /* Build configuration list for PBXNativeTarget "kosarApp" */;
 			buildPhases = (
-				9D46C7B05057AB1286D137A2 /* [CP] Check Pods Manifest.lock */,
+				D851AD2F750A539B6E1C3137 /* [CP] Check Pods Manifest.lock */,
 				259B3C76204ADA3D00D7B2C2 /* Sources */,
 				259B3C77204ADA3D00D7B2C2 /* Frameworks */,
 				259B3C78204ADA3D00D7B2C2 /* Resources */,
-				29E2A3C1999DEB1A69A564D9 /* [CP] Copy Pods Resources */,
+				A32E93BE1292CD10B847D2C9 /* [CP] Embed Pods Frameworks */,
+				914072DDFE87B58587DE478B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -277,7 +271,6 @@
 				250EDFC0206235440013BECF /* History.storyboard in Resources */,
 				259B3C8B204ADA3D00D7B2C2 /* LaunchScreen.storyboard in Resources */,
 				259B3C88204ADA3D00D7B2C2 /* Assets.xcassets in Resources */,
-				2556765C204AE78600978446 /* Podfile in Resources */,
 				259B3C83204ADA3D00D7B2C2 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -285,25 +278,45 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		29E2A3C1999DEB1A69A564D9 /* [CP] Copy Pods Resources */ = {
+		914072DDFE87B58587DE478B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
 			);
 			inputPaths = (
-				"${SRCROOT}/kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-resources.sh",
+				"${SRCROOT}/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-resources.sh",
 				"${PODS_ROOT}/GoogleMaps/Maps/Frameworks/GoogleMaps.framework/Resources/GoogleMaps.bundle",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
-				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/GoogleMaps.bundle",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/kosarApp/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
-		9D46C7B05057AB1286D137A2 /* [CP] Check Pods Manifest.lock */ = {
+		A32E93BE1292CD10B847D2C9 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"${SRCROOT}/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/Socket.IO-Client-Swift/SocketIO.framework",
+				"${BUILT_PRODUCTS_DIR}/Starscream/Starscream.framework",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SocketIO.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Starscream.framework",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-kosarApp/Pods-kosarApp-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		D851AD2F750A539B6E1C3137 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -513,16 +526,69 @@
 		};
 		259B3C90204ADA3D00D7B2C2 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = AF56E9FFFADDBFF70BF1AC1E /* Pods-kosarApp.debug.xcconfig */;
+			baseConfigurationReference = 62244807D83B0FE3D05D4CF2 /* Pods-kosarApp.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NJ6BY872Y6;
+				DEVELOPMENT_TEAM = 73R6447C5K;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
+				);
 				INFOPLIST_FILE = kosarApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"backendless\"",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mik.kosarApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pods/Backendless/SDK/ios/backendless/include/Backendless-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -530,16 +596,69 @@
 		};
 		259B3C91204ADA3D00D7B2C2 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 785C0872DB8A3888A3D264C3 /* Pods-kosarApp.release.xcconfig */;
+			baseConfigurationReference = 2E9A0AECC9A413BE84C7F955 /* Pods-kosarApp.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
-				DEVELOPMENT_TEAM = NJ6BY872Y6;
+				DEVELOPMENT_TEAM = 73R6447C5K;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/GoogleMaps/Base/Frameworks\"",
+					"\"${PODS_ROOT}/GoogleMaps/Maps/Frameworks\"",
+				);
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"${PODS_ROOT}/Headers/Public\"",
+					"\"${PODS_ROOT}/Headers/Public/GoogleMaps\"",
+				);
 				INFOPLIST_FILE = kosarApp/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				OTHER_LDFLAGS = (
+					"$(inherited)",
+					"-l\"backendless\"",
+					"-ObjC",
+					"-l\"c++\"",
+					"-l\"z\"",
+					"-framework",
+					"\"Accelerate\"",
+					"-framework",
+					"\"CoreData\"",
+					"-framework",
+					"\"CoreGraphics\"",
+					"-framework",
+					"\"CoreImage\"",
+					"-framework",
+					"\"CoreLocation\"",
+					"-framework",
+					"\"CoreTelephony\"",
+					"-framework",
+					"\"CoreText\"",
+					"-framework",
+					"\"GLKit\"",
+					"-framework",
+					"\"GoogleMaps\"",
+					"-framework",
+					"\"GoogleMapsBase\"",
+					"-framework",
+					"\"GoogleMapsCore\"",
+					"-framework",
+					"\"ImageIO\"",
+					"-framework",
+					"\"OpenGLES\"",
+					"-framework",
+					"\"QuartzCore\"",
+					"-framework",
+					"\"SystemConfiguration\"",
+					"-framework",
+					"\"UIKit\"",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = ru.mik.kosarApp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SWIFT_OBJC_BRIDGING_HEADER = "Pods/Backendless/SDK/ios/backendless/include/Backendless-Bridging-Header.h";
 				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

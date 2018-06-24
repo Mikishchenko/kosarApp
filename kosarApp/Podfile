@@ -1,6 +1,0 @@
-source 'https://github.com/CocoaPods/Specs.git'
-project '/Users/mik/Desktop/kosar/kosarApp/kosarApp/kosarApp.xcodeproj'
-platform :ios, '10.3'
-target 'kosarApp' do
-pod 'GoogleMaps'
-end
